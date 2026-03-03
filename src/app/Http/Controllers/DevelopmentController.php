@@ -10,6 +10,7 @@ use App\Services\WebSocket\AuthService as WebSocketAuthService;
 use App\Services\Channels\ProgressChannel;
 use App\Services\Sample\SampleService;
 use App\Services\Development\TraceService;
+use App\Services\Development\FormService;
 
 use App\Events\SampleEvent;
 
@@ -21,6 +22,7 @@ class DevelopmentController extends Controller
     public function __construct(
         private SampleService $sampleService,
         private TraceService $traceService,
+        private FormService $formService,
         private WebSocketAuthService $webSocketAuthService
     ) {}
 
@@ -48,33 +50,11 @@ class DevelopmentController extends Controller
     /** viewテスト */
     public function view_test(Request $request)
     {
-        return view('development.view_test', $this->view_test_common());
+        return view('development.view_test', $this->formService->formData());
     }
     public function view_test_post(Request $request)
     {
         return redirect()->back()->withInput();
-    }
-    private function view_test_common()
-    {
-        $list_val = 2;
-        $radio_val = 'val2';
-        $datetime_val = '2026-02-15T14:30';
-        $list_vals = [
-            1 => 'No. 1',
-            2 => 'No. 2',
-            3 => 'No. 3',
-        ];
-        $radio_vals = [
-            'val1' => 'Value 1',
-            'val2' => 'Value 2',
-        ];
-        return compact(
-            'list_val',
-            'radio_val',
-            'datetime_val',
-            'list_vals',
-            'radio_vals'
-        );
     }
 
     /** javascriptテスト */
@@ -82,7 +62,7 @@ class DevelopmentController extends Controller
     {
         return view(
             'development.javascript_test',
-            ['formData' => $this->view_test_common()]
+            ['formData' => $this->formService->formData()]
         );
     }
 
