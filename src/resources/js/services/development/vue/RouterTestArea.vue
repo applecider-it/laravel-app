@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { components } from "../router-test/router";
 
 interface Props {
     name: string;
 }
 
 const props = defineProps<Props>();
+
+const current = ref("Parts1");
+const currentComponent = computed(() => components[current.value]);
+
+const commonCnt = ref<number>(0);
 
 // 初期化時
 onMounted(() => {
@@ -16,24 +22,35 @@ onMounted(() => {
 <template>
     <div class="text-lg">router動作確認</div>
 
-    <div>タグからの値: {{ name }}</div>
+    <div class="mt-5 space-y-2">
+        <div>タグからの値: {{ name }}</div>
+        <div>
+            <span>commonCnt: {{ commonCnt }}</span>
+        </div>
+    </div>
 
     <div class="mt-5 space-x-2">
-        <router-link
-            to="/"
-            class="app-link-normal"
-            active-class="app-link-active"
-            >Page1</router-link
+        <button
+            @click="current = 'Parts1'"
+            :class="[
+                current === 'Parts1' ? 'app-link-active' : 'app-link-normal',
+            ]"
         >
-        <router-link
-            to="/page2/123"
-            class="app-link-normal"
-            active-class="app-link-active"
-            >Page2</router-link
+            Parts1
+        </button>
+        <button
+            @click="current = 'Parts2'"
+            :class="[
+                current === 'Parts2' ? 'app-link-active' : 'app-link-normal',
+            ]"
         >
+            Parts2
+        </button>
     </div>
 
     <div class="mt-3">
-        <router-view />
+        <keep-alive>
+            <component :is="currentComponent" v-model:commonCnt="commonCnt" />
+        </keep-alive>
     </div>
 </template>

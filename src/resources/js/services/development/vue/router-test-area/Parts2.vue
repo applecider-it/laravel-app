@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
 import { showToast } from "@/services/ui/message";
-
-const router = useRouter();
 
 const commonCnt = defineModel<number>("commonCnt");
 
 const cnt = ref<number>(0);
-
-const execBack = () => {
-    router.push("/");
-};
 
 const execToast = () => {
     showToast("トーストテスト");
@@ -42,11 +35,6 @@ onMounted(() => {
             <div>
                 <button @click="execToast" class="app-btn-primary">
                     Toast
-                </button>
-            </div>
-            <div class="pt-3">
-                <button @click="execBack" class="app-btn-secondary">
-                    Back
                 </button>
             </div>
         </div>
