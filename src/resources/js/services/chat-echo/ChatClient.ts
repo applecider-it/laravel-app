@@ -1,24 +1,22 @@
-import { getAuthUser } from "@/services/app/application";
 import { MyEcho } from "@/services/app/echo";
 import { showToast } from "@/services/ui/message";
 
 import { sendMessage } from "@/services/api/rpc/chat-echo-rpc";
 
+import { User, Message } from "@/services/chat/types";
+
 /**
  * チャット(Echo)クライアント
  */
 export default class ChatClient {
-    private user;
     private room;
-    private users = [];
+    private users: User[] = [];
 
-    addMessage;
-    setUsers;
+    addMessage: (row: Message) => void;
+    setUsers: (users: User[]) => void;
 
     constructor(room) {
         this.room = room;
-
-        this.user = getAuthUser();
 
         this.initEcho();
     }
@@ -45,13 +43,13 @@ export default class ChatClient {
     }
 
     /** ユーザー一覧セットアップ */
-    private setupUsers(users) {
+    private setupUsers(users: User[]) {
         this.users = users;
         this.refreshUsers();
     }
 
     /** ユーザー追加（重複防止付き） */
-    private addUser(user) {
+    private addUser(user: User) {
         const exists = this.users.some((u) => u.id === user.id);
 
         if (!exists) {
@@ -65,7 +63,7 @@ export default class ChatClient {
     }
 
     /** ユーザー削除 */
-    private removeUser(user) {
+    private removeUser(user: User) {
         this.users = this.users.filter((u) => u.id !== user.id);
 
         showToast(`${user.name}さんが、退室しました。`);

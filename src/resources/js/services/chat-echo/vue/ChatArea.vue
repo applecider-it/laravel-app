@@ -1,72 +1,61 @@
-<script lang="ts">
-import { defineComponent } from "vue";
-import ChatClient from "../ChatClient";
-import ChatMessageInput from "./chat-area/ChatMessageInput.vue";
+<script lang="ts" setup>
+import { ref, onMounted } from "vue";
+import type ChatClient from "../ChatClient";
+import { User, Message } from "@/services/chat/types";
 
-export default defineComponent({
-    name: "ChatEchoArea",
+interface Prop {
+    chatClient: ChatClient;
+}
 
-    props: {
-        chatClient: {
-            type: Object as () => ChatClient,
-            required: true,
-        },
-    },
+const props = defineProps<Prop>();
 
-    data() {
-        return {
-            message: "" as string,
-            messageList: [] as any[],
-            userList: [] as any[],
-        };
-    },
+const message = ref("");
+const messageList = ref<Message[]>([]);
+const userList = ref<User[]>([]);
 
-    components: {
-        ChatMessageInput,
-    },
+onMounted(() => {
+    props.chatClient.addMessage = (row: Message) => {
+        messageList.value = [row, ...messageList.value];
+    };
 
-    mounted() {
-        // Echoからのメッセージ受信
-        this.chatClient.addMessage = (row: any) => {
-            this.messageList = [row, ...this.messageList];
-        };
-
-        // 接続ユーザー一覧更新
-        this.chatClient.setUsers = (users: any[]) => {
-            console.log("users", users);
-            this.userList = [...users];
-        };
-    },
-
-    methods: {
-        /** メッセージ送信 */
-        sendMessage(options: any = []) {
-            console.log(this.message);
-            this.chatClient.sendMessage(this.message, options);
-            this.message = "";
-        },
-
-        /** Enterキー送信 */
-        handleKeyDown(e: KeyboardEvent) {
-            if (e.key === "Enter") {
-                this.sendMessage();
-            }
-        },
-    },
+    props.chatClient.setUsers = (users: User[]) => {
+        console.log("users", users);
+        userList.value = [...users];
+    };
 });
+
+const sendMessage = (options: any = {}) => {
+    console.log(message.value);
+    props.chatClient.sendMessage(message.value, options);
+    message.value = "";
+};
+
+const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Enter") sendMessage();
+};
 </script>
 
 <template>
     <div>
-        <!-- 入力エリア -->
         <div>
-            <ChatMessageInput
-                v-model:propMessage="message"
-                @send="sendMessage"
+            <input
+                type="text"
+                v-model="message"
+                class="border p-1 mr-2 w-80"
+                @keydown="handleKeyDown"
             />
+            <button class="p-1 border bg-gray-200 ml-2" @click="sendMessage()">
+                Send (E)
+            </button>
+
+            <button
+                class="p-1 border bg-gray-200 ml-2"
+                @click="sendMessage({ others: true })"
+            >
+                Send (E,O)
+            </button>
         </div>
 
-        <!-- メッセージ一覧 -->
         <div class="border border-gray-700 p-2 mb-2 h-80 mt-5 overflow-y-auto">
             <p v-for="(data, index) in messageList" :key="index">
                 {{ data.data.message }}
@@ -76,7 +65,6 @@ export default defineComponent({
             </p>
         </div>
 
-        <!-- 接続ユーザー一覧 -->
         <div class="mt-5">
             接続ユーザー一覧
             <div
