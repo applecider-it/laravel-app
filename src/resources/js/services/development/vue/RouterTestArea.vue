@@ -33,7 +33,7 @@ onMounted(() => {
         >
     </div>
 
-    <div class="mt-5 py-6 border-gray-500 border-2 p-5">
+    <div class="mt-3">
         <router-view />
     </div>
 </template>

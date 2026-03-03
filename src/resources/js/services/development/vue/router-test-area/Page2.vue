@@ -53,7 +53,7 @@ onMounted(() => {
         </button>
     </div>
 
-    <div class="mt-5 py-6 border-gray-500 border-2 p-5">
+    <div class="mt-3">
         <keep-alive>
             <component :is="currentComponent" v-model:commonCnt="commonCnt" />
         </keep-alive>

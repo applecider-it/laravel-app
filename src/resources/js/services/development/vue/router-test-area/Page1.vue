@@ -17,17 +17,19 @@ onMounted(() => {
 </script>
 
 <template>
-    <h3 class="text-xl">Page1</h3>
+    <div class="p-5 border-gray-500 border-2">
+        <h3 class="text-xl font-bold">Page1</h3>
 
-    <div class="space-y-2 mt-5">
-        <div>
-            <button @click="cnt++" class="app-btn-primary">Add</button>
-        </div>
-        <div>
-            <span>cnt: {{ cnt }}</span>
-        </div>
-        <div v-if="user">
-            <span>auth user: {{ user.name }}</span>
+        <div class="space-y-2 mt-5">
+            <div>
+                <button @click="cnt++" class="app-btn-primary">Add</button>
+            </div>
+            <div>
+                <span>cnt: {{ cnt }}</span>
+            </div>
+            <div v-if="user">
+                <span>auth user: {{ user.name }}</span>
+            </div>
         </div>
     </div>
 </template>
