@@ -3,6 +3,8 @@ import { showToast } from "@/services/ui/message";
 
 import { sendMessage } from "@/services/api/rpc/chat-rpc";
 
+import { User, Message, MessageType } from "./types";
+
 /**
  * チャットクライアント
  *
@@ -14,10 +16,10 @@ export default class ChatClient {
     private ws;
     private user;
     private room;
-    private users = [];
+    private users: User[] = [];
 
-    addMessage;
-    setUsers;
+    addMessage: (row: Message) => void;
+    setUsers: (users: User[]) => void;
 
     constructor(token, wsHost, room) {
         this.token = token;
@@ -53,7 +55,7 @@ export default class ChatClient {
     }
 
     /** メッセージ送信 */
-    sendMessage(message: string, type: string, options: any) {
+    sendMessage(message: string, type: MessageType, options: any) {
         console.log("sendMessage type", type);
 
         if (!message || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
@@ -107,13 +109,13 @@ export default class ChatClient {
     }
 
     /** ユーザー一覧セットアップ */
-    private setupUsers(users) {
+    private setupUsers(users: User[]) {
         this.users = users;
         this.refreshUsers();
     }
 
     /** ユーザー追加（重複防止付き） */
-    private addUser(user) {
+    private addUser(user: User) {
         const exists = this.users.some((u) => u.id === user.id);
 
         if (!exists) {
@@ -129,7 +131,7 @@ export default class ChatClient {
     }
 
     /** ユーザー削除 */
-    private removeUser(user) {
+    private removeUser(user: User) {
         this.users = this.users.filter((u) => u.id !== user.id);
 
         showToast(`${user.name}さんが、退室しました。`);
@@ -143,7 +145,7 @@ export default class ChatClient {
     }
 
     /** メッセージ受信 */
-    private handleMessage(data) {
+    private handleMessage(data: Message) {
         console.log("handleMessage", data);
 
         this.addMessage(data);
