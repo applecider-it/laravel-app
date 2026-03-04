@@ -4,6 +4,7 @@ import { type useRouter } from "@/services/nav/vue-hook/useRouter";
 
 interface Props {
     router: ReturnType<typeof useRouter>;
+    setCurrent: (name: string) => void;
 }
 
 const props = defineProps<Props>();
@@ -25,32 +26,34 @@ onMounted(() => {
 </script>
 
 <template>
-    <h3 class="text-xl font-bold">Parts1</h3>
+    <div>
+        <h3 class="text-xl font-bold">Parts1</h3>
 
-    <div class="space-y-2 mt-5">
-        <div>
-            <button @click="commonCnt++" class="app-btn-primary">
-                Add Common
-            </button>
-        </div>
-        <div>
-            <button @click="onClickCommon" class="app-btn-primary">
-                Add Common2
-            </button>
-        </div>
-        <div>
-            <span>cnt: {{ cnt }}</span>
-        </div>
-        <div>
-            <button @click="cnt++" class="app-btn-primary">Add</button>
-        </div>
-        <div>
-            <button
-                @click="router.setCurrent('Parts2')"
-                class="app-btn-secondary"
-            >
-                To Parts2
-            </button>
+        <div class="space-y-2 mt-5">
+            <div>
+                <button @click="commonCnt++" class="app-btn-primary">
+                    Add Common
+                </button>
+            </div>
+            <div>
+                <button @click="onClickCommon" class="app-btn-primary">
+                    Add Common2
+                </button>
+            </div>
+            <div>
+                <span>cnt: {{ cnt }}</span>
+            </div>
+            <div>
+                <button @click="cnt++" class="app-btn-primary">Add</button>
+            </div>
+            <div>
+                <button
+                    @click="setCurrent('Parts2')"
+                    class="app-btn-secondary"
+                >
+                    To Parts2
+                </button>
+            </div>
         </div>
     </div>
 </template>

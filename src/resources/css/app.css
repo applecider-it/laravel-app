@@ -108,3 +108,35 @@
         @apply py-12 max-w-7xl mx-auto px-6;
     }
 }
+
+/* 右スライドアニメーション */
+.app-slide-right-enter-active,
+.app-slide-right-leave-active {
+    transition: all 0.2s ease;
+}
+
+.app-slide-right-enter-from {
+    transform: translateX(30%);
+    opacity: 0;
+}
+
+.app-slide-right-leave-to {
+    transform: translateX(-30%);
+    opacity: 0;
+}
+
+/* 左スライドアニメーション */
+.app-slide-left-enter-active,
+.app-slide-left-leave-active {
+    transition: all 0.2s ease;
+}
+
+.app-slide-left-enter-from {
+    transform: translateX(-30%);
+    opacity: 0;
+}
+
+.app-slide-left-leave-to {
+    transform: translateX(30%);
+    opacity: 0;
+}
