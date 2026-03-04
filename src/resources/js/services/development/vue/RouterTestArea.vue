@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "@/services/nav/vue-hook/useRouter";
 
 import Parts1 from "../vue/router-test-area/Parts1.vue";
 import Parts2 from "../vue/router-test-area/Parts2.vue";
+
+console.log("router test code");
 
 const components = { Parts1, Parts2 };
 
@@ -14,8 +16,6 @@ interface Props {
 const props = defineProps<Props>();
 
 const router = useRouter(components, "Parts1");
-
-const currentComponent = computed(() => router.currentComponent());
 
 const commonCnt = ref<number>(0);
 
@@ -54,7 +54,7 @@ onMounted(() => {
 
     <div class="mt-3 p-5 border-gray-500 border-2">
         <keep-alive>
-            <component :is="currentComponent" v-model:commonCnt="commonCnt" :router="router" />
+            <component :is="router.currentComponent.value" v-model:commonCnt="commonCnt" :router="router" />
         </keep-alive>
     </div>
 </template>

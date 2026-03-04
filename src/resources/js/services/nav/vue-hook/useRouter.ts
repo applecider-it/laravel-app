@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 /** Router用フック */
 export function useRouter(components: any, init: string) {
@@ -9,10 +9,11 @@ export function useRouter(components: any, init: string) {
     };
 
     const setCurrent = (name: string) => {
+        if (!(name in components)) throw Error(`not found route. name: ${name}`);
         current.value = name;
     };
 
-    const currentComponent = () => components[current.value];
+    const currentComponent = computed(() => components[current.value]);
 
     return {
         isCurrent,
