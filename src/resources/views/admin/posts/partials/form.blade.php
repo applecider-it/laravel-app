@@ -17,17 +17,14 @@
 </div>
 
 <div>
-    <label for="content" class="app-form-label">内容 (markdown)</label>
-    <textarea id="editor" name="content" rows="15" class="mt-1 app-form-input">{{ old('content', $post->content) }}</textarea>
+    <label for="content" class="app-form-label">投稿内容</label>
+    <div class="flex h-screen">
+        <textarea id="editor" name="content" class="w-1/2 p-4 border-r">{{ old('content', $post->content) }}</textarea>
+        <div class="w-1/2 p-4 overflow-y-scroll bg-gray-100 dark:bg-gray-900 app-post-content-container" id="preview"></div>
+    </div>
     @error('content')
         <p class="app-error-text">{{ $message }}</p>
     @enderror
-</div>
-
-<div>
-    <label for="content" class="app-form-label">プレビュー</label>
-    <div id="preview" class="app-post-content-container border p-5 overflow-y-scroll" style="height: 20rem;">
-    </div>
 </div>
 
 <div>

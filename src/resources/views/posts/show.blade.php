@@ -7,7 +7,7 @@
 
     <div class="app-container">
         <div class="space-y-4">
-            <div>
+            <div class="text-lg font-bold">
                 {{ $post->title }}
             </div>
             <div>

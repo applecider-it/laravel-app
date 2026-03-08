@@ -8,13 +8,12 @@
     <div class="app-container">
         <div class="space-y-4">
             @foreach ($posts as $post)
-                <div class="border rounded p-4">
-                    <p class="text-gray-800">
-                        <a href="{{ route('posts.show', ['slug' => $post->slug]) }}" class="app-link-normal">
-                            {{ $post->title }}
-                        </a>
-                    </p>
+                <a href="{{ route('posts.show', ['slug' => $post->slug]) }}">
+                <div class="border-2 rounded p-4 text-gray-800">
+                    <div class="p-4">{{ $post->title }}</div>
+                    <div class="text-sm text-gray-400 text-right">{{ $post->published_at }}</div>
                 </div>
+                        </a>
             @endforeach
 
             <div>

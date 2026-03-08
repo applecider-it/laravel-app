@@ -25,13 +25,13 @@
             @include('admin.posts.partials.form')
 
             <div>
-                <label for="name" class="app-form-label">更新日時</label>
-                {{ $post->updated_at }}
+                <label for="name" class="app-form-label">作成日時</label>
+                {{ $post->created_at }}
             </div>
 
             <div>
-                <label for="name" class="app-form-label">削除日時</label>
-                {{ $post->deleted_at }}
+                <label for="name" class="app-form-label">更新日時</label>
+                {{ $post->updated_at }}
             </div>
 
             <div class="pt-4">
