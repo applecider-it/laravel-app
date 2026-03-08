@@ -16,7 +16,7 @@
 
         @include('partials.form.errors')
 
-        <form method="POST" action="{{ route('admin.posts.store') }}" class="app-form">
+        <form method="POST" action="{{ route('admin.posts.store') }}" class="app-form" id="app-form-require-dirtycheck">
             @csrf
 
             @include('admin.posts.partials.form')

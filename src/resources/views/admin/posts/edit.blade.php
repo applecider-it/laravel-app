@@ -18,7 +18,7 @@
 
         @include('partials.message.session')
 
-        <form method="POST" action="{{ route('admin.posts.update', $post) }}" class="app-form">
+        <form method="POST" action="{{ route('admin.posts.update', $post) }}" class="app-form" id="app-form-require-dirtycheck">
             @csrf
             @method('PUT')
 
