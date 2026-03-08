@@ -30,7 +30,7 @@ class Tweet extends Model
     }
 
     /** 投稿内容のバリデーション */
-    public function validation_content()
+    public function validationContent()
     {
         return 'required|max:280';
     }

@@ -27,6 +27,15 @@ return [
                 'password' => '管理者パスワード',
             ]
         ],
+        'post' => [
+            'name' => '投稿',
+            'columns' => [
+                'title' => 'タイトル',
+                'slug' => 'Slug',
+                'content' => '投稿内容',
+                'published_at' => '投稿日時',
+            ]
+        ],
     ],
     'columns' => [
         'current_password' => '現在のパスワード',

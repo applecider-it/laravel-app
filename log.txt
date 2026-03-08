@@ -510,3 +510,11 @@ npm uninstall vue-router
 npm install -D typescript
 
 
+-----------------------------------
+
+
+php artisan make:migration create_posts_table
+
+php artisan migrate
+
+

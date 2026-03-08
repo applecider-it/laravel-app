@@ -26,7 +26,7 @@ class FormService
         $tweet = new UserTweet();
         return [
             'rules' => [
-                'content' => $tweet->validation_content(),
+                'content' => $tweet->validationContent(),
             ],
             'attributes' => [
                 'content' => __('app.models.user/tweet.columns.content')

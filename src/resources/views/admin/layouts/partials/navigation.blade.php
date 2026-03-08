@@ -17,6 +17,9 @@
                     <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
                         ユーザー
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.posts.index')" :active="request()->routeIs('admin.posts.index')">
+                        投稿
+                    </x-nav-link>
                 </div>
             </div>
 
