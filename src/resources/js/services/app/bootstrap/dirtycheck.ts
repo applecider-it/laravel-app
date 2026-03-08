@@ -1,7 +1,7 @@
 import { checkDirty } from "@/services/form/nav";
 
-const el = document.getElementById("app-form-require-dirtycheck");
+const elements = document.querySelectorAll('[data-app-form-require-dirtycheck]');
 
-if (el) {
+elements.forEach(el => {
     checkDirty(el);
-}
+});

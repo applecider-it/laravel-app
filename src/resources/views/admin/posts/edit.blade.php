@@ -18,7 +18,7 @@
 
         @include('partials.message.session')
 
-        <form method="POST" action="{{ route('admin.posts.update', $post) }}" class="app-form" id="app-form-require-dirtycheck">
+        <form method="POST" action="{{ route('admin.posts.update', $post) }}" class="app-form" data-app-form-require-dirtycheck="on">
             @csrf
             @method('PUT')
 
@@ -47,7 +47,8 @@
                     削除
                 </div>
                 <div>
-                    <form method="POST" action="{{ route('admin.posts.destroy', $post) }}" onsubmit="return confirm('削除してもよろしいですか？')">
+                    <form method="POST" action="{{ route('admin.posts.destroy', $post) }}" data-app-form-require-dirtycheck="on"
+                    onsubmit="return confirm('削除してもよろしいですか？')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="app-btn-danger">
