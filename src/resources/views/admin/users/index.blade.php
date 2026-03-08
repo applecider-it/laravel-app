@@ -3,7 +3,7 @@
 >
     <x-slot name="header">
         <h2 class="app-header-title">
-            ユーザー一覧
+            投稿一覧
         </h2>
     </x-slot>
 

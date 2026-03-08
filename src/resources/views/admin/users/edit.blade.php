@@ -3,7 +3,7 @@
 >
     <x-slot name="header">
         <h2 class="app-header-title">
-            ユーザー編集
+            投稿編集
         </h2>
     </x-slot>
 

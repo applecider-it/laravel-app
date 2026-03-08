@@ -3,7 +3,7 @@
 >
     <x-slot name="header">
         <h2 class="app-header-title">
-            ユーザー作成
+            投稿作成
         </h2>
     </x-slot>
 
