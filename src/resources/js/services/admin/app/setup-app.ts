@@ -2,6 +2,7 @@ import "@/services/app/bootstrap/axios";
 import "@/services/app/bootstrap/alpinejs";
 import "@/services/app/bootstrap/container";
 import "@/services/app/bootstrap/dirtycheck";
+import "@/services/app/bootstrap/window";
 
 console.log("setup admin");
 
