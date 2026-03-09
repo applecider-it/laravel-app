@@ -92,9 +92,15 @@ class Post extends Model
         });
     }
 
-    /** 変換した投稿内容 */
+    /** HTMLに変換した投稿内容 */
     public function contentHtml()
     {
         return Str::markdown($this->content);
+    }
+
+    /** Textに変換した投稿内容 */
+    public function contentText()
+    {
+        return strip_tags($this->contentHtml());
     }
 }

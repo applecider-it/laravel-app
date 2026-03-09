@@ -6,16 +6,14 @@
     </x-slot>
 
     <div class="app-container">
-        <div class="space-y-4">
-            <div class="text-lg font-bold">
-                {{ $post->title }}
-            </div>
-            <div>
-                {{ $post->published_at }}
-            </div>
-            <div class="app-post-content-container">
-                {!! $post->contentHtml() !!}
-            </div>
+        <h3 class="text-4xl font-bold mb-4">
+            {{ $post->title }}
+        </h3>
+        <div class="text-sm text-gray-400">
+            {{ $post->published_at->format('Y-m-d H:i') }}
+        </div>
+        <div class="app-post-content-container mt-10">
+            {!! $post->contentHtml() !!}
         </div>
     </div>
 </x-app-layout>
