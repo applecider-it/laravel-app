@@ -54,5 +54,11 @@
                 <button type="submit" class="app-btn-primary">送信</button>
             </div>
         </form>
+
+        <div class="my-6 text-lg">コピーの動作確認</div>
+
+        <div class="mt-5">
+            <button type="button" onclick="App.funcs.writeClipboard(this)" data-clipboard-data="コピーする文字列" class="app-btn-primary">Copy</button>
+        </div>
     </div>
 </x-app-layout>

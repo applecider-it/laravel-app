@@ -18,7 +18,7 @@
 
         @include('partials.message.session')
 
-        <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form">
+        <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form" data-app-form-require-dirtycheck="on">
             @csrf
             @method('PUT')
 
@@ -54,14 +54,16 @@
                 </div>
                 <div>
                     @if($user->deleted_at)
-                        <form method="POST" action="{{ route('admin.users.restore', $user) }}" onsubmit="return confirm('復元してもよろしいですか？')">
+                        <form method="POST" action="{{ route('admin.users.restore', $user) }}"
+                         data-app-form-require-dirtycheck="on" onsubmit="return confirm('復元してもよろしいですか？')">
                             @csrf
                             <button type="submit" class="app-btn-orange">
                                 復元
                             </button>
                         </form>
                     @else
-                        <form method="POST" action="{{ route('admin.users.destroy', $user) }}" onsubmit="return confirm('削除してもよろしいですか？')">
+                        <form method="POST" action="{{ route('admin.users.destroy', $user) }}"
+                         data-app-form-require-dirtycheck="on" onsubmit="return confirm('削除してもよろしいですか？')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="app-btn-danger">
