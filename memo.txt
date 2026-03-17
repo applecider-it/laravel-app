@@ -22,7 +22,19 @@ python: 8090
 
 laravel
 
+
+composer dev
+
 foreman start
+
+npx concurrently \
+  -c "#93c5fd,#c4b5fd,#fb7185" \
+  "php artisan serve" \
+  "php artisan pail --timeout=0" \
+  "npm run dev" \
+  --names=server,logs,vite \
+  --kill-others
+
 
 ログクリア
 
