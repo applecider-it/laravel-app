@@ -24,7 +24,7 @@ class ChatController extends Controller
 
     public function index(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $room = $request->input('room');
 

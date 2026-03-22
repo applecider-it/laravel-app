@@ -20,7 +20,7 @@ class PushNotificationController extends Controller
 
         Log::info('push_notification all', [$all]);
 
-        $user = auth()->user();
+        $user = $request->user();
 
         $endpoint = $all['endpoint'];
         $p256dh = $all['p256dh'];
