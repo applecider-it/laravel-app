@@ -40,7 +40,8 @@ npx concurrently \
 
 composer dev
 
-  php artisan pailがあるので挙動がおかしくなる
+  php artisan pailがあるため、ログイン時に永久ループする
+  SqlLogServiceProviderを無効化すると、問題なく動く
 
 --
 
