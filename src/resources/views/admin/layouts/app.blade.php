@@ -5,7 +5,7 @@
         @include('admin.layouts.partials.head')
     </head>
     <body class="font-sans antialiased">
-        @include('layouts.partials.common')
+        @include('partials.app.container')
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('admin.layouts.partials.navigation')
 
