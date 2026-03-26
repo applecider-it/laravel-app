@@ -133,6 +133,10 @@ App\Models\AdminUser::create(
 
 セットアップ
 
+
+laravel
+
+
 composer install
 
 npm ci
@@ -142,6 +146,30 @@ cp .env.example .env
 php artisan key:generate
 
 php artisan migrate
+
+
+----
+
+node
+
+
+npm ci
+
+cp .env.example .env
+
+
+----
+
+python
+
+
+python3 -m venv venv
+
+cp .env.example .env
+
+pip install --upgrade pip
+
+pip install -r requirements.txt
 
 
 -----------------------------------
