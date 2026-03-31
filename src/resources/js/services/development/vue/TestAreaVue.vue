@@ -4,7 +4,6 @@
 import ModalArea from "./test-area-vue/ModalArea.vue";
 import DefineModelArea from "./test-area-vue/DefineModelArea.vue";
 import EmitModelArea from "./test-area-vue/EmitModelArea.vue";
-import OptionsModelArea from "./test-area-vue/OptionsModelArea.vue";
 import UIArea from "./test-area-vue/UIArea.vue";
 import RefArea from "./test-area-vue/RefArea.vue";
 import FormArea from "./test-area-vue/FormArea.vue";
@@ -39,10 +38,6 @@ const blockStyle = "border-gray-400 border-2 p-3";
 
             <div :class="blockStyle">
                 <EmitModelArea />
-            </div>
-
-            <div :class="blockStyle">
-                <OptionsModelArea />
             </div>
 
             <div :class="blockStyle">
