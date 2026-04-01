@@ -14,9 +14,9 @@
             </a>
         </div>
         
-        @include('admin.users.partials.search')
+        @include('admin.user.partials.search')
 
-        @include('admin.users.partials.list')
+        @include('admin.user.partials.list')
 
         <div class="mt-4">
             {{ $users->links() }}
