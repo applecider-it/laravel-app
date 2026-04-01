@@ -430,5 +430,16 @@ LOG_CHANNEL=stderr
 
 php artisan storage:link
 
+-----------------------------------
 
+Scaffold
+
+
+php artisan make:migration create_posts_table
+
+php artisan app:scaffold post auther,subject,body
+
+php artisan app:scaffold post auther,subject,body --force
+
+php artisan app:scaffold post auther,subject,body --dryrun
 
