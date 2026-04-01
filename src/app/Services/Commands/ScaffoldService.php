@@ -4,6 +4,7 @@ namespace App\Services\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 /**
  * Scaffold
@@ -49,6 +50,10 @@ class ScaffoldService
                 'view' => 'generators.scaffold.model',
                 'path' => base_path('app/Models/' . $nameStudly . '.php'),
             ],
+            [
+                'view' => 'generators.scaffold.list_service',
+                'path' => base_path('app/Services/' . $nameStudly . '/ListService.php'),
+            ],
         ];
 
         $this->cmd->info('force: ' . json_encode($force));
@@ -79,10 +84,12 @@ class ScaffoldService
         foreach ($list as $row) {
             $view = $row['view'];
             $path = $row['path'];
+            $dir = dirname($row['path']);
 
             $this->cmd->info('Build file');
             $this->cmd->info('view: ' . $view);
             $this->cmd->info('path: ' . $path);
+            $this->cmd->info('dir: ' . $dir);
 
             $data = (string) view($view, $replace);
 
@@ -100,6 +107,9 @@ class ScaffoldService
 
                     $this->cmd->warn('The file exists.');
                 } else {
+                    // ディレクトリがない場合は作る
+                    if (!file_exists($dir)) File::makeDirectory($dir);
+
                     file_put_contents($path, $data);
                 }
             }
