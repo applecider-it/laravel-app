@@ -105,7 +105,7 @@ class ScaffoldService
 
         $this->buildAll($list, $replace, $force, $dryrun);
 
-        $this->showRemainingWork($nameSnakePlural, $nameStudly, $columns);
+        $this->showRemainingWork($nameSnake, $nameSnakePlural, $nameStudly, $columns);
     }
 
     /** 対象ファイル全て生成 */
@@ -163,7 +163,7 @@ class ScaffoldService
     }
 
     /** 残り作業表示 */
-    private function showRemainingWork($nameSnakePlural, $nameStudly, $columns)
+    private function showRemainingWork($nameSnake, $nameSnakePlural, $nameStudly, $columns)
     {
         $this->cmd->warn('# 残作業' . PHP_EOL);
 
@@ -183,10 +183,9 @@ class ScaffoldService
         $this->cmd->info('use App\\Http\\Controllers\\' . $nameStudly . 'Controller;' . PHP_EOL);
         $this->cmd->info("Route::resource('{$nameSnakePlural}', {$nameStudly}Controller::class)->except(['show']);" . PHP_EOL);
 
-
         $this->cmd->info("# lang/ja/app.php追加" . PHP_EOL);
 
-        $this->cmd->info("'admin_user' => [");
+        $this->cmd->info("'{$nameSnake}' => [");
         $this->cmd->info("    'name' => '管理者',");
         $this->cmd->info("    'columns' => [");
         foreach ($columns as $row) {
@@ -196,5 +195,10 @@ class ScaffoldService
         $this->cmd->info("],");
         $this->cmd->info("");
 
+        $this->cmd->info("# 確認用URI" . PHP_EOL);
+
+        $this->cmd->info("/{$nameSnakePlural}");
+
+        $this->cmd->info("");
     }
 }

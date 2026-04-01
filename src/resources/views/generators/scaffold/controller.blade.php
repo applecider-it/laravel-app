@@ -55,7 +55,7 @@ class {{ $nameStudly }}Controller extends Controller
 
         ${{ $nameCamel }} = {{ $nameStudly }}::create($validated);
 
-        return redirect()->route('{{ $nameSnake }}.edit', ${{ $nameCamel }})->with('success', '{{ $nameStudly }}を作成しました');
+        return redirect()->route('{{ $nameSnakePlural }}.edit', ${{ $nameCamel }})->with('success', '{{ $nameStudly }}を作成しました');
     }
 
     /** 編集 */
@@ -82,7 +82,7 @@ class {{ $nameStudly }}Controller extends Controller
 
         ${{ $nameCamel }}->update($validated);
 
-        return redirect()->route('{{ $nameSnake }}.edit', ${{ $nameCamel }})->with('success', '{{ $nameStudly }}を更新しました');
+        return redirect()->route('{{ $nameSnakePlural }}.edit', ${{ $nameCamel }})->with('success', '{{ $nameStudly }}を更新しました');
     }
 
     /** 削除 */
@@ -90,6 +90,6 @@ class {{ $nameStudly }}Controller extends Controller
     {
         ${{ $nameCamel }}->delete();
 
-        return redirect()->route('{{ $nameSnake }}.index')->with('success', '{{ $nameStudly }}を削除しました');
+        return redirect()->route('{{ $nameSnakePlural }}.index')->with('success', '{{ $nameStudly }}を削除しました');
     }
 }
