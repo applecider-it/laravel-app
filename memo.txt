@@ -435,11 +435,9 @@ php artisan storage:link
 Scaffold
 
 
-php artisan make:migration create_posts_table
+php artisan app:scaffold UserPost auther,subject,content_body
 
-php artisan app:scaffold post auther,subject,body
+php artisan app:scaffold UserPost auther,subject,content_body --force
 
-php artisan app:scaffold post auther,subject,body --force
-
-php artisan app:scaffold post auther,subject,body --dryrun
+php artisan app:scaffold UserPost auther,subject,content_body --dryrun
 

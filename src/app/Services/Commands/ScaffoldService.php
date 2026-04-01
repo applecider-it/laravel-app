@@ -69,6 +69,18 @@ class ScaffoldService
                 'view' => 'generators.scaffold.view.create',
                 'path' => base_path('resources/views/' . $nameSnake . '/create.blade.php'),
             ],
+            [
+                'view' => 'generators.scaffold.view.partials.search',
+                'path' => base_path('resources/views/' . $nameSnake . '/partials/search.blade.php'),
+            ],
+            [
+                'view' => 'generators.scaffold.view.partials.list',
+                'path' => base_path('resources/views/' . $nameSnake . '/partials/list.blade.php'),
+            ],
+            [
+                'view' => 'generators.scaffold.view.partials.form',
+                'path' => base_path('resources/views/' . $nameSnake . '/partials/form.blade.php'),
+            ],
         ];
 
         $this->cmd->info('force: ' . json_encode($force));
@@ -85,6 +97,7 @@ class ScaffoldService
             'nameSnake',
             'nameStudly',
             'nameCamel',
+            'nameSnakePlural',
             'nameStudlyPlural',
             'nameCamelPlural',
             'columns',

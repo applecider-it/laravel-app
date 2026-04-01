@@ -7,7 +7,7 @@
 
     <div class="app-container-lg">
         <div class="mb-4">
-            <a href="{# route('admin.{{ $nameCamelPlural }}.create') #}" class="app-btn-primary">
+            <a href="{# route('{{ $nameSnakePlural }}.create') #}" class="app-btn-primary">
                 新規作成
             </a>
         </div>

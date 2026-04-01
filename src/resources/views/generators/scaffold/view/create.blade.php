@@ -7,14 +7,14 @@
 
     <div class="app-container-lg">
         <div class="mb-6">
-            <a href="{# route('{{ $nameCamelPlural }}.index') #}" class="app-btn-secondary">
+            <a href="{# route('{{ $nameSnakePlural }}.index') #}" class="app-btn-secondary">
                 一覧に戻る
             </a>
         </div>
 
         ##include('partials.form.errors')
 
-        <form method="POST" action="{# route('{{ $nameCamelPlural }}.store') #}" class="app-form">
+        <form method="POST" action="{# route('{{ $nameSnakePlural }}.store') #}" class="app-form">
             ##csrf
 
             ##include('{{ $nameSnake }}.partials.form')

@@ -7,7 +7,7 @@
 
     <div class="app-container-lg">
         <div class="mb-6">
-            <a href="{# route('{{ $nameCamelPlural }}.index') #}" class="app-btn-secondary">
+            <a href="{# route('{{ $nameSnakePlural }}.index') #}" class="app-btn-secondary">
                 一覧に戻る
             </a>
         </div>
@@ -16,7 +16,7 @@
 
         ##include('partials.message.session')
 
-        <form method="POST" action="{# route('{{ $nameCamelPlural }}.update', ${{ $nameCamel }}) #}" class="app-form">
+        <form method="POST" action="{# route('{{ $nameSnakePlural }}.update', ${{ $nameCamel }}) #}" class="app-form">
             ##csrf
             ##method('PUT')
 
@@ -45,7 +45,7 @@
                     削除
                 </div>
                 <div>
-                    <form method="POST" action="{# route('{{ $nameCamelPlural }}.destroy', ${{ $nameCamel }}) #}"
+                    <form method="POST" action="{# route('{{ $nameSnakePlural }}.destroy', ${{ $nameCamel }}) #}"
                     onsubmit="return confirm('削除してもよろしいですか？')">
                         ##csrf
                         ##method('DELETE')
