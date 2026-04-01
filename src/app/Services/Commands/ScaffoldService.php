@@ -165,18 +165,36 @@ class ScaffoldService
     /** 残り作業表示 */
     private function showRemainingWork($nameSnakePlural, $nameStudly, $columns)
     {
-        $this->cmd->warn('残作業' . PHP_EOL);
+        $this->cmd->warn('# 残作業' . PHP_EOL);
 
-        $this->cmd->info("migration生成" . PHP_EOL);
+        $this->cmd->info("# migration生成" . PHP_EOL);
         $this->cmd->info("php artisan make:migration create_{$nameSnakePlural}_table" . PHP_EOL);
 
-        $this->cmd->info("migrationに追記" . PHP_EOL);
-        foreach ($columns as $column) {
-            $this->cmd->info('$table->string(\'' . $column['snake'] . '\');');
+        $this->cmd->info("# migrationに追記" . PHP_EOL);
+        foreach ($columns as $row) {
+            $this->cmd->info('$table->string(\'' . $row['snake'] . '\');');
         }
+        $this->cmd->info("");
 
-        $this->cmd->info(PHP_EOL . "ルート追加" . PHP_EOL);
+        $this->cmd->info("# migration実行" . PHP_EOL);
+        $this->cmd->info("php artisan migrate" . PHP_EOL);
+
+        $this->cmd->info("# ルート追加" . PHP_EOL);
         $this->cmd->info('use App\\Http\\Controllers\\' . $nameStudly . 'Controller;' . PHP_EOL);
         $this->cmd->info("Route::resource('{$nameSnakePlural}', {$nameStudly}Controller::class)->except(['show']);" . PHP_EOL);
+
+
+        $this->cmd->info("# lang/ja/app.php追加" . PHP_EOL);
+
+        $this->cmd->info("'admin_user' => [");
+        $this->cmd->info("    'name' => '管理者',");
+        $this->cmd->info("    'columns' => [");
+        foreach ($columns as $row) {
+            $this->cmd->info("        '{$row['snake']}' => '{$row['studly']}',");
+        }
+        $this->cmd->info("    ]");
+        $this->cmd->info("],");
+        $this->cmd->info("");
+
     }
 }
