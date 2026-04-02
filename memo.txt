@@ -435,9 +435,13 @@ php artisan storage:link
 Scaffold
 
 
+php artisan help app:scaffold
+
+
 php artisan app:scaffold UserPost auther,subject,content_body
 
 php artisan app:scaffold UserPost auther,subject,content_body --force
 
 php artisan app:scaffold UserPost auther,subject,content_body --dryrun
 
+php artisan app:scaffold UserPost auther,subject,content_body --dryrun --display

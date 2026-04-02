@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 
 /**
- * Scaffold
+ * CRUD生成
  */
 class ScaffoldService
 {
@@ -24,7 +24,22 @@ class ScaffoldService
 
         $force = $this->cmd->option('force');
         $dryrun = $this->cmd->option('dryrun');
+        $display = $this->cmd->option('display');
 
+        $info = $this->makeInfo();
+
+        $list = $this->getList($info);
+
+        $this->trace($force, $dryrun, $display, $info, $list);
+
+        $this->buildAll($list, $info, $force, $dryrun, $display);
+
+        $this->showRemainingWork($info);
+    }
+
+    /** 各種情報生成 */
+    private function makeInfo()
+    {
         // スネークケース
         $nameSnake = Str::singular(Str::snake($this->cmd->argument('name')));
         $nameSnakePlural = Str::plural($nameSnake);
@@ -35,14 +50,36 @@ class ScaffoldService
         $nameCamel = Str::camel($nameSnake);
         $nameCamelPlural = Str::plural($nameCamel);
 
+        // カラム情報
         $arr = explode(',', $this->cmd->argument('columns'));
-        $columns = array_map(fn($val) => [
-            'snake' => Str::snake($val),
-            'studly' => Str::studly($val),
-        ], $arr);
+        $columns = array_map(
+            function ($val) {
+                return [
+                    'snake' => Str::snake($val),
+                    'studly' => Str::studly($val),
+                ];
+            },
+            $arr
+        );
 
-        // 出力対象
-        $list = [
+        return compact(
+            'nameSnake',
+            'nameStudly',
+            'nameCamel',
+            'nameSnakePlural',
+            'nameStudlyPlural',
+            'nameCamelPlural',
+            'columns',
+        );
+    }
+
+    /** 出力対象リスト */
+    private function getList(array $info)
+    {
+        $nameStudly = $info['nameStudly'];
+        $nameSnake = $info['nameSnake'];
+
+        return [
             [
                 'view' => 'generators.scaffold.controller',
                 'path' => base_path('app/Http/Controllers/' . $nameStudly . 'Controller.php'),
@@ -82,34 +119,31 @@ class ScaffoldService
                 'path' => base_path('resources/views/' . $nameSnake . '/partials/form.blade.php'),
             ],
         ];
+    }
 
+    /** トレース */
+    private function trace(bool $force, bool $dryrun, bool $display, array $info, array $list)
+    {
         $this->cmd->info('force: ' . json_encode($force));
         $this->cmd->info('dryrun: ' . json_encode($dryrun));
-        $this->cmd->info("nameSnake: {$nameSnake}");
-        $this->cmd->info("nameStudly: {$nameStudly}");
-        $this->cmd->info("nameCamel: {$nameCamel}");
-        $this->cmd->info("nameStudlyPlural: {$nameStudlyPlural}");
-        $this->cmd->info("nameCamelPlural: {$nameCamelPlural}");
-        $this->cmd->info('columns: ' . json_encode($columns));
+        $this->cmd->info('display: ' . json_encode($display));
+        $this->cmd->info('');
+
+        $this->cmd->info("nameSnake: {$info['nameSnake']}");
+        $this->cmd->info("nameStudly: {$info['nameStudly']}");
+        $this->cmd->info("nameCamel: {$info['nameCamel']}");
+        $this->cmd->info("nameSnakePlural: {$info['nameSnakePlural']}");
+        $this->cmd->info("nameStudlyPlural: {$info['nameStudlyPlural']}");
+        $this->cmd->info("nameCamelPlural: {$info['nameCamelPlural']}");
+        $this->cmd->info('columns: ' . json_encode($info['columns']));
+        $this->cmd->info('');
+
         $this->cmd->info('list: ' . json_encode($list, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-
-        $replace = compact(
-            'nameSnake',
-            'nameStudly',
-            'nameCamel',
-            'nameSnakePlural',
-            'nameStudlyPlural',
-            'nameCamelPlural',
-            'columns',
-        );
-
-        $this->buildAll($list, $replace, $force, $dryrun);
-
-        $this->showRemainingWork($nameSnake, $nameSnakePlural, $nameStudly, $columns);
+        $this->cmd->info('');
     }
 
     /** 対象ファイル全て生成 */
-    private function buildAll($list, $replace, $force, $dryrun)
+    private function buildAll(array $list, array $replace, bool $force, bool $dryrun, bool $display)
     {
         foreach ($list as $row) {
             $view = $row['view'];
@@ -125,10 +159,15 @@ class ScaffoldService
 
             $data = $this->convertData($data);
 
-            if ($dryrun) {
-                // ドライランの時
+            if ($display) {
+                // 出力内容表示する時
 
                 echo $data . PHP_EOL;
+            }
+
+            if ($dryrun) {
+                // ドライランの時
+                $this->cmd->warn('dryrun');
             } else {
                 // ファイル生成の時
 
@@ -147,7 +186,7 @@ class ScaffoldService
     }
 
     /** Viewから取得した変数を実際の値に変換 */
-    private function convertData($data)
+    private function convertData(string $data): string
     {
         $pattens = [
             '<#' => '<?',
@@ -163,8 +202,15 @@ class ScaffoldService
     }
 
     /** 残り作業表示 */
-    private function showRemainingWork($nameSnake, $nameSnakePlural, $nameStudly, $columns)
+    private function showRemainingWork(array $info)
     {
+        $nameSnake = $info['nameSnake'];
+        $nameSnakePlural = $info['nameSnakePlural'];
+        $nameStudly = $info['nameStudly'];
+        $columns = $info['columns'];
+
+        $this->cmd->info(PHP_EOL);
+
         $this->cmd->warn('# 残作業' . PHP_EOL);
 
         $this->cmd->info("# migration生成" . PHP_EOL);

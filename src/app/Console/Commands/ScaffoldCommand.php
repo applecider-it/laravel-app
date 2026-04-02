@@ -14,10 +14,11 @@ class ScaffoldCommand extends Command
      * @var string
      */
     protected $signature = 'app:scaffold
-                        {name}
-                        {columns}
-                        {--force}
-                        {--dryrun}
+                        {name : モデル名、コントローラー名}
+                        {columns : カラム名。カンマ区切り}
+                        {--force : 上書き許可}
+                        {--dryrun : ドライラン}
+                        {--display : 出力内容表示}
                         ';
 
     /**
@@ -25,7 +26,7 @@ class ScaffoldCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Scaffold';
+    protected $description = 'CRUD生成';
 
     public function __construct(
         private ScaffoldService $scaffoldService
