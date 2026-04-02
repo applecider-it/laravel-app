@@ -167,15 +167,18 @@ class ScaffoldService
 
             if ($dryrun) {
                 // ドライランの時
+
                 $this->cmd->warn('dryrun');
             } else {
                 // ファイル生成の時
 
                 if (file_exists($path) && !$force) {
-                    // ファイルがあり、強制出力じゃないとき
+                    // ファイル生成できないとき
 
                     $this->cmd->warn('The file exists.');
                 } else {
+                    // ファイル生成できるとき
+
                     // ディレクトリがない場合は作る
                     if (!file_exists($dir)) File::makeDirectory($dir);
 
@@ -213,6 +216,8 @@ class ScaffoldService
 
         $this->cmd->warn('# 残作業' . PHP_EOL);
 
+        // migrationの説明
+
         $this->cmd->info("# migration生成" . PHP_EOL);
         $this->cmd->info("php artisan make:migration create_{$nameSnakePlural}_table" . PHP_EOL);
 
@@ -225,12 +230,15 @@ class ScaffoldService
         $this->cmd->info("# migration実行" . PHP_EOL);
         $this->cmd->info("php artisan migrate" . PHP_EOL);
 
+        // ルートの説明
+
         $this->cmd->info("# ルート追加" . PHP_EOL);
         $this->cmd->info('use App\\Http\\Controllers\\' . $nameStudly . 'Controller;' . PHP_EOL);
         $this->cmd->info("Route::resource('{$nameSnakePlural}', {$nameStudly}Controller::class)->except(['show']);" . PHP_EOL);
 
-        $this->cmd->info("# lang/ja/app.php追加" . PHP_EOL);
+        // 言語ファイルの説明
 
+        $this->cmd->info("# lang/ja/app.php追加" . PHP_EOL);
         $this->cmd->info("'{$nameSnake}' => [");
         $this->cmd->info("    'name' => '管理者',");
         $this->cmd->info("    'columns' => [");
@@ -241,8 +249,9 @@ class ScaffoldService
         $this->cmd->info("],");
         $this->cmd->info("");
 
-        $this->cmd->info("# 確認用URI" . PHP_EOL);
+        // URIの説明
 
+        $this->cmd->info("# 確認用URI" . PHP_EOL);
         $this->cmd->info("/{$nameSnakePlural}");
 
         $this->cmd->info("");
