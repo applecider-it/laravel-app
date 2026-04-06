@@ -25,7 +25,16 @@ class AiTestService
     {
         $this->cmd = $cmd;
 
-        $response = $this->aiService->testSend();
+        $path = storage_path('app/image.jpg');
+
+        $this->cmd->info("path: {$path}");
+
+        if (!is_file($path)) {
+            $this->cmd->error("画像ファイルがありません。 {$path}");
+            return;
+        }
+
+        $response = $this->aiService->imageAnalysis($path);
 
         $this->cmd->info('response' . json_encode($response, JSON_UNESCAPED_UNICODE));
     }

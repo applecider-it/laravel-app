@@ -4,24 +4,24 @@ namespace App\Services\AI;
 
 use Illuminate\Support\Facades\Http;
 
+
 /**
- * AI管理（入れ物だけ）
+ * AI管理
  */
 class AiService
 {
     /**
-     * テスト用送信
+     * 画像解析
      */
-    public function testSend()
+    public function imageAnalysis($path)
     {
-        $text = 'Hello Python AI World';
-
         $host = config('myapp.ai_server_host');
 
-        // FastAPIのエンドポイントにPOST
-        $response = Http::post("http://{$host}/predict", [
-            'text' => $text
-        ]);
+        $response = Http::attach(
+            'file',
+            file_get_contents($path),
+            'test.jpg'
+        )->post("http://{$host}/detect");
 
         return $response->json();
     }
