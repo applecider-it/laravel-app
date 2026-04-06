@@ -11,6 +11,7 @@ use App\Services\Channels\ProgressChannel;
 use App\Services\Sample\SampleService;
 use App\Services\Development\TraceService;
 use App\Services\Development\FormService;
+use App\Services\Development\AiTestService;
 
 use App\Events\SampleEvent;
 
@@ -23,7 +24,8 @@ class DevelopmentController extends Controller
         private SampleService $sampleService,
         private TraceService $traceService,
         private FormService $formService,
-        private WebSocketAuthService $webSocketAuthService
+        private WebSocketAuthService $webSocketAuthService,
+        private AiTestService $aiTestService,
     ) {}
 
     public function index(Request $request)
@@ -95,5 +97,24 @@ class DevelopmentController extends Controller
             'development.router_test',
             ['name' => 'Router Test!!']
         );
+    }
+
+    /** aiテスト */
+    public function ai_test(Request $request)
+    {
+        return view('development.ai_test', ['src' => null]);
+    }
+
+    /** aiテスト */
+    public function ai_test_post(Request $request)
+    {
+        // バリデーション
+        $request->validate([
+            'file' => 'required|image|max:2048'
+        ]);
+
+        $file = $request->file('file');
+
+        return view('development.ai_test', $this->aiTestService->execAiTest($file));
     }
 }
