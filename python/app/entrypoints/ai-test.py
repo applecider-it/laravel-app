@@ -2,7 +2,6 @@ import os
 import cv2
 import requests
 
-from app.services.ai.generate import generate_text
 from app.services.ai.image_analysis import exec_image_analysis
 
 def exec_test():
@@ -22,7 +21,7 @@ def exec_test():
   print("直接実行")
   print(result)
 
-  url = "http://127.0.0.1:8090/detect"
+  url = "http://127.0.0.1:8090/image_analysis"
   files = {"file": open(path, "rb")}
 
   res = requests.post(url, files=files)

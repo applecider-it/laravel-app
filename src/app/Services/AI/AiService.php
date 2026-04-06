@@ -21,7 +21,7 @@ class AiService
             'file',
             file_get_contents($path),
             'test.jpg'
-        )->post("http://{$host}/detect");
+        )->post("http://{$host}/image_analysis");
 
         return $response->json();
     }
