@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 
 from app.config import add_middlewares
-from app.routers import predict
+from app.routers import ai
 
 # .env を読み込む
 load_dotenv()
@@ -14,7 +14,7 @@ app = FastAPI()
 add_middlewares(app)
 
 # ルーター追加
-app.include_router(predict.router)
+app.include_router(ai.router)
 
 if __name__ == "__main__":
      # 直接実行した時

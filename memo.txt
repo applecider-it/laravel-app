@@ -95,9 +95,11 @@ cd ~/workspace/github/laravel-app/python
 
 source venv/bin/activate
 
-python -m app.entrypoints.main
-
 uvicorn app.entrypoints.main:app --reload --port 8090
+
+または
+
+python -m app.entrypoints.main
 
 
 AIテスト

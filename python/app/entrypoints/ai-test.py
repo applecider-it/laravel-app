@@ -1,5 +1,6 @@
 import os
 import cv2
+import requests
 
 from app.services.ai.generate import generate_text
 from app.services.ai.image_analysis import exec_image_analysis
@@ -16,6 +17,18 @@ def exec_test():
   # 画像読み込み
   img = cv2.imread(path)
 
-  print(exec_image_analysis(img))
+  result = exec_image_analysis(img)
+
+  print("直接実行")
+  print(result)
+
+  url = "http://127.0.0.1:8090/detect"
+  files = {"file": open(path, "rb")}
+
+  res = requests.post(url, files=files)
+  json = res.json()
+
+  print("APIから実行")
+  print(json)
 
 exec_test()
