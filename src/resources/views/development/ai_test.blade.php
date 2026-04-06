@@ -27,10 +27,10 @@
 
                         @foreach ($results as $row)
                             @php
-                                $x1 = $row['box'][0] / $info['width'];
-                                $y1 = $row['box'][1] / $info['height'];
-                                $x2 = $row['box'][2] / $info['width'];
-                                $y2 = $row['box'][3] / $info['height'];
+                                $x1 = $row['box']['x1'] / $info['width'];
+                                $y1 = $row['box']['y1'] / $info['height'];
+                                $x2 = $row['box']['x2'] / $info['width'];
+                                $y2 = $row['box']['y2'] / $info['height'];
 
                                 $w = $x2 - $x1;
                                 $h = $y2 - $y1;
@@ -45,6 +45,13 @@
                                     height:{{ $h * 100 }}%;
                                 ">
                             </div>
+                        @endforeach
+
+                        @foreach ($results as $row)
+                            @php
+                                $x1 = $row['box']['x1'] / $info['width'];
+                                $y1 = $row['box']['y1'] / $info['height'];
+                            @endphp
 
                             <!-- ラベル -->
                             <div class="absolute bg-red-500 text-white text-xs px-1"

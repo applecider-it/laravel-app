@@ -20,7 +20,12 @@ def exec_image_analysis(img):
             detections.append({
                 "label": name,
                 "confidence": conf,
-                "box": xyxy
+                "box": {
+                    "x1": xyxy[0],
+                    "y1": xyxy[1],
+                    "x2": xyxy[2],
+                    "y2": xyxy[3],
+                }
             })
 
     return {"results": detections}
