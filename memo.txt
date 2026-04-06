@@ -97,6 +97,8 @@ source venv/bin/activate
 
 python -m app.entrypoints.main
 
+uvicorn app.entrypoints.main:app --reload
+
 
 AIテスト
 
