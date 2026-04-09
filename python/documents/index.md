@@ -1,15 +1,5 @@
 # pythonマイクロサービス
 
-## 画像解析
+AI関連のAPIを管理するサーバー
 
-### メソッド
-
-POST
-
-### URI
-
-/image_analysis
-
-### パラメーター
-
-file: 対象画像
+- [API](./api.md)
