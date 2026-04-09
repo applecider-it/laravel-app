@@ -61,7 +61,7 @@ class ImageAnalysisService
         $response = Http::attach(
             'file',
             file_get_contents($path),
-            'test.jpg'
+            basename($path)
         )->post("http://{$host}/image_analysis");
 
         return $response->json();
