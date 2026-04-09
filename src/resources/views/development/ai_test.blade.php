@@ -25,48 +25,38 @@
                     <div class="relative inline-block">
                         <img src="{{ $src }}">
 
-                        @foreach ($results as $row)
-                            @php
-                                $x1 = $row['box']['x1'] / $info['width'];
-                                $y1 = $row['box']['y1'] / $info['height'];
-                                $x2 = $row['box']['x2'] / $info['width'];
-                                $y2 = $row['box']['y2'] / $info['height'];
-
-                                $w = $x2 - $x1;
-                                $h = $y2 - $y1;
-                            @endphp
-
+                        @foreach ($list as $row)
                             <!-- 枠 -->
                             <div class="absolute border-2 border-red-500"
                                 style="
-                                    left:{{ $x1 * 100 }}%;
-                                    top:{{ $y1 * 100 }}%;
-                                    width:{{ $w * 100 }}%;
-                                    height:{{ $h * 100 }}%;
+                                    left:{{ $row['calculatedValues']['x1Ratio'] * 100 }}%;
+                                    top:{{ $row['calculatedValues']['y1Ratio'] * 100 }}%;
+                                    width:{{ $row['calculatedValues']['wRatio'] * 100 }}%;
+                                    height:{{ $row['calculatedValues']['hRatio'] * 100 }}%;
                                 ">
                             </div>
                         @endforeach
 
-                        @foreach ($results as $row)
-                            @php
-                                $x1 = $row['box']['x1'] / $info['width'];
-                                $y1 = $row['box']['y1'] / $info['height'];
-                            @endphp
-
+                        @foreach ($list as $row)
                             <!-- ラベル -->
                             <div class="absolute bg-red-500 text-white text-xs px-1"
                                 style="
-                                    left:{{ $x1 * 100 }}%;
-                                    top:{{ ($y1 - 0.05) * 100 }}%;
+                                    left:{{ $row['calculatedValues']['x1Ratio'] * 100 }}%;
+                                    top:{{ ($row['calculatedValues']['y1Ratio'] - 0.05) * 100 }}%;
                                 ">
                                 {{ $row['label'] }} ({{ round($row['confidence'], 2) }})
                             </div>
                         @endforeach
                     </div>
-                    <div>info</div>
-                    <pre>{{ print_r($info, true) }}</pre>
-                    <div>results</div>
-                    <pre>{{ print_r($results, true) }}</pre>
+
+                    <div class="space-y-4">
+                        <div>info</div>
+                        <pre>{{ App\Services\Data\Json::trace($info, true) }}</pre>
+                        <div>list</div>
+                        <pre class="h-[30rem] overflow-scroll">{{ App\Services\Data\Json::trace($list, true) }}</pre>
+                        <div>response</div>
+                        <pre class="h-[30rem] overflow-scroll">{{ App\Services\Data\Json::trace($response, true) }}</pre>
+                    </div>
                 </div>
             @endif
         </form>

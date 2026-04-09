@@ -11,7 +11,7 @@ use App\Services\Channels\ProgressChannel;
 use App\Services\Sample\SampleService;
 use App\Services\Development\TraceService;
 use App\Services\Development\FormService;
-use App\Services\Development\AiTestService;
+use App\Services\AI\ImageAnalysisService;
 
 use App\Events\SampleEvent;
 
@@ -25,7 +25,7 @@ class DevelopmentController extends Controller
         private TraceService $traceService,
         private FormService $formService,
         private WebSocketAuthService $webSocketAuthService,
-        private AiTestService $aiTestService,
+        private ImageAnalysisService $imageAnalysisService,
     ) {}
 
     public function index(Request $request)
@@ -115,6 +115,6 @@ class DevelopmentController extends Controller
 
         $file = $request->file('file');
 
-        return view('development.ai_test', $this->aiTestService->execAiTest($file));
+        return view('development.ai_test', $this->imageAnalysisService->execAnalysisService($file));
     }
 }
