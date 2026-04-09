@@ -6,11 +6,17 @@
     </x-slot>
 
     <div class="app-container">
-        <p><a href="{{ route('development.php_test') }}" class="app-link-normal">php_test</a></p>
-        <p><a href="{{ route('development.view_test') }}" class="app-link-normal">view_test</a></p>
-        <p><a href="{{ route('development.javascript_test') }}" class="app-link-normal">javascript_test</a></p>
-        <p><a href="{{ route('development.websocket_test') }}" class="app-link-normal">websocket_test</a></p>
-        <p><a href="{{ route('development.router_test') }}" class="app-link-normal">router_test</a></p>
-        <p><a href="{{ route('development.ai_test') }}" class="app-link-normal">ai_test</a></p>
+        <div class="space-y-5">
+            <div>
+                <p><a href="{{ route('development.php_test') }}" class="app-link-normal">php_test</a></p>
+                <p><a href="{{ route('development.view_test') }}" class="app-link-normal">view_test</a></p>
+                <p><a href="{{ route('development.javascript_test') }}" class="app-link-normal">javascript_test</a></p>
+            </div>
+            <div>
+                <p><a href="{{ route('development.websocket_test') }}" class="app-link-normal">websocket_test</a></p>
+                <p><a href="{{ route('development.router_test') }}" class="app-link-normal">router_test</a></p>
+                <p><a href="{{ route('development.ai_test') }}" class="app-link-normal">ai_test</a></p>
+            </div>
+        </div>
     </div>
 </x-app-layout>
