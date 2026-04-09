@@ -4,39 +4,31 @@ namespace App\Services\AI;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Http\UploadedFile;
+
+use App\Services\Data\File;
 
 /**
  * 画像解析管理
  */
 class ImageAnalysisService
 {
-    /** ファイルオブジェクトから画像解析実行 */
-    public function execAnalysisService(UploadedFile $file)
+    /** 画像ファイルから画像解析実行 */
+    public function execAnalysisService(string $filePath)
     {
-        [$width, $height] = getimagesize($file->getRealPath());
-
-        $response = $this->sendImageAnalysisApi($file->getRealPath());
+        $response = $this->sendImageAnalysisApi($filePath);
 
         Log::info("AI Response", [$response]);
-
-        // バイナリ取得
-        $data = file_get_contents($file->getRealPath());
-
-        // base64エンコード
-        $base64 = base64_encode($data);
-
-        // MIMEタイプ取得
-        $mime = $file->getMimeType();
-
-        $src = "data:$mime;base64,$base64";
-
-        $info = compact('width', 'height', 'mime');
+        
         $results = $response['result']['results'];
+
+        [$width, $height] = getimagesize($filePath);
+        $info = compact('width', 'height');
 
         $list = $this->appendCalculatedValues($results, $info);
 
-        return compact('src', 'list', 'response', 'info');
+        $dataUrl = File::createDataUrl($filePath);
+
+        return compact('dataUrl', 'list', 'response', 'info');
     }
 
     /** 結果に計算値を足す */

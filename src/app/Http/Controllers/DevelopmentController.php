@@ -102,7 +102,7 @@ class DevelopmentController extends Controller
     /** aiテスト */
     public function ai_test(Request $request)
     {
-        return view('development.ai_test', ['src' => null]);
+        return view('development.ai_test', ['dataUrl' => null]);
     }
 
     /** aiテスト */
@@ -115,6 +115,9 @@ class DevelopmentController extends Controller
 
         $file = $request->file('file');
 
-        return view('development.ai_test', $this->imageAnalysisService->execAnalysisService($file));
+        return view(
+            'development.ai_test',
+            $this->imageAnalysisService->execAnalysisService($file->getRealPath())
+        );
     }
 }

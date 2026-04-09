@@ -20,10 +20,10 @@
                 <button type="submit" class="app-btn-primary">送信</button>
             </div>
 
-            @if($src)
+            @if($dataUrl)
                 <div class="mt-5">
                     <div class="relative inline-block">
-                        <img src="{{ $src }}">
+                        <img src="{{ $dataUrl['src'] }}">
 
                         @foreach ($list as $row)
                             <!-- 枠 -->
@@ -50,12 +50,22 @@
                     </div>
 
                     <div class="space-y-4">
-                        <div>info</div>
-                        <pre>{{ App\Services\Data\Json::trace($info, true) }}</pre>
-                        <div>list</div>
-                        <pre class="h-[30rem] overflow-scroll">{{ App\Services\Data\Json::trace($list, true) }}</pre>
-                        <div>response</div>
-                        <pre class="h-[30rem] overflow-scroll">{{ App\Services\Data\Json::trace($response, true) }}</pre>
+                        <div>
+                            <div class="font-bold text-lg">mime type</div>
+                            <div>{{ $dataUrl['mime'] }}</div>
+                        </div>
+                        <div>
+                            <div class="font-bold text-lg">info</div>
+                            <pre>{{ App\Services\Data\Json::trace($info, true) }}</pre>
+                        </div>
+                        <div>
+                            <div class="font-bold text-lg">list</div>
+                            <pre class="h-[30rem] overflow-scroll">{{ App\Services\Data\Json::trace($list, true) }}</pre>
+                        </div>
+                        <div>
+                            <div class="font-bold text-lg">response</div>
+                            <pre class="h-[30rem] overflow-scroll">{{ App\Services\Data\Json::trace($response, true) }}</pre>
+                        </div>
                     </div>
                 </div>
             @endif
