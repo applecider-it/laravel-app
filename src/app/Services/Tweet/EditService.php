@@ -42,29 +42,4 @@ class EditService
             'tweetResource' => $tweetResource,
         ];
     }
-
-    /** RPCからTweet追加処理 */
-    public function rpcStoreTweet(Request $request)
-    {
-        //usleep(1000 * 1000 * 3);
-
-        $tweet = new UserTweet();
-        $validated = $request->validate(
-            rules: [
-                'content' => $tweet->validationContent(),
-            ],
-            attributes: [
-                'content' => __('app.models.user/tweet.columns.content')
-            ]
-        );
-
-        $user = $request->user();
-        $content = $validated['content'];
-
-        $ret = $this->newTweet($user, $content);
-
-        $tweetResource = $ret['tweetResource'];
-
-        return $tweetResource;
-    }
 }

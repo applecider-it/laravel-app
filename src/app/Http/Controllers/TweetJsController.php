@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use App\Models\User\Tweet as UserTweet;
 use App\Services\WebSocket\AuthService as WebSocketAuthService;
 use App\Services\Channels\TweetChannel;
+use App\Services\Tweet\EditService;
 use \App\Http\Resources\User\TweetResource;
 
 /**
@@ -19,7 +20,8 @@ use \App\Http\Resources\User\TweetResource;
 class TweetJsController extends Controller
 {
     public function __construct(
-        private WebSocketAuthService $webSocketAuthService
+        private WebSocketAuthService $webSocketAuthService,
+        private EditService $editService,
     ) {}
 
     /** 一覧ページ(JS) */
@@ -33,5 +35,30 @@ class TweetJsController extends Controller
         $tweetsResource = TweetResource::collection($tweets);
 
         return view('tweet_js.index', compact('tweetsResource', 'token', 'user'));
+    }
+
+    /** Tweet追加処理 */
+    public function store(Request $request)
+    {
+        //usleep(1000 * 1000 * 3);
+
+        $tweet = new UserTweet();
+        $validated = $request->validate(
+            rules: [
+                'content' => $tweet->validationContent(),
+            ],
+            attributes: [
+                'content' => __('app.models.user/tweet.columns.content')
+            ]
+        );
+
+        $user = $request->user();
+        $content = $validated['content'];
+
+        $ret = $this->editService->newTweet($user, $content);
+
+        $tweetResource = $ret['tweetResource'];
+
+        return $tweetResource;
     }
 }
