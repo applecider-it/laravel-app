@@ -1,7 +1,7 @@
+import axios from "axios";
+
 import { getAuthUser } from "@/services/app/application";
 import { showToast } from "@/services/ui/message";
-
-import { sendMessage } from "@/services/api/rpc/chat-rpc";
 
 import { User, Message, MessageType } from "./types";
 
@@ -55,7 +55,7 @@ export default class ChatClient {
     }
 
     /** メッセージ送信 */
-    sendMessage(message: string, type: MessageType, options: any) {
+    async sendMessage(message: string, type: MessageType, options: any) {
         console.log("sendMessage type", type);
 
         if (!message || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
@@ -73,7 +73,8 @@ export default class ChatClient {
         } else if (type === "redis") {
             // サーバーを通して、redisを経由する時
 
-            sendMessage(message, this.room);
+            const response = await axios.post("/chat/send", {message, room: this.room});
+            console.log("response.data", response.data);
         }
     }
 

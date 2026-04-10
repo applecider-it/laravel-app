@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
         'create',
         'store',
     ]);
+
+    // Tweet JS
     Route::resource('/tweet_js', TweetJsController::class)->only([
         'index',
         'store',
@@ -49,11 +51,13 @@ Route::middleware('auth')->group(function () {
 
     // Chat
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::post('/chat/send', [ChatController::class, 'send']);
+
+    // Chat (Echo)
     Route::get('/chat_echo', [ChatEchoController::class, 'index'])->name('chat_echo.index');
 
     // JSON-RPC
     Route::post('/rpc/development/{name}', [DevelopmentRpcController::class, 'handle']);
-    Route::post('/rpc/chat/{name}', [ChatRpcController::class, 'handle']);
     Route::post('/rpc/chat-echo/{name}', [ChatEchoRpcController::class, 'handle']);
 });
 
