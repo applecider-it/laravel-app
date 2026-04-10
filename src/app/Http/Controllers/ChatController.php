@@ -52,8 +52,10 @@ class ChatController extends Controller
             "name" => $user->name,
         ];
 
-        $response = $this->webSocketSystemService->publish(ChatChannel::getChannel($room), $data);
+        $this->webSocketSystemService->publish(ChatChannel::getChannel($room), $data);
 
-        return $response;
+        return response()->json([
+            'status' => 'ok',
+        ]);
     }
 }

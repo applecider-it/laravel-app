@@ -59,6 +59,6 @@ class TweetJsController extends Controller
 
         $tweetResource = $ret['tweetResource'];
 
-        return $tweetResource;
+        return response()->json($tweetResource);
     }
 }

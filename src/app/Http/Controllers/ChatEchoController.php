@@ -47,5 +47,9 @@ class ChatEchoController extends Controller
 
         $obj = broadcast(new \App\Events\ChatMessageSent($message, $room, $user));
         if ($others) $obj->toOthers();
+
+        return response()->json([
+            'status' => 'ok',
+        ]);
     }
 }
