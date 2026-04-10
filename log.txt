@@ -533,3 +533,8 @@ php artisan migrate:rollback
 
 npm uninstall marked
 
+-----------------------------------
+
+
+npm install -g web-push
+

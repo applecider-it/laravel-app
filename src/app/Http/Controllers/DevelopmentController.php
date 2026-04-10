@@ -14,6 +14,7 @@ use App\Services\Development\FormService;
 use App\Services\AI\ImageAnalysisService;
 
 use App\Events\SampleEvent;
+use App\Jobs\SampleJob;
 
 /**
  * 開発者向けページ用コントローラー
@@ -81,13 +82,49 @@ class DevelopmentController extends Controller
     /** websocketテスト */
     public function websocket_test(Request $request)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
         $token = $this->webSocketAuthService->createUserJwt($user, ProgressChannel::getChannel($user->id));
         return view(
             'development.websocket_test',
             compact('token')
         );
+    }
+
+    /**
+     * スロージョブ開始
+     */
+    public function start_slow_job(Request $request)
+    {
+        $user = $request->user();
+
+        $test = $request->input('test');
+        $test2 = $request->input('test2');
+
+        Log::info('startSlowJob', [$user->name, $test, $test2]);
+
+        SampleJob::dispatch(date('H:i:s'), $user);
+
+        return response()->json([
+            'status' => true,
+        ]);
+    }
+
+    /**
+     * テストチャンネルにメッセージ送信
+     */
+    public function send_test_channel(Request $request)
+    {
+        $message = $request->input('message');
+        $id = (int) $request->input('user_id');
+
+        Log::info('sendTestChannel', [$message, $id]);
+
+        event(new \App\Events\MessageSent($message, $id));
+
+        return response()->json([
+            'status' => true,
+        ]);
     }
 
     /** routerテスト */

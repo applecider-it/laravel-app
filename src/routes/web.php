@@ -56,9 +56,6 @@ Route::middleware('auth')->group(function () {
     // Chat (Echo)
     Route::get('/chat_echo', [ChatEchoController::class, 'index'])->name('chat_echo.index');
     Route::post('/chat-echo/send', [ChatEchoController::class, 'send']);
-
-    // JSON-RPC
-    Route::post('/rpc/development/{name}', [DevelopmentRpcController::class, 'handle']);
 });
 
 // 開発者向けページ
@@ -68,6 +65,8 @@ Route::get('/development/view_test', [DevelopmentController::class, 'view_test']
 Route::post('/development/view_test_post', [DevelopmentController::class, 'view_test_post'])->name('development.view_test_post');
 Route::get('/development/javascript_test', [DevelopmentController::class, 'javascript_test'])->name('development.javascript_test');
 Route::get('/development/websocket_test', [DevelopmentController::class, 'websocket_test'])->name('development.websocket_test');
+Route::post('/development/start_slow_job', [DevelopmentController::class, 'start_slow_job']);
+Route::post('/development/send_test_channel', [DevelopmentController::class, 'send_test_channel']);
 Route::post('/development/upload_test', [DevelopmentController::class, 'upload_test'])->name('development.upload_test');
 Route::get('/development/router_test', [DevelopmentController::class, 'router_test'])->name('development.router_test');
 Route::get('/development/ai_test', [DevelopmentController::class, 'ai_test'])->name('development.ai_test');

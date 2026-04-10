@@ -1,12 +1,13 @@
 <script setup lang="ts">
 /** Laravel Echo動作確認 */
 
+import axios from "axios";
+
 import { onMounted } from "vue";
 
 import { showToast } from "@/services/ui/message";
 import { MyEcho } from "@/services/app/echo";
 import { getAuthUser } from "@/services/app/application";
-import { sendTestChannel } from "@/services/api/rpc/development-rpc";
 
 onMounted(() => {
     const user = getAuthUser();
@@ -23,8 +24,11 @@ const echoTest = async (message, isMe) => {
     const user = getAuthUser();
     console.log("echoTest", message, isMe);
 
-    const result = await sendTestChannel(message, isMe ? user.id : user.id + 1);
-    console.log("result", result);
+    const response = await axios.post("/development/send_test_channel", {
+        message,
+        user_id: isMe ? user.id : user.id + 1,
+    });
+    console.log("response.data", response.data);
 };
 </script>
 

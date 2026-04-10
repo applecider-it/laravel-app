@@ -1,10 +1,11 @@
 <script setup lang="ts">
 /** 遅いジョブ動作確認 */
 
+import axios from "axios";
+
 import { ref, onMounted } from "vue";
 
 import { showToast } from "@/services/ui/message";
-import { startSlowJob } from "@/services/api/rpc/development-rpc";
 import { setPushCallback } from "@/services/service-worker/service-worker";
 
 import type ProgressClient from "@/services/ui/ProgressClient";
@@ -51,8 +52,13 @@ const onProgressPush = (data) => {
 const SlowJobTest = async () => {
     console.log("SlowJobTest");
     progress.value = 0;
-    const data = await startSlowJob(123, { test3: 456 });
-    console.log("SlowJobTest response data", data);
+
+    const response = await axios.post("/development/start_slow_job", {
+        test: 123,
+        test2: { test3: 456 },
+    });
+    console.log("response.data", response.data);
+
     showToast("送信しました。");
 };
 </script>
