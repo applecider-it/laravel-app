@@ -104,6 +104,9 @@ python -m app.entrypoints.main
 
 AIテスト
 
+/python/tmp/image.jpg
+に画像を配置
+
 python -m app.entrypoints.ai-test
 
 -----------------------------------
@@ -355,6 +358,9 @@ LRANGE laravel-test-database-push_queue_result 0 -1
 
 
 AIサーバー接続の動作確認用
+
+/src/storage/app/image.jpg
+に画像を配置
 
 php artisan app:ai-test
 

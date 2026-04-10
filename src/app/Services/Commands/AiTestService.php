@@ -5,7 +5,7 @@ namespace App\Services\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-use App\Services\AI\AiService;
+use App\Services\AI\ImageAnalysisService;
 
 /**
  * WebSocket関連のテスト用
@@ -15,7 +15,7 @@ class AiTestService
     private Command $cmd;
 
     public function __construct(
-        private AiService $aiService,
+        private ImageAnalysisService $imageAnalysisService,
     ) {}
 
     /**
@@ -34,7 +34,7 @@ class AiTestService
             return;
         }
 
-        $response = $this->aiService->imageAnalysis($path);
+        $response = $this->imageAnalysisService->execAnalysisService($path);
 
         $this->cmd->info('response' . json_encode($response, JSON_UNESCAPED_UNICODE));
     }
