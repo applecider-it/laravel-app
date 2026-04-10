@@ -55,10 +55,10 @@ Route::middleware('auth')->group(function () {
 
     // Chat (Echo)
     Route::get('/chat_echo', [ChatEchoController::class, 'index'])->name('chat_echo.index');
+    Route::post('/chat-echo/send', [ChatEchoController::class, 'send']);
 
     // JSON-RPC
     Route::post('/rpc/development/{name}', [DevelopmentRpcController::class, 'handle']);
-    Route::post('/rpc/chat-echo/{name}', [ChatEchoRpcController::class, 'handle']);
 });
 
 // 開発者向けページ

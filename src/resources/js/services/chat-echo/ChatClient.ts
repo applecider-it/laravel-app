@@ -1,7 +1,7 @@
+import axios from "axios";
+
 import { MyEcho } from "@/services/app/echo";
 import { showToast } from "@/services/ui/message";
-
-import { sendMessage } from "@/services/api/rpc/chat-echo-rpc";
 
 import { User, Message } from "@/services/chat/types";
 
@@ -31,7 +31,7 @@ export default class ChatClient {
     }
 
     /** メッセージ送信 */
-    sendMessage(message: string, options: any) {
+    async sendMessage(message: string, options: any) {
         console.log("sendMessage", options);
 
         if (!message) {
@@ -39,7 +39,8 @@ export default class ChatClient {
             return;
         }
 
-        sendMessage(message, this.room, options);
+        const response = await axios.post("/chat-echo/send", {message, room: this.room, options});
+        console.log("response.data", response.data);
     }
 
     /** ユーザー一覧セットアップ */

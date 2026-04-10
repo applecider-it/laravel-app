@@ -31,4 +31,21 @@ class ChatEchoController extends Controller
 
         return view('chat_echo.index', compact('room', 'rooms'));
     }
+
+    /** Echoでチャットメッセージ送信処理 */
+    public function send(Request $request)
+    {
+        $user = $request->user();
+
+        $room = $request->input('room');
+        $message = $request->input('message');
+        $options = $request->input('options');
+
+        $others = $options['others'] ?? false;
+
+        Log::info("sendMessageEcho options", [$options, $others]);
+
+        $obj = broadcast(new \App\Events\ChatMessageSent($message, $room, $user));
+        if ($others) $obj->toOthers();
+    }
 }
