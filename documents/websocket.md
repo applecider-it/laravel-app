@@ -8,12 +8,6 @@ Laravelと双方向APIで連携。
 
 認証はJWTを使う。
 
-## Laravel Echo
-
-一部、Laravel Echoでも実装している。
-
-- [ドキュメント](./websocket-echo.md)
-
 ## チャンネル名の定義
 
 `channelname:param1,param2...`

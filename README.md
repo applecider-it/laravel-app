@@ -2,7 +2,9 @@
 # Laravelモノリスの試験的なアプリケーション
 
 - [設計](./documents/design.md)
-- [websocket連携](./documents/websocket.md)
+- websocket
+  - [Nodeマイクロサービス](./documents/websocket.md)
+  - [Echo](./documents/websocket-echo.md)
 - [Push通知](./documents/push.md)
 
 
