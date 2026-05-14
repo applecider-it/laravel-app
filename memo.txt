@@ -36,10 +36,16 @@ npx concurrently \
   --kill-others
 
 
-composer dev
+利用できない
+  composer dev
 
-  php artisan pailがあるため、ログイン時に永久ループする
-  SqlLogServiceProviderを無効化すると、問題なく動く
+  php artisan pailとsqlログを併用すると、挙動がおかしくなる。
+  SqlLogServiceProviderを無効化するか、pailではなくtail -f を使うと問題なく動く
+  Laravel\Pail\HandlerでAuthを使っているのが原因
+
+  不具合
+    ・ページ遷移ごとにセッションが削除される
+    ・ログイン時に永久ループする
 
 --
 
