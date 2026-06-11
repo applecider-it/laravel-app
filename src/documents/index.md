@@ -17,3 +17,7 @@
   - [ユーザーツイート](./Models/User/Tweet.md)
 - [管理者](./Models/AdminUser.md)
 - [プッシュ通知登録情報](./Models/PushNotification.md)
+
+## その他
+
+- [評価](./evaluation.md)
