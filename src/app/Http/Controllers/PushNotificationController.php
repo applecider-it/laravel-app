@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 use App\Services\PushNotification\RegistService;
 
@@ -26,7 +27,9 @@ class PushNotificationController extends Controller
         $p256dh = $all['p256dh'];
         $auth = $all['auth'];
 
-        $this->registService->registPushNotifications($user, $endpoint, $p256dh, $auth);
+        DB::transaction(function () use ($user, $endpoint, $p256dh, $auth) {
+            $this->registService->registPushNotifications($user, $endpoint, $p256dh, $auth);
+        });
 
         return response()->json([
             'status' => 'ok',
