@@ -20,4 +20,5 @@
 
 ## その他
 
+- [サービスワーカー](./service-worker.md)
 - [評価](./evaluation.md)
