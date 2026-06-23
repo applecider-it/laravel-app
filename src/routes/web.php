@@ -17,13 +17,16 @@ use App\Http\Controllers\ChatEchoController;
 use App\Http\Controllers\DevelopmentController;
 use App\Http\Controllers\PushNotificationController;
 
-use App\Http\Controllers\Rpc\DevelopmentRpcController;
-use App\Http\Controllers\Rpc\ChatRpcController;
-use App\Http\Controllers\Rpc\ChatEchoRpcController;
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/service-worker.js', function () {
+    return response()
+        ->view('service_worker.service-worker')
+        ->header('Content-Type', 'application/javascript')
+        ->header('Cache-Control', 'no-store, no-cache, must-revalidate');
+});
 
 Route::middleware('auth')->group(function () {
     // 認証必須

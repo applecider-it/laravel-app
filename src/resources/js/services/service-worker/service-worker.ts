@@ -11,7 +11,7 @@ let pushCallback: Function | null = null;
 export async function initServiceWorker(user: User) {
     if (user && user.push_notification) {
         // ログインしていて、通知が有効な場合
-        
+
         setupServiceWorkerEvent();
         setupServiceWorker();
     }
@@ -40,7 +40,14 @@ function setupServiceWorkerEvent() {
 
 /** サービスワーカーのセットアップ */
 async function setupServiceWorker() {
-    await navigator.serviceWorker.register(serviceWorkerUrl);
+    const registration = await navigator.serviceWorker.register(
+        serviceWorkerUrl,
+        {
+            updateViaCache: "none", // ブラウザキャッシュを無視してSWを毎回チェック
+        },
+    );
+
+    registration.update(); // リロードのたびに強制更新チェック
 
     // SW が active になるのを待つ
     const readyRegistration = await navigator.serviceWorker.ready;
@@ -96,7 +103,7 @@ async function registSubscription(readyRegistration) {
 function vapidPublicKey() {
     const vapidPublicKey = (
         document.querySelector(
-            'meta[name="vapid-public-key"]'
+            'meta[name="vapid-public-key"]',
         ) as HTMLMetaElement
     )?.content;
     console.log(vapidPublicKey);
