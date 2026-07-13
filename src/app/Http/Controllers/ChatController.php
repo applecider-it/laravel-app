@@ -40,7 +40,7 @@ class ChatController extends Controller
         return view('chat.index', compact('token', 'room', 'rooms'));
     }
 
-    /** RPCからチャットメッセージ送信処理 */
+    /** Redisを使ったチャットメッセージ送信処理 */
     public function send(Request $request)
     {
         $user = $request->user();

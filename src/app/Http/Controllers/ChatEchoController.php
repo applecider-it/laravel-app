@@ -35,10 +35,19 @@ class ChatEchoController extends Controller
     /** Echoでチャットメッセージ送信処理 */
     public function send(Request $request)
     {
+        $validated = $request->validate(
+            rules: [
+                'message'  => ['required'],
+            ],
+            attributes: [
+                'message' => 'メッセージ',
+            ]
+        );
+        
         $user = $request->user();
 
         $room = $request->input('room');
-        $message = $request->input('message');
+        $message = $validated['message'];
         $options = $request->input('options');
 
         $others = $options['others'] ?? false;

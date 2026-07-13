@@ -34,11 +34,6 @@ export default class ChatClient {
     async sendMessage(message: string, options: any) {
         console.log("sendMessage", options);
 
-        if (!message) {
-            console.warn("[DEBUG] WebSocket not ready or empty message");
-            return;
-        }
-
         const response = await axios.post("/chat-echo/send", {message, room: this.room, options});
         console.log("response.data", response.data);
     }
