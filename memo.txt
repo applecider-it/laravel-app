@@ -36,6 +36,9 @@ npx concurrently \
   --kill-others
 
 
+composer dev2
+
+
 利用できない
   composer dev
 

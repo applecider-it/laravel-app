@@ -21,4 +21,5 @@
 ## その他
 
 - [サービスワーカー](./service-worker.md)
+- [不具合](./error.md)
 - [評価](./evaluation.md)
