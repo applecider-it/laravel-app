@@ -20,6 +20,9 @@
                     <x-nav-link href="{{ route('tweet_js.index') }}" :active="request()->routeIs('tweet_js.index')">
                         Tweet (JS)
                     </x-nav-link>
+                    <x-nav-link href="{{ route('tweet_rails.index') }}" :active="request()->routeIs('tweet_rails.index')">
+                        Tweet (Rails)
+                    </x-nav-link>
                     <x-nav-link href="{{ route('chat.index') }}" :active="request()->routeIs('chat.index')">
                         Chat
                     </x-nav-link>

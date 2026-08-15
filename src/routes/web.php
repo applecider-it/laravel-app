@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\TweetJsController;
+use App\Http\Controllers\TweetRailsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatEchoController;
 use App\Http\Controllers\DevelopmentController;
@@ -42,6 +43,13 @@ Route::middleware('auth')->group(function () {
     // Tweet JS
     Route::resource('/tweet_js', TweetJsController::class)->only([
         'index',
+        'store',
+    ]);
+
+    // Tweet Rails
+    Route::resource('tweet_rails', TweetRailsController::class)->only([
+        'index',
+        'create',
         'store',
     ]);
 
