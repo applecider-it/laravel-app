@@ -23,6 +23,8 @@ laravel
 
 まとめて起動
 
+cd ~/workspace/github/laravel-app/src
+
 
 foreman start
 

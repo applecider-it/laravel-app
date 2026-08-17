@@ -75,7 +75,7 @@ export default class TweetClient {
 
     /** 新しいツイート送信 */
     async sendTweet(content) {
-        const response = await axios.post("/tweet_js", {content});
+        const response = await axios.post("/tweet_js", { content });
         console.log("response.data", response.data);
     }
 }

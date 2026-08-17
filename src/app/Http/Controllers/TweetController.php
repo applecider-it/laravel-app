@@ -58,7 +58,7 @@ class TweetController extends Controller
 
         $user = $request->user();
 
-        $content = $validated['content'];
+        $tweet->content = $validated['content'];
 
         $commit = $request->input('commit');
         $confirm = $request->input('confirm');
@@ -68,7 +68,7 @@ class TweetController extends Controller
         if ($commit) {
             // 確定時
 
-            $this->editService->newTweet($user, $content);
+            $this->editService->newTweet($user, $tweet);
 
             return redirect()->back()->with('success', '投稿が作成されました');
         } else if ($confirm) {

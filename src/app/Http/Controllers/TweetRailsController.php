@@ -79,7 +79,7 @@ class TweetRailsController extends Controller
         if ($commit) {
             // 確定時
 
-            $this->editService->newTweet($user, $tweet->content);
+            $this->editService->newTweet($user, $tweet);
 
             return redirect()->back()->with('success', '投稿が作成されました');
         } else if ($confirm) {

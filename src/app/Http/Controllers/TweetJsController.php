@@ -53,12 +53,12 @@ class TweetJsController extends Controller
         );
 
         $user = $request->user();
-        $content = $validated['content'];
+        $tweet->content = $validated['content'];
 
-        $ret = $this->editService->newTweet($user, $content);
+        $this->editService->newTweet($user, $tweet);
 
-        $tweetResource = $ret['tweetResource'];
-
-        return response()->json($tweetResource);
+        return response()->json([
+            'status' => 'ok',
+        ]);
     }
 }

@@ -22,11 +22,9 @@ class EditService
     /**
      * 指定したユーザーの新しいツイート作成
      */
-    public function newTweet(User $user, string $content)
+    public function newTweet(User $user, UserTweet $tweet)
     {
-        $tweet = $user->tweets()->create([
-            'content' => $content,
-        ]);
+        $tweet = $user->tweets()->save($tweet);
 
         $tweetResource = new TweetResource($tweet->load('user'));
 
@@ -36,10 +34,5 @@ class EditService
 
         Log::info('tweetResource', [$tweetResource]);
         Log::info('tweetResource->toArray', [$tweetArray]);
-
-        return [
-            'tweet' => $tweet,
-            'tweetResource' => $tweetResource,
-        ];
     }
 }
