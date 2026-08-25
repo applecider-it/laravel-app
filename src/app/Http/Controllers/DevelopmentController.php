@@ -16,6 +16,12 @@ use App\Services\AI\ImageAnalysisService;
 use App\Events\SampleEvent;
 use App\Jobs\SampleJob;
 
+/** スレッドセーフ動作確認用カウンター */
+class Counter
+{
+    public static int $count = 0;
+}
+
 /**
  * 開発者向けページ用コントローラー
  */
@@ -46,6 +52,10 @@ class DevelopmentController extends Controller
         event(new SampleEvent($user));
 
         $this->sampleService->testExec("php_test");
+
+        Counter::$count++;
+
+        Log::info("Counter", [Counter::$count]);
 
         return view('development.complate');
     }
