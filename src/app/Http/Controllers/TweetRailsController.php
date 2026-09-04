@@ -60,14 +60,14 @@ class TweetRailsController extends Controller
             ]
         );
 
+        $data = $validator->getData();
+
+        $tweet->content = $data['content'];
+
         if ($validator->fails()) {
             $errors = (new ViewErrorBag)->put('default', $validator->errors());
             return view('tweet_rails.create', compact('tweet', 'errors'));
         }
-
-        $validated = $validator->validated();
-
-        $tweet->content = $validated['content'];
 
         $user = $request->user();
 
