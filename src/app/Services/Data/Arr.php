@@ -18,4 +18,16 @@ class Arr
 
         return $array;
     }
+
+    /**
+     * ハッシュをマップに変換
+     */
+    public static function hashToMap(array $hash): array
+    {
+        $map = [];
+
+        foreach ($hash as $key => $val) $map[] = [$key, $val];
+
+        return $map;
+    }
 }

@@ -7,8 +7,8 @@ interface Props {
     listVal: number;
     radioVal: string;
     dateTimeVal: string;
-    listVals: Record<string, string>;
-    radioVals: Record<string, string>;
+    listVals: Map<number, string>;
+    radioVals: Map<string, string>;
 }
 
 const props = defineProps<Props>();
@@ -36,9 +36,9 @@ const confirmFormValue = () => {
             <select v-model="listVal" id="listVal">
                 <option :value="null" key="null">選択してください</option>
                 <option
-                    v-for="(value, key) in listVals"
+                    v-for="[key, value] in listVals"
                     :key="key"
-                    :value="Number(key)"
+                    :value="key"
                 >
                     {{ value }}
                 </option>
@@ -50,7 +50,7 @@ const confirmFormValue = () => {
         <div class="mt-5">
             <label class="app-form-label">ラジオボタン動作確認</label>
             <div class="space-x-3">
-                <label v-for="(value, key) in radioVals" :key="key">
+                <label v-for="[key, value] in radioVals" :key="key">
                     <input type="radio" :value="key" v-model="radioVal" />
                     <span>&nbsp;{{ value }}</span>
                 </label>
