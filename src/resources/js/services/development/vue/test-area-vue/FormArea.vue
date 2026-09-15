@@ -7,8 +7,8 @@ interface Props {
     listVal: number;
     radioVal: string;
     dateTimeVal: string;
-    listVals: Map<number, string>;
-    radioVals: Map<string, string>;
+    listVals: [number, string][];
+    radioVals: [string, string][];
 }
 
 const props = defineProps<Props>();
