@@ -1,0 +1,468 @@
+
+cd ~/workspace/github/laravel-app/src
+
+-----------------------------------
+
+port
+
+laravel: 8000
+vite: 5173
+websocket: 8001
+soketi: 6001
+python: 8090
+
+
+-----------------------------------
+
+開発サーバーを起動
+
+-------
+
+laravel
+
+
+まとめて起動
+
+cd ~/workspace/github/laravel-app/src
+
+
+foreman start
+
+
+npx concurrently \
+  -c "#93c5fd,#c4b5fd,#fb7185" \
+  "php artisan serve" \
+  "tail -f ./storage/logs/laravel.log" \
+  "npm run dev" \
+  --names=server,logs,vite \
+  --kill-others
+
+
+composer dev2
+
+
+利用できない
+  composer dev
+
+  php artisan pailとsqlログを併用すると、挙動がおかしくなる。
+  SqlLogServiceProviderを無効化するか、pailではなくtail -f を使うと問題なく動く
+  Laravel\Pail\HandlerでAuthを使っているのが原因
+
+  不具合
+    ・ページ遷移ごとにセッションが削除される
+    ・ログイン時に永久ループする
+
+--
+
+ログクリア
+
+echo "" > ./storage/logs/laravel.log
+
+--
+
+個別起動
+
+php artisan serve
+
+npm run dev
+
+tail -f ./storage/logs/laravel.log
+
+--
+
+ビルドして実行
+
+npm run build
+
+php artisan serve
+
+
+-------
+
+node
+
+foremanで実行すると、foremanが.envを読み込むため環境変数が混乱してしまうので、
+nodeディレクトリに移動してから実行したほうが、正確な動作確認ができる。
+
+
+websocketサーバー起動
+
+cd ~/workspace/github/laravel-app/node
+
+npx tsx watch ./app/entrypoints/websocket-server.js
+
+
+本番起動
+
+npm run build
+
+node dist/entrypoints/websocket-server.js
+
+-------
+
+python
+
+cd ~/workspace/github/laravel-app/python
+
+source venv/bin/activate
+
+uvicorn app.entrypoints.main:app --reload --port 8090
+
+または
+
+python -m app.entrypoints.main
+
+
+AIテスト
+
+/python/tmp/image.jpg
+に画像を配置
+
+python -m app.entrypoints.ai-test
+
+-----------------------------------
+
+http://localhost:8000/
+
+test@localhost.com / testtest
+
+test2@localhost.com / test2test2
+
+http://localhost:8000/admin_secrettext/dashboard
+
+admin@localhost.com / adminadmin
+
+---
+
+管理者作成
+
+php artisan tinker
+
+App\Models\AdminUser::create(
+  [
+    'name' => 'admin',
+    'email' => 'admin@localhost.com',
+    'password' => Hash::make('adminadmin'),
+  ]
+);
+
+
+-----------------------------------
+
+セットアップ
+
+
+laravel
+
+
+composer install
+
+npm ci
+
+cp .env.example .env
+
+php artisan key:generate
+
+php artisan migrate
+
+
+----
+
+node
+
+
+npm ci
+
+cp .env.example .env
+
+
+----
+
+python
+
+
+python3 -m venv venv
+
+source venv/bin/activate
+
+cp .env.example .env
+
+pip install --upgrade pip
+
+pip install -r requirements.txt
+
+
+----
+
+soketi
+
+必要なら
+  nvm install 18
+
+nvm use 18
+
+npm install -g @soketi/soketi
+
+
+
+-----------------------------------
+
+ルート一覧
+
+php artisan route:list
+
+-----------------------------------
+
+メールキャッチャー
+
+
+dockerデスクトップ起動
+
+docker run -d --name mailhog -p 1025:1025 -p 8025:8025 mailhog/mailhog
+
+一度作った後は、Docker Desktopから起動できる
+
+
+状態確認
+docker ps -a
+
+再起動
+docker start mailhog
+
+
+http://localhost:8025/
+
+
+確認方法
+
+php artisan tinker
+
+Mail::raw('MailHog テスト', function($m){
+    $m->to('test@example.com')->subject('MailHog from WSL');
+});
+
+-----------------------------------
+
+ジョブ
+
+ワーカー起動
+
+php artisan queue:work
+
+
+php artisan tinker
+
+$user = App\Models\User::first(); $obj = App\Jobs\SampleJob::dispatch(date('H:i:s'), $user); unset($obj);
+
+dispatchは、PendingDispatchクラスインスタンスを作るだけ、実際に実行されるのはPendingDispatchクラスのデストラクタなので、unsetが必要。
+
+-----------------------------------
+
+イベント
+
+一覧
+
+php artisan event:list
+
+-----------------------------------
+
+nginx
+
+systemctl status nginx
+systemctl status php8.3-fpm
+
+sudo service nginx restart
+sudo service php8.3-fpm restart
+
+sudo vi /etc/nginx/sites-available/laravel_app
+
+http://localhost:8080/
+
+-----------------------------------
+
+WebSocket
+
+
+テスト送信コマンド
+
+
+help
+
+php artisan help app:web-socket-test
+
+
+redis pub/subのシステムチャットのテスト送信
+
+php artisan app:web-socket-test redis
+
+ユーザーを指定する時
+
+php artisan app:web-socket-test redis --user_id=1
+
+-----------------------------------
+
+push通知
+
+キー出力
+
+npx web-push generate-vapid-keys
+
+
+テスト送信コマンド
+
+
+help
+
+php artisan help app:push-notification-test
+
+
+nodeの一斉送信用に、Redisに追加
+
+php artisan app:push-notification-test redis 1
+
+redisのクリアをしないとき
+
+php artisan app:push-notification-test redis 1 --noclear
+
+
+Laravelから送信
+
+php artisan app:push-notification-test laravel 1
+
+
+
+-------
+
+nodeで、Push通知まとめて送信
+
+cd ~/workspace/github/laravel-app/node
+
+npx tsx ./app/entrypoints/push-sender.js
+
+本番環境
+
+node ./dist/entrypoints/push-sender.js
+
+-------
+
+
+結果受け取り
+
+php artisan app:receive-push-result
+
+-------
+
+Redis確認
+
+
+redis-cli
+
+
+LRANGE laravel-test-database-push_queue 0 -1
+
+LRANGE laravel-test-database-push_queue_result 0 -1
+
+
+-----------------------------------
+
+その他のコマンド
+
+
+AIサーバー接続の動作確認用
+
+/src/storage/app/image.jpg
+に画像を配置
+
+php artisan app:ai-test
+
+ミドルウェアのトレース
+
+php artisan app:trace-middleware
+
+php artisan app:trace-middleware --uri=/api/development/chat_callback_test --method=POST
+
+-----------------------------------
+
+Redis
+
+redis-cli
+
+キー取得
+
+keys *
+
+値取得
+
+get key
+
+rpushの値の取得
+
+LRANGE key 0 -1
+
+publish受信
+
+PSUBSCRIBE *
+
+モニター
+
+MONITOR
+
+-----------------------------------
+
+Echo、Pusher
+
+
+soketi起動
+
+cd ~/workspace/github/laravel-app/soketi
+
+nvm use 18
+
+./start.sh
+
+
+----
+
+動作確認
+
+
+php artisan tinker
+
+
+event(new App\Events\MessageSent('Hello Soketi', 1));
+
+-----------------------------------
+
+ログ
+
+標準出力にするとき
+
+.env
+
+LOG_CHANNEL=stderr
+
+-----------------------------------
+
+画像
+
+
+リンク作成
+
+
+php artisan storage:link
+
+-----------------------------------
+
+Scaffold
+
+
+php artisan help app:scaffold
+
+
+php artisan app:scaffold UserPost auther,subject,content_body
+
+php artisan app:scaffold UserPost auther,subject,content_body --force
+
+php artisan app:scaffold UserPost auther,subject,content_body --dryrun
+
+php artisan app:scaffold UserPost auther,subject,content_body --dryrun --display
