@@ -1,0 +1,112 @@
+import axios from "axios";
+
+import { showToast } from "@/services/ui/message";
+import { User } from "@/services/app/types";
+
+const serviceWorkerUrl = "/service-worker.js";
+
+let pushCallback: Function | null = null;
+
+/** サービスワーカーの初期化 */
+export async function initServiceWorker(user: User) {
+    if (user && user.push_notification) {
+        // ログインしていて、通知が有効な場合
+
+        setupServiceWorkerEvent();
+        setupServiceWorker();
+    }
+}
+
+/** Push通知のコールバック指定 */
+export async function setPushCallback(func: Function | null) {
+    pushCallback = func;
+}
+
+/** サービスワーカー用イベント追加 */
+function setupServiceWorkerEvent() {
+    navigator.serviceWorker.addEventListener("message", (event) => {
+        console.log("Push received in window:", event.data);
+        if (event.data.type === "push-received") {
+            // サービスワーカーからのプッシュ通知を受け取った時
+
+            const payload = event.data.payload;
+
+            console.log("Message from SW: ", payload);
+
+            if (pushCallback) pushCallback(payload);
+        }
+    });
+}
+
+/** サービスワーカーのセットアップ */
+async function setupServiceWorker() {
+    const registration = await navigator.serviceWorker.register(
+        serviceWorkerUrl,
+        {
+            updateViaCache: "none", // ブラウザキャッシュを無視してSWを毎回チェック
+        },
+    );
+
+    registration.update(); // リロードのたびに強制更新チェック
+
+    // SW が active になるのを待つ
+    const readyRegistration = await navigator.serviceWorker.ready;
+
+    // Push通知の権限リクエスト
+    const permission = await Notification.requestPermission();
+    console.log("Notification permission:", permission);
+
+    if (permission === "granted") {
+        let subscription =
+            await readyRegistration.pushManager.getSubscription();
+
+        console.log(subscription);
+
+        // 登録済みの場合は処理しない
+        if (subscription) {
+            console.log("subscription登録済み");
+            return;
+        }
+
+        await registSubscription(readyRegistration);
+    } else {
+        console.log("Push通知が許可されていません");
+    }
+}
+
+/** プッシュ通知登録 */
+async function registSubscription(readyRegistration) {
+    console.log("subscriptionを作成");
+
+    // PushManagerでSubscriptionを作成
+    const subscription = await readyRegistration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: vapidPublicKey(),
+    });
+
+    const json = subscription.toJSON() as any;
+
+    const subscriptionData = {
+        endpoint: subscription.endpoint,
+        p256dh: json.keys.p256dh,
+        auth: json.keys.auth,
+    };
+
+    console.log(subscriptionData);
+
+    // サーバーに保存
+    const response = await axios.post("/push_notification", subscriptionData);
+    console.log("response.data", response.data);
+}
+
+/** プッシュ通知用パブリックキー */
+function vapidPublicKey() {
+    const vapidPublicKey = (
+        document.querySelector(
+            'meta[name="vapid-public-key"]',
+        ) as HTMLMetaElement
+    )?.content;
+    console.log(vapidPublicKey);
+
+    return vapidPublicKey;
+}

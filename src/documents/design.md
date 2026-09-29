@@ -1,0 +1,72 @@
+# 設計
+
+MVCSにして、ビジネスロジックは、カテゴリーごとにフォルダを分けたサービスクラスにまとめている。
+
+javascriptを使わないでtypescriptだけ利用している。
+
+インタラクティブな部分は、vueをアイランドアーキテクチャで利用している。
+
+## 通常のLaravel以外の構成
+
+```
+app/
+  Http/
+    Controllers/
+      Admin/ <- 独自実装の管理画面
+      TweetController.php <- UserTweetController.phpにしないで、Tweetというドメインを表すようにしている。
+      .
+      .
+      .
+  Models/
+    User/
+      Tweet.php <- サブテーブルは、階層的に配置
+    User.php
+      .
+      .
+      .
+  Services/ <- ビジネスロジックなど
+    (カテゴリーごとにディレクトリを分けて、そのなかにサービスクラスを配置している)
+    Admin/ <- 管理画面関連
+    Channels/ <- WebSocketチャンネル関連
+    Sample/ <- サービスクラス実装例
+    .
+    .
+    .
+
+config/
+  myapp.php <- アプリケーション独自の設定ファイル
+
+documents/ <- Laravelモノリス固有のドキュメント
+
+lang/
+  ja/
+    app.php <- アプリケーション独自の言語ファイル
+
+resources/
+  js/
+    entrypoints/ <- エントリーポイント
+    services/ <- ビジネスロジックなど
+      (カテゴリーごとにディレクトリを分けて、そのなかにサービスクラスを配置している)
+    types/ <- グローバルな型情報置き場
+    (app.ts -> entrypointsに移動している)
+  views/
+    admin/ <- 独自実装の管理画面
+    pwa/ <- pwa関連
+    .
+    .
+    .
+routes/
+  admin_auth.php <- 独自実装の管理画面。web.phpから呼んでいる。
+  admin.php <- 独自実装の管理画面。web.phpから呼んでいる。
+    .
+    .
+    .
+```
+
+
+## その他の技術選択の理由
+
+
+- livewireを使わない理由は、できることが限られているのに、複雑で、使いこなせるエンジニアがほとんどいないのに、使いこなせるエンジニアが必要で、潰しがきかない技術だからです。
+
+- 管理画面のパッケージは、ブラックボックスのため難しくなってくるので利用していない。

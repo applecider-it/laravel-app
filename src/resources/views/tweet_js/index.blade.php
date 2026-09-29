@@ -1,0 +1,22 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="app-header-title">
+            Tweets
+        </h2>
+    </x-slot>
+
+    <div class="app-container">
+        <div
+            id="tweet-app"
+            data-all="{{ json_encode([
+                'user' => $user,
+                'token' => $token,
+                'wsHost' => config('myapp.ws_server_host'),
+                'tweets' => $tweetsResource,
+            ]) }}">
+            @include('partials.message.loading')
+        </div>
+    </div>
+</x-app-layout>
+
+@vite('resources/js/entrypoints/tweet.ts')

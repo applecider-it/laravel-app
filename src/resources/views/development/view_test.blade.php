@@ -1,0 +1,64 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="app-header-title">
+            View Test
+        </h2>
+    </x-slot>
+
+    <div class="app-container">
+        <div class="my-6 text-lg">読み込み中表示の動作確認</div>
+        <div class="mt-5 border-gray-500 border-2 p-0">
+            @include('partials.message.loading')
+        </div>
+        <div class="mt-5 border-gray-500 border-2 p-0">
+            @include('partials.message.loading')
+        </div>
+
+        <div class="my-6 text-lg">フォームの動作確認</div>
+        <form method="POST" action="{{ route('development.view_test_post') }}" class="app-form mt-5">
+            @csrf
+            <div class="mt-5">
+                <label for="list_val" class="app-form-label">リスト動作確認</label>
+
+                <select name="list_val" id="list_val">
+                    <option value="">選択してください</option>
+                    @foreach($list_vals as $key => $value)
+                        <option value="{{ $key }}"
+                            {{ old('list_val', $list_val) == $key ? 'selected' : '' }}>
+                            {{ $value }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mt-5">
+                <label class="app-form-label">ラジオボタン動作確認</label>
+
+                <div class="space-x-3">
+                    @foreach($radio_vals as $key => $value)
+                        <label>
+                            <input type="radio" name="radio_val" value="{{ $key }}"
+                                {{ old('radio_val', $radio_val) == $key ? 'checked' : '' }}>
+                            {{ $value }}
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <label for="datetime_val" class="app-form-label">日時動作確認</label>
+                <input type="datetime-local" name="datetime_val" value="{{ old('datetime_val', $datetime_val) }}" id="datetime_val" />
+            </div>
+
+            <div class="mt-5">
+                <button type="submit" class="app-btn-primary">送信</button>
+            </div>
+        </form>
+
+        <div class="my-6 text-lg">コピーの動作確認</div>
+
+        <div class="mt-5">
+            <button type="button" onclick="App.funcs.writeClipboard(this)" data-clipboard-data="コピーする文字列" class="app-btn-primary">Copy</button>
+        </div>
+    </div>
+</x-app-layout>

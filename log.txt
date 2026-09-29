@@ -1,0 +1,540 @@
+
+# ComposerでLaravelをインストール
+composer create-project laravel/laravel example-app
+
+# ディレクトリに移動
+cd example-app
+
+-----------------------------------
+
+管理画面
+
+composer require filament/filament
+
+php artisan make:filament-user
+
+php artisan make:filament-panel admin
+
+admin / admin@localhost.com / adminadmin
+
+http://127.0.0.1:8000/admin/login
+
+php artisan storage:link
+
+npm install
+npm run build
+
+php artisan filament:clear
+php artisan optimize:clear
+
+php artisan filament:install
+
+php artisan migrate
+
+php artisan make:filament-resource User
+
+-----------------------------------
+
+opcache
+
+php -i | grep opcache
+
+php -r "print_r(opcache_get_status());"
+
+-----------------------------------
+
+認証
+
+composer require laravel/breeze --dev
+
+php artisan breeze:install
+
+npm install
+npm run build
+
+php artisan migrate
+
+sudo apt update
+sudo apt install dbeaver-ce
+
+sudo apt update
+sudo apt install mysql-server
+
+sudo service mysql start
+sudo service mysql status
+
+sudo mysql
+
+CREATE DATABASE laravel_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE USER 'laravel_user'@'%' IDENTIFIED BY 'secret1234';
+GRANT ALL PRIVILEGES ON laravel_db.* TO 'laravel_user'@'%';
+
+FLUSH PRIVILEGES;
+
+sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+
+bind-address = 0.0.0.0
+mysqlx-bind-address = 0.0.0.0
+
+sudo service mysql restart
+
+php artisan migrate
+
+-----
+DBeaver で接続設定：
+
+Host: 127.0.0.1
+
+Port: 3306
+
+User: laravel_user
+
+Pass: secret1234
+
+Database: laravel_db
+-----
+
+-----------------------------------
+
+Tweet
+
+php artisan make:filament-page DashboardStats
+
+
+php artisan make:model Tweet -m
+
+php artisan migrate
+
+php artisan make:controller TweetController
+
+-----------------------------------
+
+日本語化
+
+composer require laravel-lang/lang
+
+php artisan lang:publish ja
+
+php artisan lang:publish
+
+-----------------------------------
+
+
+git remote add origin https://github.com/applecider-it/laravel_test.git
+git branch -M main
+git push -u origin main
+
+-----------------------------------
+
+
+# React 用の Vite プラグインをインストール
+npm install --save-dev @vitejs/plugin-react
+
+# React と ReactDOM
+npm install react react-dom
+
+-----------------------------------
+
+npm init -y
+npm install ws
+
+php artisan make:controller ChatController
+
+composer require firebase/php-jwt
+
+npm install ws jsonwebtoken dotenv
+
+-----------------------------------
+
+pip install fastapi uvicorn
+python ai_service.py
+
+# Python3のvenvモジュールで仮想環境を作成
+python3 -m venv venv
+
+# 仮想環境を有効化
+source venv/bin/activate  # Linux/macOS
+# Windowsの場合
+# .\venv\Scripts\activate
+
+sudo apt update
+sudo apt install python3-venv python3-pip -y
+
+rm -rf venv  # 古い venv を削除
+python3 -m venv venv
+
+pip install --upgrade pip
+pip install fastapi uvicorn
+
+-----------------------------------
+
+php artisan make:controller TestController index ai_test
+
+composer require textalk/websocket
+
+-----------------------------------
+
+composer require barryvdh/laravel-debugbar --dev
+
+php artisan vendor:publish --provider="Barryvdh\Debugbar\ServiceProvider"
+
+-----------------------------------
+
+npm install -D typescript ts-node @types/node
+
+npx tsc --init
+
+npx tsx src/server.ts
+
+npx tsx watch src/server.ts
+
+npx tsc
+node dist/server.js
+
+-----------------------------------
+
+
+php artisan vendor:publish --tag=laravel-pagination
+
+-----------------------------------
+
+php artisan make:command WebSocketTest
+
+-----------------------------------
+
+sudo apt install php-redis
+
+-----------------------------------
+
+
+php artisan make:filament-page Users/CustomActionUser
+
+-----------------------------------
+
+composer require livewire/livewire
+
+php artisan make:livewire Counter
+
+-----------------------------------
+
+
+php artisan vendor:publish --tag=filament-config
+
+-----------------------------------
+
+
+php artisan make:migration create_admin_users_table
+
+php artisan make:model AdminUser
+
+php artisan migrate
+
+php artisan migrate:rollback
+
+-----------------------------------
+
+php artisan make:migration rename_tweets_to_user_tweets
+
+php artisan migrate
+
+-----------------------------------
+
+php artisan make:job TestJob
+
+php artisan queue:table
+
+php artisan make:command TestJobRunner
+
+-----------------------------------
+
+php artisan make:mail UserUpdatedMail
+
+php artisan make:job UserUpdatedMailJob
+
+-----------------------------------
+
+php artisan make:event TestEvent
+
+php artisan make:listener TestListener --event=TestEvent
+
+-----------------------------------
+
+php artisan make:resource User/TweetResource
+
+-----------------------------------
+
+php artisan make:provider EventServiceProvider
+
+-----------------------------------
+
+
+# 更新
+sudo apt update && sudo apt upgrade -y
+
+# nginx と php-fpm をインストール
+sudo apt install -y nginx php-fpm
+
+sudo vi /etc/nginx/sites-available/laravel_app
+
+server {
+    listen 80;
+    server_name localhost;
+
+    root /home/owner/workspace/tmp/laravel_test/src/public;
+    index index.php index.html;
+
+    # Laravel のフロントコントローラーにリクエストを渡す
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # PHP-FPM に渡す設定
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # 静的ファイル（CSS / JS / 画像など）は直接配信
+    location ~* \.(jpg|jpeg|gif|png|css|js|ico|webp|tiff|ttf|woff|woff2|svg|eot)$ {
+        expires max;
+        log_not_found off;
+    }
+
+    # セキュリティ向上: .env 等の隠しファイルはアクセス禁止
+    location ~ /\. {
+        deny all;
+    }
+
+    # エラーログなど
+    error_log /home/owner/workspace/tmp/laravel_test/src/storage/logs/nginx_error.log;
+    access_log /home/owner/workspace/tmp/laravel_test/src/storage/logs/nginx_access.log;
+}
+
+
+sudo ln -s /etc/nginx/sites-available/laravel_app /etc/nginx/sites-enabled/
+
+ps aux | grep nginx
+ps aux | grep php-fpm
+
+sudo setfacl -R -m u:www-data:rwx storage bootstrap/cache
+sudo setfacl -R -m u:$(whoami):rwx storage bootstrap/cache
+
+sudo apt update
+sudo apt install acl
+
+
+-----------------------------------
+
+php artisan make:command PushNotificationTest
+
+
+# 本体
+npm install web-push
+
+# TypeScript 型定義（推奨）
+npm install -D @types/web-push
+
+
+npm install web-push
+
+npm install ioredis
+npm install -D @types/ioredis
+
+-----------------------------------
+
+composer remove filament/filament
+
+
+-----------------------------------
+
+php artisan make:migration create_push_notifications_table
+
+php artisan migrate
+
+php artisan make:model PushNotification
+
+php artisan make:controller PushNotificationController
+
+
+-----------------------------------
+
+php artisan make:migration add_deleted_at_to_users_table --table=users
+
+php artisan migrate
+
+php artisan make:provider SqlLogServiceProvider
+
+
+php artisan make:migration add_deleted_at_to_user_tweets_table --table=user_tweets
+
+-----------------------------------
+
+
+npm install vue@3 vue-loader@^17 @vitejs/plugin-vue --save-dev
+
+-----------------------------------
+
+
+composer remove livewire/livewire
+
+-----------------------------------
+
+composer require workerman/workerman
+
+composer audit
+
+php artisan make:command WorkermanStart
+
+-----------------------------------
+
+
+php artisan make:migration add_push_notification_id_to_users_table --table=users
+
+php artisan make:migration add_user_id_to_push_notifications_table --table=push_notifications
+
+php artisan migrate
+
+php artisan migrate:rollback
+
+-----------------------------------
+
+
+
+composer remove workerman/workerman
+
+composer dump-autoload
+
+-----------------------------------
+
+
+php artisan make:migration add_deleted_at_to_push_notifications_table --table=push_notifications
+
+php artisan migrate
+
+php artisan migrate:rollback
+
+php artisan migrate:rollback --step=1
+
+-----------------------------------
+
+npm install -D @types/node@20
+
+npm install --save-dev tsc-alias
+
+-----------------------------------
+
+
+pip install python-dotenv
+
+-----------------------------------
+
+
+php artisan make:factory PushNotificationFactory
+
+
+-----------------------------------
+
+php artisan config:publish broadcasting
+
+php artisan make:event MessageSent
+
+php artisan tinker
+
+
+event(new App\Events\MessageSent('Hello Soketi'));
+
+npm install laravel-echo pusher-js
+
+composer require pusher/pusher-php-server
+
+php artisan install:broadcasting
+
+
+sudo vi /etc/redis/redis.conf
+
+bind 0.0.0.0
+protected-mode no
+
+sudo systemctl restart redis-server
+
+
+npm install -g @soketi/soketi
+
+nvm install 18
+nvm use 18
+
+-----------------------------------
+
+
+php artisan make:middleware RequestLogMiddleware
+
+-----------------------------------
+
+composer require diglactic/laravel-breadcrumbs
+
+php artisan vendor:publish --tag=breadcrumbs-views
+php artisan vendor:publish --tag=breadcrumbs-config
+
+-----------------------------------
+
+
+npm install htmx.org
+
+
+-----------------------------------
+
+
+npm install vue-router
+
+-----------------------------------
+
+
+npm uninstall htmx.org
+
+
+-----------------------------------
+
+
+npm uninstall --save-dev @vitejs/plugin-react
+
+npm uninstall react react-dom
+
+npm uninstall vue-router
+
+-----------------------------------
+
+
+npm install -D typescript
+
+
+-----------------------------------
+
+
+php artisan make:migration create_posts_table
+
+php artisan migrate
+
+
+npm install marked
+
+
+php artisan make:migration create_files_table
+
+php artisan migrate
+
+php artisan make:model File
+
+php artisan make:controller Admin/FileController
+
+php artisan migrate:rollback
+
+npm uninstall marked
+
+-----------------------------------
+
+
+npm install -g web-push
+
