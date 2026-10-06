@@ -12,9 +12,11 @@ use App\Services\Sample\SampleService;
 use App\Services\Development\TraceService;
 use App\Services\Development\FormService;
 use App\Services\AI\ImageAnalysisService;
+use App\Services\Jobs\SamplePollingJobService\ProgressService;
 
 use App\Events\SampleEvent;
 use App\Jobs\SampleJob;
+use App\Jobs\SamplePollingJob;
 
 /** スレッドセーフ動作確認用カウンター */
 class Counter
@@ -33,6 +35,7 @@ class DevelopmentController extends Controller
         private FormService $formService,
         private WebSocketAuthService $webSocketAuthService,
         private ImageAnalysisService $imageAnalysisService,
+        private ProgressService $progressService,
     ) {}
 
     public function index(Request $request)
@@ -117,6 +120,43 @@ class DevelopmentController extends Controller
 
         return response()->json([
             'status' => true,
+        ]);
+    }
+
+    /**
+     * スロージョブ開始 (polling)
+     */
+    public function start_slow_polling_job(Request $request)
+    {
+        $user = $request->user();
+
+        $test = $request->input('test');
+        $test2 = $request->input('test2');
+
+        Log::info('startSlowPorlingJob', [$user->name, $test, $test2]);
+
+        $this->progressService->setup($user);
+        $this->progressService->checkPoint(0);
+
+        SamplePollingJob::dispatch(date('H:i:s'), $user);
+
+        return response()->json([
+            'status' => true,
+        ]);
+    }
+
+    /**
+     * スロージョブ経過 (polling)
+     */
+    public function start_slow_polling_job_progress(Request $request)
+    {
+        $user = $request->user();
+
+        $this->progressService->setup($user);
+        $data = $this->progressService->get();
+
+        return response()->json([
+            'data' => $data,
         ]);
     }
 

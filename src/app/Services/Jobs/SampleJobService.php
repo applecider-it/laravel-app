@@ -30,7 +30,7 @@ class SampleJobService
 
         $this->checkPointPush('遅いジョブを開始しました', 'bigin', []);
 
-        $total = 20;
+        $total = 50;
         $waitSecond = 0.3;
 
         for ($i = 0; $i < $total; $i++) {
