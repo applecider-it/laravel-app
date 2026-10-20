@@ -1,8 +1,6 @@
-import ChatCannnel from '@/services/channels/ChatCannnel.js';
 import BaseCannnel from '@/services/channels/BaseCannnel.js';
 
 type Channels = {
-  chat: ChatCannnel;
   base: BaseCannnel;
 };
 
@@ -15,7 +13,6 @@ export default class ChannelsCtrl {
 
   constructor() {
     this.channels = {
-      chat: new ChatCannnel(),
       base: new BaseCannnel(),
     };
   }
