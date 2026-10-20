@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
 use App\Services\WebSocket\AuthService as WebSocketAuthService;
-use App\Services\Channels\ProgressChannel;
 use App\Services\Sample\SampleService;
 use App\Services\Development\TraceService;
 use App\Services\Development\FormService;
@@ -15,7 +14,6 @@ use App\Services\AI\ImageAnalysisService;
 use App\Services\Jobs\SamplePollingJobService\ProgressService;
 
 use App\Events\SampleEvent;
-use App\Jobs\SampleJob;
 use App\Jobs\SamplePollingJob;
 
 /** スレッドセーフ動作確認用カウンター */
@@ -95,32 +93,9 @@ class DevelopmentController extends Controller
     /** websocketテスト */
     public function websocket_test(Request $request)
     {
-        $user = $request->user();
-
-        $token = $this->webSocketAuthService->createUserJwt($user, ProgressChannel::getChannel($user->id));
         return view(
             'development.websocket_test',
-            compact('token')
         );
-    }
-
-    /**
-     * スロージョブ開始
-     */
-    public function start_slow_job(Request $request)
-    {
-        $user = $request->user();
-
-        $test = $request->input('test');
-        $test2 = $request->input('test2');
-
-        Log::info('startSlowJob', [$user->name, $test, $test2]);
-
-        SampleJob::dispatch(date('H:i:s'), $user);
-
-        return response()->json([
-            'status' => true,
-        ]);
     }
 
     /**

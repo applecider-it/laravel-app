@@ -9,7 +9,6 @@
 
     <div class="app-container">
         <div id="vue-test-root" data-all="{{ json_encode([
-            'token' => $token,
             'wsHost' => config('myapp.ws_server_host'),
         ]) }}">
             @include('partials.message.loading')

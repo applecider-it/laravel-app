@@ -79,31 +79,6 @@ Pub/Subのチャンネル名: `[redis_prefix]broadcast`
 }
 ```
 
-### 経過表示の場合のdata
-
-```
-{
-  info: {
-    type: string,
-    title: string,
-    detail: hash, <- 機能ごとの詳細データ
-  },
-}
-```
-
-#### サンプルジョブの経過表示
-
-`App\Services\Jobs\SampleJobService`
-
-```
-type: 'sample_job_progress'
-
-detaul: {
-  cursor: integer,
-  total: integer,
-}
-```
-
 ## ブロードキャスト時のレスポンス
 
 ```
