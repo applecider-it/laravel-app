@@ -6,7 +6,6 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 
 import { showToast } from "@/services/ui/message";
-import { setPushCallback } from "@/services/service-worker/service-worker";
 
 import type ProgressClient from "@/services/ui/ProgressClient";
 
@@ -24,8 +23,6 @@ const props = defineProps<Props>();
 const progress = ref<number>(0);
 
 onMounted(() => {
-    setPushCallback(onProgressPush);
-
     props.progressClient.callback = onProgressWs;
 });
 

@@ -23,12 +23,6 @@
 
         <div class="{{ $cardStyle }}">
             <div class="max-w-xl">
-                @include('profile.partials.push-form')
-            </div>
-        </div>
-
-        <div class="{{ $cardStyle }}">
-            <div class="max-w-xl">
                 @include('profile.partials.delete-user-form')
             </div>
         </div>

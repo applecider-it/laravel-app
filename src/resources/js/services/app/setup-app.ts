@@ -3,7 +3,6 @@ import "./bootstrap/alpinejs";
 import "./bootstrap/container";
 import "./bootstrap/dirtycheck";
 import "./bootstrap/window";
-import "./bootstrap/app";
 
 console.log("setup app");
 

@@ -77,12 +77,6 @@ class User extends Authenticatable
         return $this->hasMany(UserTweet::class);
     }
 
-    /** プッシュ通知モデルのリレーション */
-    public function pushNotifications()
-    {
-        return $this->hasMany(PushNotification::class);
-    }
-
     /** 名前のバリデーション */
     public function validationName()
     {

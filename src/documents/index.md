@@ -16,9 +16,7 @@
 - [ユーザー](./Models/User.md)
   - [ユーザーツイート](./Models/User/Tweet.md)
 - [管理者](./Models/AdminUser.md)
-- [プッシュ通知登録情報](./Models/PushNotification.md)
 
 ## その他
 
-- [サービスワーカー](./service-worker.md)
 - [不具合](./error.md)

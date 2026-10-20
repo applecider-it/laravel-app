@@ -4,7 +4,6 @@ namespace App\Services\Jobs;
 
 use Illuminate\Support\Facades\Log;
 
-use App\Services\PushNotification\SenderService;
 use App\Services\WebSocket\SystemService as WebSocketSystemService;
 use App\Services\Channels\ProgressChannel;
 
@@ -15,7 +14,6 @@ class SampleJobService
     private User $user;
 
     public function __construct(
-        private SenderService $senderService,
         private WebSocketSystemService $webSocketSystemService,
     ) {}
 
@@ -84,10 +82,5 @@ class SampleJobService
         if ($detailType === 'end') {
             $options['notice'] = true;
         }
-        $result = $this->senderService->sendByUser(
-            $title,
-            $this->user,
-            $options
-        );
     }
 }

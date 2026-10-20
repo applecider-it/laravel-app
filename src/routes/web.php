@@ -16,7 +16,6 @@ use App\Http\Controllers\TweetRailsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatEchoController;
 use App\Http\Controllers\DevelopmentController;
-use App\Http\Controllers\PushNotificationController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -24,8 +23,6 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['aut
 
 Route::middleware('auth')->group(function () {
     // 認証必須
-
-    Route::post('/push_notification', [PushNotificationController::class, 'store']);
 
     // プロファイル
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -63,13 +60,6 @@ Route::middleware('auth')->group(function () {
 });
 
 // PWA
-Route::get('/service-worker.js', function () {
-    return response()
-        ->view('pwa.service-worker')
-        ->header('Content-Type', 'application/javascript')
-        ->header('Cache-Control', 'no-store, no-cache, must-revalidate');
-});
-
 Route::get('/manifest.json', function () {
     return response()
         ->view('pwa.manifest')

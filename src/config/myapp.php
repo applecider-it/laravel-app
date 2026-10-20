@@ -20,16 +20,6 @@ return [
     // AIサーバーのホスト名
     'ai_server_host' => env('MYAPP_AI_SERVER_HOST'),
 
-    // プッシュ通知用のパブリックキー
-    'vapid_public_key' => env('MYAPP_VAPID_PUBLIC_KEY'),
-
-    // プッシュ通知用のプライベートキー
-    'vapid_private_key' => env('MYAPP_VAPID_PRIVATE_KEY'),
-
-    // プッシュ通知の失敗の上限
-    // 上限に到達してから失敗したら削除される
-    'push_notification_failure_limit' => 5,
-
     // トレースで隠すキーリスト
     'trace_mask_keys' => [
         'password',
