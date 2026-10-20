@@ -32,16 +32,4 @@ export const appConfig = {
     /** WebSocketサーバーのRedis Pub/Subで利用するチャンネル */
     channel: 'broadcast',
   },
-
-  /** Laravelの情報 */
-  laravel: {
-    host: process.env.APP_LARAVEL_API_HOST as string,
-  },
-
-  /** PUSH通知 */
-  push: {
-    publicKey: process.env.APP_VAPID_PUBLIC_KEY as string,
-    privateKey: process.env.APP_VAPID_PRIVATE_KEY as string,
-    mailto: 'you@example.com',
-  },
 } as const;

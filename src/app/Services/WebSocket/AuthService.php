@@ -29,27 +29,4 @@ class AuthService
 
         return $token;
     }
-
-    /**
-     * WebSocket用のJWTを解析して情報ハッシュを返す
-     * 
-     * 失敗時はnullを返す。
-     */
-    public function parseJwt($token)
-    {
-        try {
-            $payload = JWT::decode($token, new Key(config('myapp.ws_jwt_secret'), self::ALGORITHM));
-            $id = $payload->id;
-            $name = $payload->name;
-            $channel = $payload->channel;
-
-            return [
-                'id' => $id,
-                'name' => $name,
-                'channel' => $channel,
-            ];
-        } catch (\Exception $e) {
-            return null;
-        }
-    }
 }
