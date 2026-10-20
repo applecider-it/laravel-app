@@ -5,7 +5,6 @@
 - websocket
   - [Nodeマイクロサービス](./documents/websocket.md)
   - [Echo](./documents/websocket-echo.md)
-- [Push通知](./documents/push.md)
 
 
 ## リンク
