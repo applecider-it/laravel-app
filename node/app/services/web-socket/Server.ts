@@ -40,9 +40,6 @@ export default class Server {
     this.webSocketCtrl = new WebSocketCtrl(
       host,
       port,
-      async (sender: WebSocketUser, incoming: Incoming) => {
-        await this.onWebSocketMessage(sender, incoming);
-      },
       async (wss: WebSocketServer, ws: WebSocket) => {
         await this.onConnect(wss, ws);
       },
@@ -59,11 +56,6 @@ export default class Server {
       },
       redisUrl,
     );
-  }
-
-  /** WebSocketメッセージ受信時の処理 */
-  async onWebSocketMessage(sender: WebSocketUser, incoming: Incoming) {
-    log('suspended');
   }
 
   /** Redisメッセージ受信時の処理 */

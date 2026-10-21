@@ -13,8 +13,6 @@ import AuthCtrl from './AuthCtrl.js';
 export default class WebSocketCtrl {
   /** WebSockerサーバーインスタンス */
   wss: WebSocketServer;
-  /** メッセージ受信時のコールバック */
-  private callback: Function;
   /** 接続時のコールバック */
   private callbackConnected: Function;
   /** 切断時のコールバック */
@@ -25,12 +23,10 @@ export default class WebSocketCtrl {
   constructor(
     host: string,
     port: number,
-    callback: Function,
     callbackConnected: Function,
     callbackDisconnected: Function,
     authCtrl: AuthCtrl,
   ) {
-    this.callback = callback;
     this.callbackConnected = callbackConnected;
     this.callbackDisconnected = callbackDisconnected;
     this.authCtrl = authCtrl;
@@ -76,6 +72,7 @@ export default class WebSocketCtrl {
       return;
     }
 
-    await this.callback(sender, incoming);
+    log(`handleMessage:`, {sender, incoming});
+    log('suspended')
   }
 }
