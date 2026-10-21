@@ -100,6 +100,25 @@ node dist/entrypoints/websocket-server.js
 
 -------
 
+Echo、Pusher
+
+soketi起動
+
+cd ~/workspace/github/laravel-app/soketi
+
+nvm use 18
+
+./start.sh
+
+
+動作確認
+
+php artisan tinker
+
+event(new App\Events\MessageSent('Hello Soketi', 1));
+
+-------
+
 python
 
 cd ~/workspace/github/laravel-app/python
@@ -321,30 +340,6 @@ PSUBSCRIBE *
 モニター
 
 MONITOR
-
------------------------------------
-
-Echo、Pusher
-
-
-soketi起動
-
-cd ~/workspace/github/laravel-app/soketi
-
-nvm use 18
-
-./start.sh
-
-
-----
-
-動作確認
-
-
-php artisan tinker
-
-
-event(new App\Events\MessageSent('Hello Soketi', 1));
 
 -----------------------------------
 

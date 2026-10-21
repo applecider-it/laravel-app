@@ -6,14 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
-use App\Services\WebSocket\AuthService as WebSocketAuthService;
 use App\Services\Sample\SampleService;
 use App\Services\Development\TraceService;
 use App\Services\Development\FormService;
 use App\Services\AI\ImageAnalysisService;
 use App\Services\Jobs\SamplePollingJobService\ProgressService;
 
-use App\Events\SampleEvent;
 use App\Jobs\SamplePollingJob;
 
 /** スレッドセーフ動作確認用カウンター */
@@ -31,7 +29,6 @@ class DevelopmentController extends Controller
         private SampleService $sampleService,
         private TraceService $traceService,
         private FormService $formService,
-        private WebSocketAuthService $webSocketAuthService,
         private ImageAnalysisService $imageAnalysisService,
         private ProgressService $progressService,
     ) {}
@@ -44,13 +41,9 @@ class DevelopmentController extends Controller
     /** phpテスト */
     public function php_test(Request $request)
     {
-        $user = $request->user();
-
         $this->traceService->traceMiddlewareInfo();
 
         Redis::set('redis-test', 'TEST');
-
-        event(new SampleEvent($user));
 
         $this->sampleService->testExec("php_test");
 
@@ -90,14 +83,6 @@ class DevelopmentController extends Controller
         return response()->json(['path' => $path]);
     }
 
-    /** websocketテスト */
-    public function websocket_test(Request $request)
-    {
-        return view(
-            'development.websocket_test',
-        );
-    }
-
     /**
      * スロージョブ開始 (polling)
      */
@@ -132,23 +117,6 @@ class DevelopmentController extends Controller
 
         return response()->json([
             'data' => $data,
-        ]);
-    }
-
-    /**
-     * テストチャンネルにメッセージ送信
-     */
-    public function send_test_channel(Request $request)
-    {
-        $message = $request->input('message');
-        $id = (int) $request->input('user_id');
-
-        Log::info('sendTestChannel', [$message, $id]);
-
-        event(new \App\Events\MessageSent($message, $id));
-
-        return response()->json([
-            'status' => true,
         ]);
     }
 
