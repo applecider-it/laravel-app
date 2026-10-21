@@ -4,9 +4,9 @@
 
 websocketはnodeで連携する。
 
-Laravelと双方向APIで連携。
-
 認証はJWTを使う。
+
+Redis Pub/Sub連携のみで動作する。
 
 ## チャンネル名の定義
 
@@ -28,19 +28,6 @@ Laravelと双方向APIで連携。
 | iat | 現在日時 | integer |  |
 | exp | 有効期限 | integer |  |
 
-## WebSocketへのメッセージ送信時
-
-```
-{
-  data: hash,
-}
-```
-
-| 項目名 | 内容 | 型 | 詳細 |
-|--------|--------|--------|--------|
-| data | チャンネルごとの情報ハッシュ | hash |  |
-
-
 ## Redis Pub/Sub連携メッセージ送信時
 
 Pub/Subのチャンネル名: `[redis_prefix]broadcast`
@@ -59,7 +46,6 @@ Pub/Subのチャンネル名: `[redis_prefix]broadcast`
 {
   message: string,
   name: string,
-  target_user_id: integer, <- 送信先を絞り込むとき
 }
 ```
 
@@ -88,27 +74,9 @@ Pub/Subのチャンネル名: `[redis_prefix]broadcast`
     name: string,
     id: number,
   },
-  data: hash, <- チャンネルごとに任意
+  data: hash, <- メッセージ送信時と同じ
 }
 ```
-
-### チャットの場合のdata
-
-```
-{
-  message: string,
-  name: string,
-}
-```
-
-### Tweetの場合のdata
-
-メッセージ送信時と同じ
-
-### 経過表示の場合のdata
-
-メッセージ送信時と同じ
-
 
 ## 接続時に自分に送信
 
@@ -162,13 +130,7 @@ Pub/Subのチャンネル名: `[redis_prefix]broadcast`
 }
 ```
 
-## システムから送信するときの送信タイプ
-
-`appConfig.webSocket.systemSendType`
-
-### websocket
-
-ユーザー一覧は、`WebSocketServer.clients`から取得。
+## システムから送信するとき
 
 ### redis
 
