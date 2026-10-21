@@ -2,11 +2,9 @@ import Redis from 'ioredis';
 
 import { log } from '@/services/system/log.js';
 
-import { WebSocketUser, Incoming } from '../types.js';
+import { WebSocketUserSimple, Incoming } from '../types.js';
 
 import { appConfig } from '@/config/config.js';
-
-import SystemCtrl from './SystemCtrl.js';
 
 /**
  * WebSocket サーバーのRedis管理
@@ -23,12 +21,8 @@ export default class RedisCtrl {
   /** メッセージ受信時のコールバック */
   private callback: Function;
 
-  /** WebSocket サーバーのSystem管理 */
-  private systemCtrl;
-
-  constructor(callback: Function, redisUrl: string, systemCtrl: SystemCtrl) {
+  constructor(callback: Function, redisUrl: string) {
     this.callback = callback;
-    this.systemCtrl = systemCtrl;
     this.pubsubChannel = appConfig.redis.prefix + appConfig.webSocketRedis.channel;
 
     this.redis = new Redis(redisUrl);
@@ -62,7 +56,9 @@ export default class RedisCtrl {
       return;
     }
 
-    const sender = this.systemCtrl.getSystemUser(ret.channel);
+    const sender: WebSocketUserSimple = {
+      channel: ret.channel,
+    };
 
     const incoming: Incoming = {
       data: ret.data,

@@ -9,11 +9,6 @@ export const appConfig = {
     port: Number(process.env.APP_WS_PORT),
   },
 
-  webSocketInfo: {
-    /** WebSocketサーバーのシステムからの送信名 */
-    systemName: 'System',
-  },
-
   jwtSecret: process.env.APP_WS_JWT_SECRET as string,
 
   redis: {

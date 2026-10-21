@@ -7,7 +7,6 @@ import RedisCtrl from './server/RedisCtrl.js';
 import WebSocketCtrl from './server/WebSocketCtrl.js';
 import UsersCtrl from './server/UsersCtrl.js';
 import AuthCtrl from './server/AuthCtrl.js';
-import SystemCtrl from './server/SystemCtrl.js';
 import BroadcastCtrl from './server/BroadcastCtrl.js';
 
 import { WebSocketUser, Incoming, BroadcastSendData } from './types.js';
@@ -22,8 +21,6 @@ export default class Server {
   private webSocketCtrl;
   /** WebSocket サーバーの全てのユーザー管理 */
   private usersCtrl;
-  /** WebSocket サーバーのSystem管理 */
-  private systemCtrl;
   /** WebSocket サーバーのBroadcast管理 */
   private broadcastCtrl;
   /** WebSocket サーバーのAuth管理 */
@@ -34,7 +31,6 @@ export default class Server {
     const port = appConfig.webSocket.port;
     const redisUrl = appConfig.redis.url;
 
-    this.systemCtrl = new SystemCtrl();
     this.broadcastCtrl = new BroadcastCtrl();
     this.authCtrl = new AuthCtrl();
 
@@ -62,7 +58,6 @@ export default class Server {
         await this.onRedisMessage(sender, incoming, type);
       },
       redisUrl,
-      this.systemCtrl,
     );
   }
 
@@ -134,7 +129,6 @@ export default class Server {
 
     const sendData: BroadcastSendData = {
       type: type,
-      sender: this.broadcastCtrl.toBroadcastUser(sender),
       data: incoming.data,
     };
 

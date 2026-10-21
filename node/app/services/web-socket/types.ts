@@ -6,6 +6,11 @@ export interface WebSocketUser {
   channel: string;
 }
 
+/** ブロードキャスト用のユーザー情報 */
+export interface WebSocketUserSimple {
+  channel: string;
+}
+
 /** 送信されてくるデータ */
 export type Incoming = {
   data: any;
@@ -14,9 +19,5 @@ export type Incoming = {
 /** ブロードキャスト用送信データ */
 export type BroadcastSendData = {
   type: string;
-  sender: {
-    id: number;
-    name: string;
-  };
   data: any;
 };
