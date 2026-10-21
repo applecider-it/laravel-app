@@ -14,7 +14,7 @@ export default class AuthCtrl {
   /**
    * JWTから認証してユーザー情報を返す
    */
-  authenticate(req: IncomingMessage): WebSocketUser | null {
+  public authenticate(req: IncomingMessage): WebSocketUser | null {
     const url = req.url as string;
 
     const params = new URLSearchParams(url.replace('/?', ''));

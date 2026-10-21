@@ -1,9 +1,7 @@
-import { WebSocket, WebSocketServer, type RawData } from 'ws';
+import { WebSocket, WebSocketServer } from 'ws';
 import { IncomingMessage } from 'http';
 
 import { log } from '@/services/system/log.js';
-
-import { WebSocketUser, Incoming } from '../types.js';
 
 import AuthCtrl from './AuthCtrl.js';
 
@@ -12,7 +10,7 @@ import AuthCtrl from './AuthCtrl.js';
  */
 export default class WebSocketCtrl {
   /** WebSockerサーバーインスタンス */
-  wss: WebSocketServer;
+  private wss: WebSocketServer;
   /** 接続時のコールバック */
   private callbackConnected: Function;
   /** 切断時のコールバック */
@@ -51,7 +49,11 @@ export default class WebSocketCtrl {
     ws.user = user;
     log(`Authenticated:`, user.name);
 
-    ws.on('message', (msg) => this.handleMessage(ws, msg));
+    // WebSocketへの直接送信は無効
+    ws.on('message', (msg) => {
+      log(`handleConnection: message:`, String(msg));
+      log('handleConnection: suspended');
+    });
 
     ws.on('close', () => {
       log(`Disconnected: ${ws.user?.name}`);
@@ -61,18 +63,9 @@ export default class WebSocketCtrl {
     this.callbackConnected(this.wss, ws);
   }
 
-  /** メッセージ取得時 */
-  private async handleMessage(senderWs: WebSocket, msg: RawData) {
-    let incoming: Incoming;
-    const sender = senderWs.user as WebSocketUser;
+  // getter
 
-    try {
-      incoming = JSON.parse(String(msg));
-    } catch {
-      return;
-    }
-
-    log(`handleMessage:`, {sender, incoming});
-    log('suspended')
+  public getWss() {
+    return this.wss;
   }
 }

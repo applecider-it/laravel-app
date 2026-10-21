@@ -9,7 +9,7 @@ import UsersCtrl from './server/UsersCtrl.js';
 import AuthCtrl from './server/AuthCtrl.js';
 import BroadcastCtrl from './server/BroadcastCtrl.js';
 
-import { WebSocketUser, Incoming, BroadcastSendData } from './types.js';
+import { WebSocketUser, Incoming } from './types.js';
 
 /**
  * WebSocket サーバー管理
@@ -23,18 +23,16 @@ export default class Server {
   private usersCtrl;
   /** WebSocket サーバーのBroadcast管理 */
   private broadcastCtrl;
-  /** WebSocket サーバーのAuth管理 */
-  private authCtrl;
 
   constructor() {
     const host = appConfig.webSocket.host;
     const port = appConfig.webSocket.port;
     const redisUrl = appConfig.redis.url;
 
-    this.broadcastCtrl = new BroadcastCtrl();
-    this.authCtrl = new AuthCtrl();
+    const authCtrl = new AuthCtrl();
 
-    this.usersCtrl = new UsersCtrl(this.broadcastCtrl);
+    this.broadcastCtrl = new BroadcastCtrl();
+    this.usersCtrl = new UsersCtrl();
 
     // WebSocket管理初期化
     this.webSocketCtrl = new WebSocketCtrl(
@@ -46,7 +44,7 @@ export default class Server {
       async (wss: WebSocketServer, ws: WebSocket) => {
         await this.onDisconnect(wss, ws);
       },
-      this.authCtrl,
+      authCtrl,
     );
 
     // Redis管理初期化
@@ -59,23 +57,28 @@ export default class Server {
   }
 
   /** Redisメッセージ受信時の処理 */
-  async onRedisMessage(
+  private async onRedisMessage(
     sender: WebSocketUser,
     incoming: Incoming,
     type: string,
   ) {
     this.usersCtrl.updateGlobalUser(sender, incoming, type);
 
-    await this.broadcast(sender, incoming, type);
+    await this.broadcastCtrl.broadcast(
+      sender,
+      incoming,
+      type,
+      this.webSocketCtrl.getWss(),
+    );
   }
 
   /** 接続時の処理 */
-  async onConnect(wss: WebSocketServer, ws: WebSocket) {
+  private async onConnect(wss: WebSocketServer, ws: WebSocket) {
     const user = ws.user as WebSocketUser;
 
     const channel = user.channel;
 
-    // 接続したユーザーのみ送信
+    // 接続したユーザーのみに、ユーザー一覧を送信
     ws.send(
       JSON.stringify({
         type: 'connected',
@@ -83,51 +86,25 @@ export default class Server {
       }),
     );
 
-    // 同じチャンネルへの全体送信
-
+    // 同じチャンネル全体に、接続したユーザーの情報を送信
     const type = 'connectOther';
     const data = {
       user: this.broadcastCtrl.toBroadcastUser(user),
     };
-
-    await this.sendBySystem(channel, data, type);
+    await this.redisCtrl.publish(channel, data, type);
   }
 
   /** 切断時の処理 */
-  async onDisconnect(wss: WebSocketServer, ws: WebSocket) {
-    // 同じチャンネルへの全体送信
-
+  private async onDisconnect(wss: WebSocketServer, ws: WebSocket) {
     const user = ws.user as WebSocketUser;
 
     const channel = user.channel;
 
+    // 同じチャンネル全体に、切断したユーザーの情報を送信
     const type = 'disconnectOther';
     const data = {
       user: this.broadcastCtrl.toBroadcastUser(user),
     };
-
-    await this.sendBySystem(channel, data, type);
-  }
-
-  /** システムからの全体送信 */
-  async sendBySystem(channel: string, data: any, type: string) {
     await this.redisCtrl.publish(channel, data, type);
-  }
-
-  /** 送信処理 */
-  async broadcast(sender: WebSocketUser, incoming: Incoming, type: string) {
-    log('incoming', incoming);
-    log('sender', sender);
-
-    const sendData: BroadcastSendData = {
-      type: type,
-      data: incoming.data,
-    };
-
-    this.broadcastCtrl.broadcastSameChannel(
-      sendData,
-      sender,
-      this.webSocketCtrl.wss,
-    );
   }
 }

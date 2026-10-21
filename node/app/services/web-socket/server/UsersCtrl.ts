@@ -4,8 +4,6 @@ import { log } from '@/services/system/log.js';
 
 import { WebSocketUser, Incoming } from '../types.js';
 
-import BroadcastCtrl from './BroadcastCtrl.js';
-
 /**
  * WebSocket サーバー管理の全てのユーザー管理
  *
@@ -23,15 +21,8 @@ export default class UsersCtrl {
   /** 全てのWebSocketサーバーのユーザー情報 */
   private globalUsers = new Map();
 
-  /** WebSocket サーバーのBroadcast管理 */
-  private broadcastCtrl;
-
-  constructor(broadcastCtrl: BroadcastCtrl) {
-    this.broadcastCtrl = broadcastCtrl;
-  }
-
   /** システムからの送信にRedisを使うときだけ、ユーザー情報を更新 */
-  updateGlobalUser(sender: WebSocketUser, incoming: Incoming, type: string) {
+  public updateGlobalUser(sender: WebSocketUser, incoming: Incoming, type: string) {
     if (type === 'connectOther') {
       // ほかのユーザーが接続したとき
 
@@ -59,12 +50,7 @@ export default class UsersCtrl {
   }
 
   /** 同じチャンネルのユーザー公開情報一覧 */
-  getSameChannelUsers(wss: WebSocketServer, ws: WebSocket) {
-    return this.getSameChannelGlobalUsers(ws);
-  }
-
-  /** 同じチャンネルのユーザー公開情報一覧 (Redis経由) */
-  private getSameChannelGlobalUsers(ws: WebSocket) {
+  public getSameChannelUsers(wss: WebSocketServer, ws: WebSocket) {
     const user = ws.user as WebSocketUser;
     const list = [...this.globalUsers.entries()]
       .filter(([_, row]) => row.channel === user.channel)
