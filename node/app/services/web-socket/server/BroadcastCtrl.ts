@@ -9,7 +9,7 @@ import { WebSocketUser, Incoming, BroadcastSendData } from '../types.js';
  */
 export default class BroadcastCtrl {
   /** 送信処理 */
-  async broadcast(
+  public async broadcast(
     sender: WebSocketUser,
     incoming: Incoming,
     type: string,
@@ -51,7 +51,7 @@ export default class BroadcastCtrl {
   }
 
   /** 送信用ユーザーに変換 */
-  toBroadcastUser(user: WebSocketUser) {
+  public toBroadcastUser(user: WebSocketUser) {
     return {
       name: user.name,
       id: user.id,
