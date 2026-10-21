@@ -35,7 +35,7 @@ Pub/Subのチャンネル名: `[redis_prefix]broadcast`
 ```
 {
   channel: string, <- WebSocketチャンネル名
-  data: hash, <- 上記の、「メッセージ送信時」のdataの部分と同じ
+  data: hash,
   type: 'message',
 }
 ```
@@ -70,10 +70,6 @@ Pub/Subのチャンネル名: `[redis_prefix]broadcast`
 ```
 {
   type: 'message',
-  sender: {
-    name: string,
-    id: number,
-  },
   data: hash, <- メッセージ送信時と同じ
 }
 ```
@@ -99,10 +95,6 @@ Pub/Subのチャンネル名: `[redis_prefix]broadcast`
 ```
 {
   type: 'connectOther',
-  sender: {
-    name: string,
-    id: number,
-  },
   data: {
     user: {
       name: string,
@@ -117,10 +109,6 @@ Pub/Subのチャンネル名: `[redis_prefix]broadcast`
 ```
 {
   type: 'disconnectOther',
-  sender: {
-    name: string,
-    id: number,
-  },
   data: {
     user: {
       name: string,
@@ -130,9 +118,7 @@ Pub/Subのチャンネル名: `[redis_prefix]broadcast`
 }
 ```
 
-## システムから送信するとき
-
-### redis
+## ユーザー一覧管理
 
 ユーザー一覧は、redis経由で、変数に蓄積される。
 
