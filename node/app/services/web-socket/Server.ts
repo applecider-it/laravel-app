@@ -5,7 +5,6 @@ import { appConfig } from '@/config/config.js';
 
 import RedisCtrl from './server/RedisCtrl.js';
 import WebSocketCtrl from './server/WebSocketCtrl.js';
-import ChannelsCtrl from './server/ChannelsCtrl.js';
 import UsersCtrl from './server/UsersCtrl.js';
 import AuthCtrl from './server/AuthCtrl.js';
 import SystemCtrl from './server/SystemCtrl.js';
@@ -21,8 +20,6 @@ export default class Server {
   private redisCtrl;
   /** WebSocket サーバーのWebSocket管理 */
   private webSocketCtrl;
-  /** WebSocket サーバーのChannel管理 */
-  private cannelsCtrl;
   /** WebSocket サーバーの全てのユーザー管理 */
   private usersCtrl;
   /** WebSocket サーバーのSystem管理 */
@@ -32,25 +29,16 @@ export default class Server {
   /** WebSocket サーバーのAuth管理 */
   private authCtrl;
 
-  /** システムから送信するときの送信タイプ */
-  private systemSendType;
-
   constructor() {
-    this.systemSendType = appConfig.webSocket.systemSendType;
-
     const host = appConfig.webSocket.host;
     const port = appConfig.webSocket.port;
     const redisUrl = appConfig.redis.url;
 
-    this.cannelsCtrl = new ChannelsCtrl();
     this.systemCtrl = new SystemCtrl();
     this.broadcastCtrl = new BroadcastCtrl();
     this.authCtrl = new AuthCtrl();
 
-    this.usersCtrl = new UsersCtrl(
-      this.systemSendType,
-      this.broadcastCtrl,
-    );
+    this.usersCtrl = new UsersCtrl(this.broadcastCtrl);
 
     // WebSocket管理初期化
     this.webSocketCtrl = new WebSocketCtrl(
@@ -80,11 +68,7 @@ export default class Server {
 
   /** WebSocketメッセージ受信時の処理 */
   async onWebSocketMessage(sender: WebSocketUser, incoming: Incoming) {
-    if (!this.cannelsCtrl.getChannel(sender.channel).enableWebSocketSend()) {
-      log('suspended');
-      return;
-    }
-    await this.sendCommon(sender, incoming, 'message');
+    log('suspended');
   }
 
   /** Redisメッセージ受信時の処理 */
@@ -95,7 +79,7 @@ export default class Server {
   ) {
     this.usersCtrl.updateGlobalUser(sender, incoming, type);
 
-    await this.sendCommon(sender, incoming, type);
+    await this.broadcast(sender, incoming, type);
   }
 
   /** 接続時の処理 */
@@ -104,30 +88,22 @@ export default class Server {
 
     const channel = user.channel;
 
-    const enableSendUsers = this.cannelsCtrl
-      .getChannel(channel)
-      .enableSendUsers();
+    // 接続したユーザーのみ送信
+    ws.send(
+      JSON.stringify({
+        type: 'connected',
+        users: this.usersCtrl.getSameChannelUsers(wss, ws),
+      }),
+    );
 
-    if (enableSendUsers) {
-      // ユーザー情報送信が有効な場合
+    // 同じチャンネルへの全体送信
 
-      // 接続したユーザーのみ送信
-      ws.send(
-        JSON.stringify({
-          type: 'connected',
-          users: this.usersCtrl.getSameChannelUsers(wss, ws),
-        }),
-      );
+    const type = 'connectOther';
+    const data = {
+      user: this.broadcastCtrl.toBroadcastUser(user),
+    };
 
-      // 同じチャンネルへの全体送信
-
-      const type = 'connectOther';
-      const data = {
-        user: this.broadcastCtrl.toBroadcastUser(user),
-      };
-
-      await this.sendBySystem(channel, data, type);
-    }
+    await this.sendBySystem(channel, data, type);
   }
 
   /** 切断時の処理 */
@@ -138,60 +114,28 @@ export default class Server {
 
     const channel = user.channel;
 
-    const enableSendUsers = this.cannelsCtrl
-      .getChannel(channel)
-      .enableSendUsers();
+    const type = 'disconnectOther';
+    const data = {
+      user: this.broadcastCtrl.toBroadcastUser(user),
+    };
 
-    if (enableSendUsers) {
-      // ユーザー情報送信が有効な場合
-
-      const type = 'disconnectOther';
-      const data = {
-        user: this.broadcastCtrl.toBroadcastUser(user),
-      };
-
-      await this.sendBySystem(channel, data, type);
-    }
+    await this.sendBySystem(channel, data, type);
   }
 
   /** システムからの全体送信 */
   async sendBySystem(channel: string, data: any, type: string) {
-    if (this.systemSendType === 'redis') {
-      // システムからの送信にRedisを使うとき
-
-      await this.redisCtrl.publish(channel, data, type);
-    } else {
-      // システムからの送信にWebSocketを使うとき
-
-      const incoming: Incoming = {
-        data: data,
-      };
-
-      await this.sendCommon(
-        this.systemCtrl.getSystemUser(channel),
-        incoming,
-        type,
-      );
-    }
+    await this.redisCtrl.publish(channel, data, type);
   }
 
-  /** WebSocket, Redis共通の送信処理 */
-  async sendCommon(sender: WebSocketUser, incoming: Incoming, type: string) {
+  /** 送信処理 */
+  async broadcast(sender: WebSocketUser, incoming: Incoming, type: string) {
     log('incoming', incoming);
     log('sender', sender);
-
-    // メッセージの時は、データの成型。それ以外の時は、そのまま。
-    let data = incoming.data;
-    if (type === 'message') {
-      data = await this.cannelsCtrl
-        .getChannel(sender.channel)
-        .callbackCreateData(sender, incoming);
-    }
 
     const sendData: BroadcastSendData = {
       type: type,
       sender: this.broadcastCtrl.toBroadcastUser(sender),
-      data: data,
+      data: incoming.data,
     };
 
     this.broadcastCtrl.broadcastSameChannel(
@@ -199,7 +143,6 @@ export default class Server {
       sender,
       incoming,
       this.webSocketCtrl.wss,
-      this.cannelsCtrl,
       type,
     );
   }

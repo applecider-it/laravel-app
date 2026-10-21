@@ -4,8 +4,6 @@ import { WebSocket, type WebSocketServer } from 'ws';
 
 import { WebSocketUser, Incoming, BroadcastSendData } from '../types.js';
 
-import type ChannelsCtrl from './ChannelsCtrl.js';
-
 /**
  * WebSocket サーバーのBroadcast管理
  */
@@ -29,7 +27,6 @@ export default class BroadcastCtrl {
     sender: WebSocketUser,
     incoming: Incoming,
     wss: WebSocketServer,
-    cannelsCtrl: ChannelsCtrl,
     type: string,
   ) {
     const sendDataStr = JSON.stringify(sendData);
@@ -41,19 +38,6 @@ export default class BroadcastCtrl {
       if (!this.canBroadcast(client, sender.channel)) return;
 
       log(`canBroadcast:`, user.name);
-
-      let sendable = true;
-
-      // メッセージの時だけ、送信条件の検査
-      if (type === 'message') {
-        sendable = await cannelsCtrl
-          .getChannel(sender.channel)
-          .callbackCheckSend(sender, user, incoming);
-      }
-
-      if (!sendable) return;
-
-      log(`sendable:`, user.name);
 
       client.send(sendDataStr);
     });

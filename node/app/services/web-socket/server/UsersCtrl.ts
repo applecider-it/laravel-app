@@ -8,11 +8,11 @@ import BroadcastCtrl from './BroadcastCtrl.js';
 
 /**
  * WebSocket サーバー管理の全てのユーザー管理
- * 
- * systemSendTypeがredisの時は、globalUsersの値に、複数サーバーのユーザー情報を蓄積させる。
+ *
+ * globalUsersの値に、複数サーバーのユーザー情報を蓄積させる。
  *
  * globalUsers変数詳細
- * 
+ *
  * 保存フォーマット
  * {id: { name,channel }}
  *
@@ -26,28 +26,20 @@ export default class UsersCtrl {
   /** WebSocket サーバーのBroadcast管理 */
   private broadcastCtrl;
 
-  /** システムから送信するときの送信タイプ */
-  private systemSendType;
-
-  constructor(systemSendType: string, broadcastCtrl: BroadcastCtrl) {
-    this.systemSendType = systemSendType;
+  constructor(broadcastCtrl: BroadcastCtrl) {
     this.broadcastCtrl = broadcastCtrl;
   }
 
   /** システムからの送信にRedisを使うときだけ、ユーザー情報を更新 */
   updateGlobalUser(sender: WebSocketUser, incoming: Incoming, type: string) {
-    if (this.systemSendType === 'redis') {
-      // システムからの送信にRedisを使うとき
+    if (type === 'connectOther') {
+      // ほかのユーザーが接続したとき
 
-      if (type === 'connectOther') {
-        // ほかのユーザーが接続したとき
+      this.setGlobalUser(sender, incoming);
+    } else if (type === 'disconnectOther') {
+      // ほかのユーザーが切断したとき
 
-        this.setGlobalUser(sender, incoming);
-      } else if (type === 'disconnectOther') {
-        // ほかのユーザーが切断したとき
-
-        this.deleteGlobalUser(incoming);
-      }
+      this.deleteGlobalUser(incoming);
     }
   }
 
@@ -68,33 +60,7 @@ export default class UsersCtrl {
 
   /** 同じチャンネルのユーザー公開情報一覧 */
   getSameChannelUsers(wss: WebSocketServer, ws: WebSocket) {
-    if (this.systemSendType === 'redis') {
-      // システムからの送信にRedisを使うとき
-
-      return this.getSameChannelGlobalUsers(ws);
-    } else {
-      // システムからの送信にWebSocketを使うとき
-
-      return this.getSameChannelWebSocketUsers(wss, ws);
-    }
-  }
-
-  /** 同じチャンネルのユーザー公開情報一覧 (WebSocket) */
-  private getSameChannelWebSocketUsers(wss: WebSocketServer, ws: WebSocket) {
-    const target = ws.user as WebSocketUser;
-    const list: any[] = [];
-    wss.clients.forEach(async (client: WebSocket) => {
-      const user = client.user as WebSocketUser;
-
-      if (!this.broadcastCtrl.canBroadcast(client, target.channel)) return;
-
-      list.push({
-        id: user.id,
-        name: user.name,
-      });
-    });
-
-    return list;
+    return this.getSameChannelGlobalUsers(ws);
   }
 
   /** 同じチャンネルのユーザー公開情報一覧 (Redis経由) */
