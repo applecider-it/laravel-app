@@ -280,27 +280,6 @@ http://localhost:8080/
 
 -----------------------------------
 
-WebSocket
-
-
-テスト送信コマンド
-
-
-help
-
-php artisan help app:web-socket-test
-
-
-redis pub/subのシステムチャットのテスト送信
-
-php artisan app:web-socket-test redis
-
-ユーザーを指定する時
-
-php artisan app:web-socket-test redis --user_id=1
-
------------------------------------
-
 その他のコマンド
 
 
