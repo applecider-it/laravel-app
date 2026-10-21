@@ -538,3 +538,5 @@ npm uninstall marked
 
 npm install -g web-push
 
+npm uninstall web-push
+npm uninstall -D @types/web-push
