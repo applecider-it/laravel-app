@@ -168,6 +168,23 @@ App\Models\AdminUser::create(
 
 -----------------------------------
 
+ジョブ
+
+ワーカー起動
+
+cd ~/workspace/github/laravel-app/src
+
+php artisan queue:work
+
+
+php artisan tinker
+
+$user = App\Models\User::first(); $obj = App\Jobs\SampleJob::dispatch(date('H:i:s'), $user); unset($obj);
+
+dispatchは、PendingDispatchクラスインスタンスを作るだけ、実際に実行されるのはPendingDispatchクラスのデストラクタなので、unsetが必要。
+
+-----------------------------------
+
 セットアップ
 
 
@@ -259,21 +276,6 @@ php artisan tinker
 Mail::raw('MailHog テスト', function($m){
     $m->to('test@example.com')->subject('MailHog from WSL');
 });
-
------------------------------------
-
-ジョブ
-
-ワーカー起動
-
-php artisan queue:work
-
-
-php artisan tinker
-
-$user = App\Models\User::first(); $obj = App\Jobs\SampleJob::dispatch(date('H:i:s'), $user); unset($obj);
-
-dispatchは、PendingDispatchクラスインスタンスを作るだけ、実際に実行されるのはPendingDispatchクラスのデストラクタなので、unsetが必要。
 
 -----------------------------------
 
