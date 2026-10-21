@@ -46,15 +46,15 @@ const handleKeyDown = (e: KeyboardEvent) => {
             />
             <button
                 class="p-1 border bg-gray-200 ml-2"
-                @click="sendMessage('websocket')"
+                @click="sendMessage('redis')"
             >
-                Send (W)
+                Send
             </button>
             <button
                 class="p-1 border bg-gray-200 ml-2"
-                @click="sendMessage('redis')"
+                @click="sendMessage('websocket')"
             >
-                Send (R)
+                Send (動作しない)
             </button>
         </div>
 
