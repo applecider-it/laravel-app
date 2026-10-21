@@ -11,7 +11,7 @@ import { appConfig } from '@/config/config.js';
  */
 export default class RedisCtrl {
   /** subscribeで利用するRedisクラス */
-  private redis;
+  private redisSub;
   /** publishで利用するRedisクラス（pub/subはインスタンスを分けないと動作しなくなる） */
   private redisPub;
 
@@ -23,26 +23,21 @@ export default class RedisCtrl {
 
   constructor(callback: Function, redisUrl: string) {
     this.callback = callback;
-    this.pubsubChannel = appConfig.redis.prefix + appConfig.webSocketRedis.channel;
+    this.pubsubChannel =
+      appConfig.redis.prefix + appConfig.webSocketRedis.channel;
 
-    this.redis = new Redis(redisUrl);
+    this.redisSub = new Redis(redisUrl);
     this.redisPub = new Redis(redisUrl);
 
     // Redisの連携用チャンネルをsubscribeする
-    this.redis.subscribe(
-      this.pubsubChannel,
-      async (err, count) => await this.handleRedisSubscribe(err, count)
-    );
+    this.redisSub.subscribe(this.pubsubChannel, async (err, count) => {
+      if (err) console.error(err);
+      else console.log(`Subscribed to ${count} channel(s)`);
+    });
 
-    this.redis.on('message', async (channel, message) => {
+    this.redisSub.on('message', async (channel, message) => {
       await this.handleRedisMessage(channel, message);
     });
-  }
-
-  /** Redisサブスクライブ時 */
-  private handleRedisSubscribe(err: Error | null | undefined, count: unknown) {
-    if (err) console.error(err);
-    else console.log(`Subscribed to ${count} channel(s)`);
   }
 
   /** Redisメッセージ受信時 */

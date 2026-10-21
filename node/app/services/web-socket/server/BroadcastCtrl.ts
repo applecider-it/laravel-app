@@ -25,9 +25,7 @@ export default class BroadcastCtrl {
   broadcastSameChannel(
     sendData: BroadcastSendData,
     sender: WebSocketUser,
-    incoming: Incoming,
     wss: WebSocketServer,
-    type: string,
   ) {
     const sendDataStr = JSON.stringify(sendData);
 

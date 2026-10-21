@@ -127,9 +127,7 @@ export default class Server {
     this.broadcastCtrl.broadcastSameChannel(
       sendData,
       sender,
-      incoming,
       this.webSocketCtrl.wss,
-      type,
     );
   }
 }
