@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
     <div
-        class="fixed inset-0 flex justify-center items-center z-50 select-none bg-black bg-opacity-10 transition-opacity duration-500 ease-in-out"
+        class="fixed inset-0 flex justify-center items-center z-50 select-none bg-black/10 transition-opacity duration-500 ease-in-out"
         :class="
             isLoading
                 ? 'opacity-100 pointer-events-auto'
