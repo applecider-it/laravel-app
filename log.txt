@@ -540,3 +540,9 @@ npm install -g web-push
 
 npm uninstall web-push
 npm uninstall -D @types/web-push
+
+-----------------------------------
+
+
+npx @tailwindcss/upgrade@latest
+
