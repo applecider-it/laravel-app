@@ -11,7 +11,7 @@
     <div class="app-container">
         <form action="{{ route('tweet.store') }}" method="POST" class="mb-4" data-app-form-require-dirtycheck="on">
             @csrf
-            <textarea name="content" rows="3" class="w-full border rounded p-2" placeholder="What's happening?">{{ old('content') }}</textarea>
+            <textarea name="content" rows="3" class="w-full border rounded-sm p-2" placeholder="What's happening?">{{ old('content') }}</textarea>
             @error('content')
                 <p class="app-error-text">{{ $message }}</p>
             @enderror

@@ -1,5 +1,5 @@
 @php
-    $cardStyle = 'p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg';
+    $cardStyle = 'p-4 sm:p-8 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg';
 @endphp
 <x-app-layout>
     <x-slot name="header">

@@ -60,11 +60,11 @@
                         </div>
                         <div>
                             <div class="font-bold text-lg">list</div>
-                            <pre class="h-[30rem] overflow-scroll">{{ App\Services\Data\Json::trace($list, true) }}</pre>
+                            <pre class="h-120 overflow-scroll">{{ App\Services\Data\Json::trace($list, true) }}</pre>
                         </div>
                         <div>
                             <div class="font-bold text-lg">response</div>
-                            <pre class="h-[30rem] overflow-scroll">{{ App\Services\Data\Json::trace($response, true) }}</pre>
+                            <pre class="h-120 overflow-scroll">{{ App\Services\Data\Json::trace($response, true) }}</pre>
                         </div>
                     </div>
                 </div>

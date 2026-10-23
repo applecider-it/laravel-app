@@ -11,7 +11,7 @@ defineProps<{
         <div
             v-for="tweetContainer in tweetContainers"
             :key="tweetContainer.tweet.id"
-            class="border rounded p-4"
+            class="border rounded-sm p-4"
         >
             <p v-if="tweetContainer.isNew" class="text-blue-500">new</p>
 

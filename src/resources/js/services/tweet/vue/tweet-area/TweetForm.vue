@@ -29,7 +29,7 @@ onMounted(() => {
         <textarea
             v-model="content"
             rows="3"
-            class="w-full border rounded p-2"
+            class="w-full border rounded-sm p-2"
             placeholder="What's happening?"
         />
 

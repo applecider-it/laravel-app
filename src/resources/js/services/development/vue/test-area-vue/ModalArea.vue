@@ -44,7 +44,7 @@ const confirmModalValue = () => {
             <textarea
                 rows="3"
                 cols="40"
-                className="w-full border rounded p-2"
+                className="w-full border rounded-sm p-2"
                 placeholder="What's happening?"
                 v-model="modalValue"
             />
