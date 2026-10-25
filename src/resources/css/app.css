@@ -10,6 +10,9 @@
 
 @source inline("bg-{red,blue}-200");
 
+/* PWAかの判別 */
+@custom-variant app-pwa (@media (display-mode: standalone));
+
 /* ボタンの共通設定 */
 @utility app-btn {
     @apply px-4 py-2 rounded-sm;

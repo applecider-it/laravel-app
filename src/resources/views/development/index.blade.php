@@ -16,6 +16,10 @@
                 <p><a href="{{ route('development.router_test') }}" class="app-link-normal">router_test</a></p>
                 <p><a href="{{ route('development.ai_test') }}" class="app-link-normal">ai_test</a></p>
             </div>
+
+            <div class="app-pwa:hidden">
+                <div><a href="{{ route('appli') }}" class="app-link-normal">appli</a></div>
+            </div>
         </div>
     </div>
 </x-app-layout>

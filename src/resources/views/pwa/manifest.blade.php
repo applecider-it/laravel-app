@@ -7,7 +7,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/",
+  "start_url": "/appli",
   "display": "standalone",
   "scope": "/",
   "description": "ララベルのテスト用",

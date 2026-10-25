@@ -65,6 +65,9 @@ Route::get('/manifest.json', function () {
         ->header('Content-Type', 'application/json')
         ->header('Cache-Control', 'no-store, no-cache, must-revalidate');
 });
+Route::get('/appli', function () {
+    return view('pwa.appli');
+})->name('appli');
 
 // 開発者向けページ
 Route::get('/development/index', [DevelopmentController::class, 'index'])->name('development.index');
