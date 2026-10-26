@@ -1,7 +1,6 @@
 <script setup lang="ts">
 /** vueテスト用コンポーネント */
 
-import ModalArea from "./test-area-vue/ModalArea.vue";
 import DefineModelArea from "./test-area-vue/DefineModelArea.vue";
 import EmitModelArea from "./test-area-vue/EmitModelArea.vue";
 import UIArea from "./test-area-vue/UIArea.vue";
@@ -39,10 +38,6 @@ const blockStyle = "border-gray-400 border-2 p-3";
 
             <div :class="blockStyle">
                 <EmitModelArea />
-            </div>
-
-            <div :class="blockStyle">
-                <ModalArea />
             </div>
 
             <div :class="blockStyle">
