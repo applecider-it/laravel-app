@@ -7,6 +7,7 @@ import UIArea from "./test-area-vue/UIArea.vue";
 import FormArea from "./test-area-vue/FormArea.vue";
 import UploadArea from "./test-area-vue/UploadArea.vue";
 import SlowJobArea from "./test-area-vue/SlowJobArea.vue";
+import AppliArea from "./test-area-vue/AppliArea.vue";
 
 interface Props {
     testValue?: number;
@@ -51,6 +52,10 @@ const blockStyle = "border-gray-400 border-2 p-3";
 
             <div :class="blockStyle">
                 <SlowJobArea />
+            </div>
+
+            <div :class="blockStyle">
+                <AppliArea />
             </div>
         </div>
     </div>
