@@ -65,5 +65,22 @@
 
             <textarea class="w-full h-20"></textarea>
         </div>
+
+        <div class="my-6 text-lg">Tailwindの動作確認</div>
+
+        <div class="mt-5">
+            <div class="app-development-tailwind-test">
+                <span class="hidden in-[.app-development-tailwind-test]:block">表示される</span>
+            </div>
+            <div>
+                <span class="hidden in-[.app-development-tailwind-test]:block">表示されない</span>
+            </div>
+            <div class="app-pwa:hidden">
+                pwaでは非表示
+            </div>
+            <div class="hidden app-pwa:block">
+                pwaだけ表示される
+            </div>
+        </div>
     </div>
 </x-app-layout>
