@@ -6,15 +6,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Log;
 
-use App\Services\Jobs\SamplePollingJobService;
+use App\Services\Jobs\SampleJobService;
 
 use App\Models\User;
 
-class SamplePollingJob implements ShouldQueue
+class SampleJob implements ShouldQueue
 {
     use Queueable;
 
-    private SamplePollingJobService $samplePollingJobService;
+    private SampleJobService $sampleJobService;
 
     /**
      * Create a new job instance.
@@ -23,7 +23,7 @@ class SamplePollingJob implements ShouldQueue
         private string $time,
         private User $user
     ) {
-        $this->samplePollingJobService = app(SamplePollingJobService::class);
+        $this->sampleJobService = app(SampleJobService::class);
     }
 
     /**
@@ -31,6 +31,6 @@ class SamplePollingJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $this->samplePollingJobService->exec($this->time, $this->user);
+        $this->sampleJobService->exec($this->time, $this->user);
     }
 }

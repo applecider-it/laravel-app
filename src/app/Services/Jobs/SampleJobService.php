@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Redis;
 
 use App\Models\User;
 
-class SamplePollingJobService
+class SampleJobService
 {
     private User $user;
 
     public function __construct(
-        private SamplePollingJobService\ProgressService $progressService
+        private SampleJobService\ProgressService $progressService
     ) {}
 
     /**
@@ -24,7 +24,7 @@ class SamplePollingJobService
         $this->user = $user;
         $this->progressService->setup($this->user);
 
-        Log::info('SamplePollingJob: Begin!!! ' . $time . ' ' . $this->user->name);
+        Log::info('SampleJob: Begin!!! ' . $time . ' ' . $this->user->name);
 
         $this->progressService->checkPoint(0);
 
@@ -39,6 +39,6 @@ class SamplePollingJobService
 
         $this->progressService->checkPoint(1);
 
-        Log::info('SamplePollingJob: End!!! ' . $time . ' ' . $this->user->name);
+        Log::info('SampleJob: End!!! ' . $time . ' ' . $this->user->name);
     }
 }

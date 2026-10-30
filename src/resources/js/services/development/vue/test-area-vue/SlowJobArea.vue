@@ -16,7 +16,7 @@ const progress = ref<number>(0);
 /** 経過観察 */
 const checkProgress = async () => {
     const response = await axios.post(
-        "/development/start_slow_polling_job_progress",
+        "/development/start_slow_job_progress",
         {},
     );
     console.log("response.data", response.data);
@@ -40,7 +40,7 @@ const SlowJobTest = async () => {
     console.log("SlowJobTest");
     progress.value = 0;
 
-    const response = await axios.post("/development/start_slow_polling_job", {
+    const response = await axios.post("/development/start_slow_job", {
         test: 123,
         test2: { test3: 456 },
     });
@@ -56,7 +56,7 @@ const SlowJobTest = async () => {
 
 <template>
     <div>
-        遅いジョブ動作確認 (Polling)
+        遅いジョブ動作確認
 
         <div class="mt-5 space-y-2">
             <button className="app-btn-orange" @click="SlowJobTest">

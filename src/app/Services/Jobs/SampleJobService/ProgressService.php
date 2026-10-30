@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Jobs\SamplePollingJobService;
+namespace App\Services\Jobs\SampleJobService;
 
 use Illuminate\Support\Facades\Log;
 
@@ -29,7 +29,7 @@ class ProgressService
             'cursor' => $i,
         ];
 
-        Log::info('SamplePollingJob: checkPoint ' . $i . ' ' . $this->user->name . ' ' . $key, [$data]);
+        Log::info('SampleJob: checkPoint ' . $i . ' ' . $this->user->name . ' ' . $key, [$data]);
 
         Redis::set($key, json_encode($data));
         Redis::expire($key, 60);
@@ -48,6 +48,6 @@ class ProgressService
     /** Redisのキー */
     private function key()
     {
-        return 'SamplePollingJobService___' . $this->user->id;
+        return 'SampleJobService___' . $this->user->id;
     }
 }

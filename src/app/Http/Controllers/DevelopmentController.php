@@ -10,9 +10,9 @@ use App\Services\Sample\SampleService;
 use App\Services\Development\TraceService;
 use App\Services\Development\FormService;
 use App\Services\AI\ImageAnalysisService;
-use App\Services\Jobs\SamplePollingJobService\ProgressService;
+use App\Services\Jobs\SampleJobService\ProgressService;
 
-use App\Jobs\SamplePollingJob;
+use App\Jobs\SampleJob;
 
 /** スレッドセーフ動作確認用カウンター */
 class Counter
@@ -84,9 +84,9 @@ class DevelopmentController extends Controller
     }
 
     /**
-     * スロージョブ開始 (polling)
+     * スロージョブ開始
      */
-    public function start_slow_polling_job(Request $request)
+    public function start_slow_job(Request $request)
     {
         $user = $request->user();
 
@@ -98,7 +98,7 @@ class DevelopmentController extends Controller
         $this->progressService->setup($user);
         $this->progressService->checkPoint(0);
 
-        SamplePollingJob::dispatch(date('H:i:s'), $user);
+        SampleJob::dispatch(date('H:i:s'), $user);
 
         return response()->json([
             'status' => true,
@@ -106,9 +106,9 @@ class DevelopmentController extends Controller
     }
 
     /**
-     * スロージョブ経過 (polling)
+     * スロージョブ経過
      */
-    public function start_slow_polling_job_progress(Request $request)
+    public function start_slow_job_progress(Request $request)
     {
         $user = $request->user();
 
