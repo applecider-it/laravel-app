@@ -3,7 +3,7 @@
 
 import axios from "axios";
 
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 import { showToast } from "@/services/ui/message";
 
@@ -13,8 +13,17 @@ import { sleep } from "@/services/system/datetime";
 
 const progress = ref<number>(0);
 
-/** 経過観察 */
-const checkProgress = async () => {
+/** 開始API送信 */
+const sendStart = async () => {
+    const response = await axios.post("/development/start_slow_job", {
+        test: 123,
+        test2: { test3: 456 },
+    });
+    console.log("response.data", response.data);
+};
+
+/** 経過観察API送信 */
+const sendProgress = async () => {
     const response = await axios.post(
         "/development/start_slow_job_progress",
         {},
@@ -22,6 +31,13 @@ const checkProgress = async () => {
     console.log("response.data", response.data);
 
     const data = response.data.data;
+
+    return data;
+};
+
+/** 経過観察 */
+const checkProgress = async () => {
+    const data = await sendProgress();
 
     if (data) {
         showToast(Math.floor(data.cursor * 100) + "%完了");
@@ -40,11 +56,7 @@ const SlowJobTest = async () => {
     console.log("SlowJobTest");
     progress.value = 0;
 
-    const response = await axios.post("/development/start_slow_job", {
-        test: 123,
-        test2: { test3: 456 },
-    });
-    console.log("response.data", response.data);
+    await sendStart();
 
     showToast("送信しました。");
 
@@ -52,6 +64,19 @@ const SlowJobTest = async () => {
 
     checkProgress();
 };
+
+/** ジョブが動いているかの確認 */
+const checkStarted = async () => {
+    const data = await sendProgress();
+
+    if (data && data.cursor != 1) {
+        checkProgress();
+    }
+};
+
+onMounted(async () => {
+    await checkStarted();
+});
 </script>
 
 <template>
