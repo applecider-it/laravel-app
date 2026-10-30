@@ -6,13 +6,11 @@ import { ref } from "vue";
 import { showToast, setIsLoading } from "@/services/ui/message";
 import LoadingInline from '@/services/ui/vue/message/LoadingInline.vue';
 
-const cnt = ref<number>(0);
-
 const inline = ref<boolean>(false);
 
 /** ロード画面の動作確認 */
 const loadingTest = () => {
-    console.log("Loading vue.js");
+    console.log("Loading");
     setIsLoading(true);
     setTimeout(() => {
         setIsLoading(false);
@@ -29,8 +27,7 @@ const loadingInlineTest = () => {
 
 /** トーストの動作確認 */
 const toastTest = (type) => {
-    cnt.value++;
-    const msg = `トーストテスト vue.js type:${type} cnt.value:${cnt.value}`;
+    const msg = `トーストテスト type:${type}`;
     console.log(msg);
     showToast(msg, type);
 };
@@ -70,7 +67,6 @@ const toastTest = (type) => {
             >
                 Toast 2
             </button>
-            <span>cnt: {{ cnt }}</span>
         </div>
     </div>
 </template>

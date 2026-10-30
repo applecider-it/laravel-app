@@ -4,7 +4,6 @@
 import DefineModelArea from "./test-area-vue/DefineModelArea.vue";
 import EmitModelArea from "./test-area-vue/EmitModelArea.vue";
 import UIArea from "./test-area-vue/UIArea.vue";
-import RefArea from "./test-area-vue/RefArea.vue";
 import FormArea from "./test-area-vue/FormArea.vue";
 import UploadArea from "./test-area-vue/UploadArea.vue";
 import SlowJobArea from "./test-area-vue/SlowJobArea.vue";
@@ -24,10 +23,6 @@ const blockStyle = "border-gray-400 border-2 p-3";
         <div class="mb-6 text-lg">vue.js動作確認</div>
 
         <div class="space-y-4">
-            <div :class="blockStyle">
-                <RefArea :testValue="testValue" />
-            </div>
-
             <div :class="blockStyle">
                 <UIArea />
             </div>
