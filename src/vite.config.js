@@ -16,7 +16,6 @@ export default defineConfig({
                 "resources/js/entrypoints/chat-echo.ts",
 
                 "resources/js/entrypoints/development/javascript-test.ts",
-                "resources/js/entrypoints/development/websocket-test.ts",
                 "resources/js/entrypoints/development/router-test.ts",
 
                 "resources/js/entrypoints/admin/app.ts",
