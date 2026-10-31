@@ -1,6 +1,8 @@
 <script setup lang="ts">
 /** vueテスト用コンポーネント */
 
+import { ref } from "vue";
+
 import DefineModelArea from "./test-area-vue/DefineModelArea.vue";
 import EmitModelArea from "./test-area-vue/EmitModelArea.vue";
 import UIArea from "./test-area-vue/UIArea.vue";
@@ -17,6 +19,8 @@ interface Props {
 const props = defineProps<Props>();
 
 const blockStyle = "border-gray-400 border-2 p-3";
+
+const appliOpen = ref(true);
 </script>
 
 <template>
@@ -55,7 +59,12 @@ const blockStyle = "border-gray-400 border-2 p-3";
             </div>
 
             <div :class="blockStyle">
-                <AppliArea />
+                <div v-if="appliOpen">
+                    <AppliArea />
+                </div>
+                <button class="app-btn-primary" @click="appliOpen = !appliOpen">
+                    開閉
+                </button>
             </div>
         </div>
     </div>

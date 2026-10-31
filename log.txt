@@ -546,3 +546,8 @@ npm uninstall -D @types/web-push
 
 npx @tailwindcss/upgrade@latest
 
+-----------------------------------
+
+
+http://localhost:8000/development/javascript_test
+

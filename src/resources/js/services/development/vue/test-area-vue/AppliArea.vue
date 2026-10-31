@@ -1,22 +1,16 @@
 <script setup lang="ts">
 /** UI動作確認 */
 
-import { onMounted } from "vue";
+import { useAppli } from "@/services/appli/vue-hook/useAppli";
 
-import { isPWA, setupRefreshPWA } from "@/services/appli/appli.js";
-
-const pwa = isPWA();
-
-onMounted(() => {
-    setupRefreshPWA();
-});
+const { pwa } = useAppli();
 </script>
 
 <template>
     <div>
         アプリ動作確認
 
-        <div class="mt-5">
+        <div class="my-10 p-10 border-4">
             <div v-if="pwa">アプリで起動</div>
             <div v-else>ブラウザで起動</div>
         </div>
