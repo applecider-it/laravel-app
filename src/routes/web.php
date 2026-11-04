@@ -17,6 +17,8 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatEchoController;
 use App\Http\Controllers\DevelopmentController;
 
+use App\Services\Appli\AppliService;
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -60,8 +62,10 @@ Route::middleware('auth')->group(function () {
 
 // PWA
 Route::get('/manifest.json', function () {
+    $manifest = AppliService::getPwaManifest();
+    
     return response()
-        ->view('pwa.manifest')
+        ->json($manifest, 200, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
         ->header('Content-Type', 'application/json')
         ->header('Cache-Control', 'no-store, no-cache, must-revalidate');
 });
