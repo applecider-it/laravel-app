@@ -9,6 +9,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AppliController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\TweetJsController;
@@ -16,8 +17,6 @@ use App\Http\Controllers\TweetRailsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatEchoController;
 use App\Http\Controllers\DevelopmentController;
-
-use App\Services\Appli\AppliService;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -60,17 +59,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/chat-echo/send', [ChatEchoController::class, 'send']);
 });
 
-// PWA
-Route::get('/manifest.json', function () {
-    $manifest = AppliService::getPwaManifest();
-    
-    return response()
-        ->json($manifest, 200, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
-        ->header('Content-Type', 'application/json');
-});
-Route::get('/appli', function () {
-    return view('appli.start');
-})->name('appli');
+// PWAマニフェスト
+Route::get('/manifest.json', [AppliController::class, 'manifest']);
+
+// アプリ
+Route::get('/appli/start', [AppliController::class, 'start'])->name('appli.start');
 
 // 開発者向けページ
 Route::get('/development/index', [DevelopmentController::class, 'index'])->name('development.index');

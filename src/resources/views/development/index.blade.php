@@ -18,7 +18,7 @@
             </div>
 
             <div class="app-pwa:hidden">
-                <div><a href="{{ route('appli') }}" class="app-link-normal">appli</a></div>
+                <div><a href="{{ route('appli.start') }}" class="app-link-normal">appli.start</a></div>
             </div>
         </div>
     </div>

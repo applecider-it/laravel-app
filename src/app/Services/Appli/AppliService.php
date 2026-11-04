@@ -19,7 +19,7 @@ class AppliService
                     'sizes' => '512x512',
                 ],
             ],
-            'start_url' => '/appli',
+            'start_url' => '/appli/start',
             'display' => 'standalone',
             'scope' => '/',
             'description' => 'ララベルのテスト用',
