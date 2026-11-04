@@ -68,18 +68,22 @@
 
         <div class="my-6 text-lg">Tailwindの動作確認</div>
 
-        <div class="mt-5">
-            <div class="app-development-tailwind-test">
-                <span class="hidden in-[.app-development-tailwind-test]:block">表示される</span>
+        <div class="mt-5 border-2 p-10 space-y-5">
+            <div>
+                <div class="app-development-tailwind-test">
+                    <span class="hidden in-[.app-development-tailwind-test]:block">表示される</span>
+                </div>
+                <div>
+                    <span class="hidden in-[.app-development-tailwind-test]:block">表示されない</span>
+                </div>
             </div>
             <div>
-                <span class="hidden in-[.app-development-tailwind-test]:block">表示されない</span>
-            </div>
-            <div class="app-pwa:hidden">
-                pwaでは非表示
-            </div>
-            <div class="hidden app-pwa:block">
-                pwaだけ表示される
+                <div class="app-pwa:hidden">
+                    pwaでは非表示
+                </div>
+                <div class="hidden app-pwa:block">
+                    pwaだけ表示される
+                </div>
             </div>
         </div>
     </div>
