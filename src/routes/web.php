@@ -66,8 +66,7 @@ Route::get('/manifest.json', function () {
     
     return response()
         ->json($manifest, 200, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES)
-        ->header('Content-Type', 'application/json')
-        ->header('Cache-Control', 'no-store, no-cache, must-revalidate');
+        ->header('Content-Type', 'application/json');
 });
 Route::get('/appli', function () {
     return view('pwa.appli');
