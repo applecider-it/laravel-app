@@ -69,7 +69,7 @@ Route::get('/manifest.json', function () {
         ->header('Content-Type', 'application/json');
 });
 Route::get('/appli', function () {
-    return view('pwa.appli');
+    return view('appli.start');
 })->name('appli');
 
 // 開発者向けページ
