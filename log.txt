@@ -551,3 +551,10 @@ npx @tailwindcss/upgrade@latest
 
 http://localhost:8000/development/javascript_test
 
+
+-----------------------------------
+
+composer update firebase/php-jwt
+
+composer update
+
