@@ -20,7 +20,7 @@ use App\Http\Controllers\DevelopmentController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     // 認証必須
@@ -78,7 +78,12 @@ Route::post('/development/upload_test', [DevelopmentController::class, 'upload_t
 Route::get('/development/router_test', [DevelopmentController::class, 'router_test'])->name('development.router_test');
 Route::get('/development/ai_test', [DevelopmentController::class, 'ai_test'])->name('development.ai_test');
 Route::post('/development/ai_test', [DevelopmentController::class, 'ai_test_post'])->name('development.ai_test_post');
-
+Route::get('/development/security', [DevelopmentController::class, 'security'])
+    ->name('development.security')
+    ->middleware(['auth', 'password.confirm']);
+Route::get('/development/verified', [DevelopmentController::class, 'verified'])
+    ->name('development.verified')
+    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

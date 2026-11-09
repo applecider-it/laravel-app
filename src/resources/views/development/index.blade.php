@@ -12,6 +12,10 @@
                 <p><a href="{{ route('development.router_test') }}" class="app-link-normal">router_test</a></p>
                 <p><a href="{{ route('development.ai_test') }}" class="app-link-normal">ai_test</a></p>
             </div>
+            <div>
+                <p><a href="{{ route('development.security') }}" class="app-link-normal">security</a></p>
+                <p><a href="{{ route('development.verified') }}" class="app-link-normal">verified</a></p>
+            </div>
 
             <div class="app-pwa:hidden">
                 <div><a href="{{ route('appli.start') }}" class="app-link-normal">appli.start</a></div>

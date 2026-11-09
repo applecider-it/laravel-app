@@ -161,4 +161,16 @@ class DevelopmentController extends Controller
             $this->imageAnalysisService->execAnalysisService($file->getRealPath())
         );
     }
+
+    /** セキュリティテスト */
+    public function security(Request $request)
+    {
+        return view('development.complate');
+    }
+
+    /** 確認済みテスト */
+    public function verified(Request $request)
+    {
+        return view('development.complate');
+    }
 }

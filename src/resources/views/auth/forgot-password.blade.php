@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="app-container-normal">
         <h2 class="app-h2">パスワード再発行</h2>
-                
+
         <div class="mb-4 text-sm text-gray-600">
             パスワードをお忘れですか？ご安心ください。メールアドレスをお知らせいただければ、新しいパスワードを設定するためのリンクをメールでお送りします。
         </div>

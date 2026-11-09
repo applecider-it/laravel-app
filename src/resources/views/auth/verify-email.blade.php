@@ -1,31 +1,25 @@
 <x-app-layout>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
-    </div>
+    <div class="app-container-normal">
+        <h2 class="app-h2">メール認証必須ページ</h2>
 
-    @if (session('status') == 'verification-link-sent')
-        <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+            ご登録ありがとうございます！利用を開始する前に、先ほどお送りしたメール内のリンクをクリックして、メールアドレスの認証をお願いいたします。もしメールが届いていない場合は、改めてお送りしますのでお知らせください。
         </div>
-    @endif
 
-    <div class="mt-4 flex items-center justify-between">
-        <form method="POST" action="{{ route('verification.send') }}">
-            @csrf
-
-            <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
-                </x-primary-button>
+        @if (session('status') == 'verification-link-sent')
+            <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
+                登録時にご指定いただいたメールアドレスへ、新しい認証用リンクを送信しました。
             </div>
-        </form>
+        @endif
 
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
+        <div class="mt-4 flex items-center justify-between">
+            <form method="POST" action="{{ route('verification.send') }}">
+                @csrf
 
-            <button type="submit" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                {{ __('Log Out') }}
-            </button>
-        </form>
+                <div>
+                    <button type="submit" class="app-btn-primary">送信</button>
+                </div>
+            </form>
+        </div>
     </div>
 </x-app-layout>
