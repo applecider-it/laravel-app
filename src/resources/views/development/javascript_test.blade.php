@@ -1,13 +1,9 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="app-header-title">
-            Javascript Test
-        </h2>
-    </x-slot>
-
     @vite(['resources/js/entrypoints/development/javascript-test.ts'])
 
-    <div class="app-container">
+    <div class="app-container-normal">
+        <h2 class="app-h2">Javascript Test</h2>
+
         <div id="vue-test-root" data-all="{{ json_encode([
             'testValue' => 456,
             'formData' => [

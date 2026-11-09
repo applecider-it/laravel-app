@@ -1,13 +1,9 @@
 <x-admin-layout
     :breadcrumbs="['admin.users.create']"
 >
-    <x-slot name="header">
-        <h2 class="app-header-title">
-            投稿作成
-        </h2>
-    </x-slot>
+    <div class="app-container-normal">
+        <h2 class="app-h2">ユーザー作成</h2>
 
-    <div class="app-container-lg">
         <div class="mb-6">
             <a href="{{ route('admin.users.index') }}" class="app-btn-secondary">
                 一覧に戻る

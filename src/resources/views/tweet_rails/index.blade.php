@@ -1,13 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="app-header-title">
-            Tweet (Railsライク)
-        </h2>
-    </x-slot>
+    <div class="app-container-normal">
+        <h2 class="app-h2">Tweet (Railsライク)</h2>
 
-    @include('partials.message.session')
-
-    <div class="app-container">
         <div class="mb-4">
             <a href="{{ route('tweet_rails.create') }}" class="app-btn-primary">
                 新規作成

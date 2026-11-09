@@ -1,11 +1,9 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="app-header-title">
-            Tweets
-        </h2>
-    </x-slot>
+    @vite('resources/js/entrypoints/tweet.ts')
 
-    <div class="app-container">
+    <div class="app-container-normal">
+        <h2 class="app-h2">Tweet</h2>
+
         <div
             id="tweet-app"
             data-all="{{ json_encode([
@@ -18,5 +16,3 @@
         </div>
     </div>
 </x-app-layout>
-
-@vite('resources/js/entrypoints/tweet.ts')

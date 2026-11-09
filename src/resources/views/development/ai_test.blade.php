@@ -1,11 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="app-header-title">
-            AI Test
-        </h2>
-    </x-slot>
+    <div class="app-container-normal">
+        <h2 class="app-h2">AI Test</h2>
 
-    <div class="app-container">
         <div class="my-6 text-lg">画像解析</div>
         <form method="POST" action="{{ route('development.ai_test_post') }}" enctype="multipart/form-data" class="app-form mt-5">
             @csrf

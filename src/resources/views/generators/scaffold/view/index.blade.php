@@ -1,11 +1,7 @@
 <x#-app-layout>
-    <x#-slot name="header">
-        <h2 class="app-header-title">
-            {{ $nameStudly }}一覧
-        </h2>
-    </x#-slot>
+    <div class="app-container-normal">
+        <h2 class="app-h2">{{ $nameStudly }}一覧</h2>
 
-    <div class="app-container-lg">
         <div class="mb-4">
             <a href="{# route('{{ $nameSnakePlural }}.create') #}" class="app-btn-primary">
                 新規作成

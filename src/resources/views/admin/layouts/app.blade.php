@@ -12,6 +12,8 @@
             {{ Breadcrumbs::render(...$breadcrumbs) }}
         @endisset
 
+        @include('partials.message.session')
+
         <div>
             {{ $slot }}
         </div>

@@ -2,13 +2,9 @@
     $copyValue = "コピーする文字列\n<span>コピーする文字列</span>\n";
 @endphp
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="app-header-title">
-            View Test
-        </h2>
-    </x-slot>
+    <div class="app-container-normal">
+        <h2 class="app-h2">View Test</h2>
 
-    <div class="app-container">
         <div class="my-6 text-lg">読み込み中表示の動作確認</div>
         <div class="mt-5 border-gray-500 border-2 p-0">
             @include('partials.message.loading')

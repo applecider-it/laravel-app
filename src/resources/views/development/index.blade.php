@@ -1,11 +1,7 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="app-header-title">
-            開発者向けページ
-        </h2>
-    </x-slot>
+    <div class="app-container-normal">
+        <h2 class="app-h2">開発者向けページ</h2>
 
-    <div class="app-container">
         <div class="space-y-5">
             <div>
                 <p><a href="{{ route('development.php_test') }}" class="app-link-normal">php_test</a></p>

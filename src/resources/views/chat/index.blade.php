@@ -1,12 +1,9 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="app-header-title">
-            Chat
-            ( room: {{ $rooms[$room] }} )
-        </h2>
-    </x-slot>
+    @vite(['resources/js/entrypoints/chat.ts'])
 
-    <div class="app-container">
+    <div class="app-container-normal">
+        <h2 class="app-h2">Chat ( room: {{ $rooms[$room] }} )</h2>
+
         <div class="space-x-4">
             @foreach ($rooms as $key => $val)
                 @if ($key === $room)
@@ -27,9 +24,4 @@
             </div>
         </div>
     </div>
-
-
-
-    {{-- Vite の JS 読み込み --}}
-    @vite(['resources/js/entrypoints/chat.ts'])
 </x-app-layout>

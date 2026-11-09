@@ -1,13 +1,9 @@
 <x-admin-layout
     :breadcrumbs="['admin.users.edit', $user]"
 >
-    <x-slot name="header">
-        <h2 class="app-header-title">
-            投稿編集
-        </h2>
-    </x-slot>
+    <div class="app-container-normal">
+        <h2 class="app-h2">ユーザー編集</h2>
 
-    <div class="app-container-lg">
         <div class="mb-6">
             <a href="{{ route('admin.users.index') }}" class="app-btn-secondary">
                 一覧に戻る
@@ -15,8 +11,6 @@
         </div>
 
         @include('partials.form.errors')
-
-        @include('partials.message.session')
 
         <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form" data-app-form-require-dirtycheck="on">
             @csrf
