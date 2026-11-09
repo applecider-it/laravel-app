@@ -1,52 +1,53 @@
 <x-app-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+    <div class="app-container-normal">
+        <h2 class="app-h2">サインアップ</h2>
+                
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+            <!-- Name -->
+            <div>
+                <label for="name" class="app-form-label">{{ __('app.models.user.columns.name') }}</label>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+                <input id="name" name="name" type="text" value="{{ old('name') }}" class="app-form-input mt-1"/>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+                <x-input-error :messages="$errors->get('name')" />
+            </div>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            autocomplete="new-password" />
+            <!-- Email Address -->
+            <div class="mt-4">
+                <label for="email" class="app-form-label">{{ __('app.models.user.columns.email') }}</label>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+                <input id="email" name="email" type="text" value="{{ old('email') }}" class="app-form-input mt-1"/>
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-input-error :messages="$errors->get('email')" />
+            </div>
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" autocomplete="new-password" />
+            <!-- Password -->
+            <div class="mt-4">
+                <label for="password" class="app-form-label">{{ __('app.models.user.columns.password') }}</label>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+                <input id="password" name="password" type="password" class="app-form-input mt-1"/>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+                <x-input-error :messages="$errors->get('password')" />
+            </div>
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
+            <!-- Confirm Password -->
+            <div class="mt-4">
+                <label for="password_confirmation" class="app-form-label">{{ __('app.columns.confirm_password') }}</label>
+
+                <input id="password_confirmation" name="password_confirmation" type="password" class="app-form-input mt-1"/>
+
+                <x-input-error :messages="$errors->get('password_confirmation')" />
+            </div>
+
+            <div class="flex items-center justify-end mt-4">
+                <a class="app-link-normal mr-5" href="{{ route('login') }}">
+                    登録済みの場合はこちら
+                </a>
+
+                <button type="submit" class="app-btn-primary">登録</button>
+            </div>
+        </form>
+    </div>
 </x-app-layout>

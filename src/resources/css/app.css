@@ -40,7 +40,7 @@
 
 /* 入力項目エラー */
 @utility app-error-text {
-    @apply text-red-500 text-sm;
+    @apply text-red-500 text-sm my-2;
 }
 
 /* ヘッダーのタイトルの標準 */

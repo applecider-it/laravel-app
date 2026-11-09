@@ -35,9 +35,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <button type="submit" class="app-btn-primary">
-                    ログイン
-                </button>
+                <button type="submit" class="app-btn-primary">ログイン</button>
             </div>
         </form>
     </div>
