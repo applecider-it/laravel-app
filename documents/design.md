@@ -10,6 +10,8 @@ aiはpythonのマイクロサービス。
 
 Laravel Echoではsoketiを利用している。
 
+アプリ化対応はPWA。
+
 ```
 node/ <- nodeマイクロサービス
   documents/ <- nodeマイクロサービス固有のドキュメント
