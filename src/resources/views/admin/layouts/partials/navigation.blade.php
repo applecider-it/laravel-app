@@ -18,7 +18,7 @@ $link_style = "hover:text-indigo-500"
             <a href="{{ route('admin.users.index') }}" class="{{ $link_style }}">ユーザー</a>
             @auth
                 <span>{{ Auth::guard('admin')->name }}</span>
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
 
                     <button type="submit" class="{{ $link_style }}">

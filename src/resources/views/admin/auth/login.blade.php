@@ -1,41 +1,48 @@
 <x-admin-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <div class="app-container-normal">
+        <h2 class="app-h2">ログイン</h2>
+            
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('admin.login') }}">
-        @csrf
+        <form method="POST" action="{{ route('admin.login') }}">
+            @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('app.models.admin_user.columns.email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="text" name="email" :value="old('email')" autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+            <!-- Email Address -->
+            <div>
+                <label for="email" class="app-form-label">{{ __('app.models.user.columns.email') }}</label>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('app.models.admin_user.columns.password')" />
+                <input id="email" name="email" type="text" value="{{ old('email') }}" class="app-form-input mt-1"/>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            autocomplete="current-password" />
+                @error('email')
+                    <p class="app-error-text">{{ $message }}</p>
+                @enderror
+            </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <!-- Password -->
+            <div class="mt-4">
+                <label for="password" class="app-form-label">{{ __('app.models.user.columns.password') }}</label>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded-sm dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-xs focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
+                <input id="password" name="password" type="text" class="app-form-input mt-1"/>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+                @error('password')
+                    <p class="app-error-text">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Remember Me -->
+            <div class="block mt-4">
+                <label for="remember_me" class="inline-flex items-center">
+                    <input id="remember_me" type="checkbox" class="rounded-sm dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-xs focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
+                    <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                </label>
+            </div>
+
+            <div class="flex items-center justify-end mt-4">
+                <button type="submit" class="app-btn-primary">
+                    ログイン
+                </button>
+            </div>
+        </form>
+     </div>
 </x-admin-layout>
