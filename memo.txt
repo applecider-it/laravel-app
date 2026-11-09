@@ -28,30 +28,6 @@ cd ~/workspace/github/laravel-app/src
 
 foreman start
 
-
-npx concurrently \
-  -c "#93c5fd,#c4b5fd,#fb7185" \
-  "php artisan serve" \
-  "tail -f ./storage/logs/laravel.log" \
-  "npm run dev" \
-  --names=server,logs,vite \
-  --kill-others
-
-
-composer dev2
-
-
-利用できない
-  composer dev
-
-  php artisan pailとsqlログを併用すると、挙動がおかしくなる。
-  SqlLogServiceProviderを無効化するか、pailではなくtail -f を使うと問題なく動く
-  Laravel\Pail\HandlerでAuthを使っているのが原因
-
-  不具合
-    ・ページ遷移ごとにセッションが削除される
-    ・ログイン時に永久ループする
-
 --
 
 ログクリア
@@ -378,3 +354,33 @@ php artisan app:scaffold UserPost auther,subject,content_body --force
 php artisan app:scaffold UserPost auther,subject,content_body --dryrun
 
 php artisan app:scaffold UserPost auther,subject,content_body --dryrun --display
+
+
+-----------------------------------
+
+その他の起動方法
+
+
+npx concurrently \
+  -c "#93c5fd,#c4b5fd,#fb7185" \
+  "php artisan serve" \
+  "tail -f ./storage/logs/laravel.log" \
+  "npm run dev" \
+  --names=server,logs,vite \
+  --kill-others
+
+
+composer dev2
+
+
+利用できない
+  composer dev
+
+  php artisan pailとsqlログを併用すると、挙動がおかしくなる。
+  SqlLogServiceProviderを無効化するか、pailではなくtail -f を使うと問題なく動く
+  Laravel\Pail\HandlerでAuthを使っているのが原因
+
+  不具合
+    ・ページ遷移ごとにセッションが削除される
+    ・ログイン時に永久ループする
+
