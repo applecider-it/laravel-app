@@ -21,18 +21,22 @@ class ProgressService
     }
 
     /** チェックポイント */
-    public function checkPoint($i)
+    public function checkPoint(float $cursor)
     {
         $key = $this->key();
 
         $data = [
-            'cursor' => $i,
+            'cursor' => $cursor,
         ];
 
-        Log::info('SampleJob: checkPoint ' . $i . ' ' . $this->user->name . ' ' . $key, [$data]);
+        Log::info('SampleJob: checkPoint ' . $cursor . ' ' . $this->user->name . ' ' . $key, [$data]);
 
-        Redis::set($key, json_encode($data));
-        Redis::expire($key, 60);
+        if ($cursor === 1) {
+            Redis::del($key);
+        } else {
+            Redis::set($key, json_encode($data));
+            //Redis::expire($key, 60);
+        }
     }
 
     /** データを返す */
@@ -41,7 +45,7 @@ class ProgressService
         $key = $this->key();
 
         $json = Redis::get($key);
-        
+
         return $json ? json_decode($json, true) : null;
     }
 

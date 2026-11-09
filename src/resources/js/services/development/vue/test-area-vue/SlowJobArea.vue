@@ -13,6 +13,8 @@ import { sleep } from "@/services/system/datetime";
 
 const progress = ref<number>(0);
 
+const enable = ref(false);
+
 /** 開始API送信 */
 const sendStart = async () => {
     const response = await axios.post("/development/start_slow_job", {
@@ -39,20 +41,27 @@ const sendProgress = async () => {
 const checkProgress = async () => {
     const data = await sendProgress();
 
-    if (data) {
-        showToast(Math.floor(data.cursor * 100) + "%完了");
-        progress.value = data.cursor * 100;
+    // 構造上ないけど一応チェック
+    if (!data) return;
 
-        if (data.cursor != 1) {
-            await sleep(2000);
+    showToast(Math.floor(data.cursor * 100) + "%完了");
+    progress.value = data.cursor * 100;
 
-            checkProgress();
-        }
+    if (data.cursor != 1) {
+        await sleep(2000);
+
+        checkProgress();
+    } else {
+        enable.value = true;
     }
 };
 
 /** 遅いジョブの開始 */
-const SlowJobTest = async () => {
+const startSlowJob = async () => {
+    if (!enable.value) return;
+
+    enable.value = false;
+
     console.log("SlowJobTest");
     progress.value = 0;
 
@@ -71,6 +80,8 @@ const checkStarted = async () => {
 
     if (data && data.cursor != 1) {
         checkProgress();
+    } else {
+        enable.value = true;
     }
 };
 
@@ -84,7 +95,10 @@ onMounted(async () => {
         遅いジョブ動作確認
 
         <div class="mt-5 space-y-2">
-            <button className="app-btn-orange" @click="SlowJobTest">
+            <button
+                :class="enable ? `app-btn-orange` : `app-btn-secondary`"
+                @click="startSlowJob"
+            >
                 遅いジョブ
             </button>
 

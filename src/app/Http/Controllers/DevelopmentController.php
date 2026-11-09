@@ -10,9 +10,7 @@ use App\Services\Sample\SampleService;
 use App\Services\Development\TraceService;
 use App\Services\Development\FormService;
 use App\Services\AI\ImageAnalysisService;
-use App\Services\Jobs\SampleJobService\ProgressService;
-
-use App\Jobs\SampleJob;
+use App\Services\Jobs\SampleJobCtrlService;
 
 /** スレッドセーフ動作確認用カウンター */
 class Counter
@@ -30,7 +28,7 @@ class DevelopmentController extends Controller
         private TraceService $traceService,
         private FormService $formService,
         private ImageAnalysisService $imageAnalysisService,
-        private ProgressService $progressService,
+        private SampleJobCtrlService $sampleJobCtrlService,
     ) {}
 
     public function index(Request $request)
@@ -89,16 +87,14 @@ class DevelopmentController extends Controller
     public function start_slow_job(Request $request)
     {
         $user = $request->user();
+        $this->sampleJobCtrlService->setup($user);
 
         $test = $request->input('test');
         $test2 = $request->input('test2');
 
         Log::info('startSlowPorlingJob', [$user->name, $test, $test2]);
 
-        $this->progressService->setup($user);
-        $this->progressService->checkPoint(0);
-
-        SampleJob::dispatch(date('H:i:s'), $user);
+        $this->sampleJobCtrlService->start();
 
         return response()->json([
             'status' => true,
@@ -111,9 +107,9 @@ class DevelopmentController extends Controller
     public function start_slow_job_progress(Request $request)
     {
         $user = $request->user();
+        $this->sampleJobCtrlService->setup($user);
 
-        $this->progressService->setup($user);
-        $data = $this->progressService->get();
+        $data = $this->sampleJobCtrlService->progress();
 
         return response()->json([
             'data' => $data,

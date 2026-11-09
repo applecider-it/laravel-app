@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Redis;
 
 use App\Models\User;
 
+/**
+ * サンプルジョブ管理
+ */
 class SampleJobService
 {
     private User $user;
@@ -19,7 +22,7 @@ class SampleJobService
     /**
      * サンプルジョブ実行
      */
-    public function exec($time, User $user)
+    public function exec(string $time, User $user)
     {
         $this->user = $user;
         $this->progressService->setup($this->user);
