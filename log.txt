@@ -558,3 +558,6 @@ composer update firebase/php-jwt
 
 composer update
 
+-----------------------------------
+
+php artisan vendor:publish --tag=laravel-notifications
