@@ -1,53 +1,26 @@
-<div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-    <div class="pt-2 pb-3 space-y-1">
-        @auth
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('tweet.index')" :active="request()->routeIs('tweet.index')">
-                Tweet
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.index')">
-                Chat
-            </x-responsive-nav-link>
-        @endauth
-    </div>
+@php
+$link_style = "block py-2 text-gray-700 hover:text-indigo-500"
+@endphp
+<!-- Mobile Menu -->
+<div
+  x-show="open"
+  x-transition.duration.200ms
+  class="px-6 pb-4 md:hidden"
+  style="display: none;"
+>
+    <a href="{{ route('dashboard') }}" class="{{ $link_style }}">dashboard</a>
 
-    <!-- Responsive Settings Options -->
-    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-        <div class="px-4">
-            @auth
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            @else
-                Guest
-            @endauth
-        </div>
+    @auth
+        <a href="{{ route('profile.edit') }}" class="{{ $link_style }}">プロフィール</a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
 
-        <div class="mt-3 space-y-1">
-            @auth
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            @else
-                <x-responsive-nav-link :href="route('login')">
-                    {{ __('Log In') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('register')">
-                    {{ __('Register') }}
-                </x-responsive-nav-link>
-            @endauth
-        </div>
-    </div>
+            <button type="submit" class="{{ $link_style }}">
+                ログアウト
+            </button>
+        </form>
+    @else
+        <a href="{{ route('login') }}" class="{{ $link_style }}">login</a>
+        <a href="{{ route('register') }}" class="{{ $link_style }}">register</a>
+    @endauth
 </div>
