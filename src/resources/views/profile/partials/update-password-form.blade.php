@@ -10,12 +10,9 @@
         <div>
             <label for="update_password_current_password" class="app-form-label">{{ __('app.columns.current_password') }}</label>
 
-            <input id="update_password_current_password" name="current_password" type="password"
-                class="app-form-input mt-1"/>
+            <input id="update_password_current_password" name="current_password" type="password" class="app-form-input mt-1"/>
 
-            @error('current_password', 'updatePassword')
-                <p class="app-error-text">{{ $message }}</p>
-            @enderror
+            <x-input-error :messages="$errors->updatePassword->get('current_password')" />
         </div>
 
         <div>
@@ -24,9 +21,7 @@
             <input id="update_password_password" name="password" type="password"
                 class="app-form-input mt-1"/>
 
-            @error('password', 'updatePassword')
-                <p class="app-error-text">{{ $message }}</p>
-            @enderror
+            <x-input-error :messages="$errors->updatePassword->get('password')" />
          </div>
 
         <div>
@@ -35,9 +30,7 @@
             <input id="update_password_password_confirmation" name="password_confirmation" type="password"
                 class="app-form-input mt-1"/>
 
-            @error('password_confirmation', 'updatePassword')
-                <p class="app-error-text">{{ $message }}</p>
-            @enderror
+            <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" />
         </div>
 
         <div class="flex items-center gap-4">

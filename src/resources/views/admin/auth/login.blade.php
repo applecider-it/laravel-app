@@ -10,24 +10,20 @@
 
             <!-- Email Address -->
             <div>
-                <label for="email" class="app-form-label">{{ __('app.models.user.columns.email') }}</label>
+                <label for="email" class="app-form-label">{{ __('app.models.admin_user.columns.email') }}</label>
 
                 <input id="email" name="email" type="text" value="{{ old('email') }}" class="app-form-input mt-1"/>
 
-                @error('email')
-                    <p class="app-error-text">{{ $message }}</p>
-                @enderror
+                <x-input-error :messages="$errors->get('email')" />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
-                <label for="password" class="app-form-label">{{ __('app.models.user.columns.password') }}</label>
+                <label for="password" class="app-form-label">{{ __('app.models.admin_user.columns.password') }}</label>
 
                 <input id="password" name="password" type="text" class="app-form-input mt-1"/>
 
-                @error('password')
-                    <p class="app-error-text">{{ $message }}</p>
-                @enderror
+                <x-input-error :messages="$errors->get('password')" />
             </div>
 
             <!-- Remember Me -->
@@ -44,5 +40,5 @@
                 </button>
             </div>
         </form>
-     </div>
+    </div>
 </x-admin-layout>

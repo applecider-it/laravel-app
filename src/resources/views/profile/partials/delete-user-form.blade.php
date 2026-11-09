@@ -13,9 +13,7 @@
             <input id="password" name="password" type="password"
                 class="app-form-input mt-1 w-3/4"/>
 
-            @error('password', 'userDeletion')
-                <p class="app-error-text">{{ $message }}</p>
-            @enderror
+            <x-input-error :messages="$errors->userDeletion->get('password')" />
         </div>
 
         <div class="mt-6">
