@@ -29,18 +29,18 @@ class SampleJobService
 
         Log::info('SampleJob: Begin!!! ' . $time . ' ' . $this->user->name);
 
-        $this->progressService->checkPoint(0);
-
         $total = 50;
         $waitSecond = 0.3;
 
         for ($i = 0; $i < $total; $i++) {
             usleep(1000000 * $waitSecond);
 
-            $this->progressService->checkPoint($i / $total);
+            $this->progressService->checkPoint($i / $total, false);
+
+            //return; // エラーテスト用
         }
 
-        $this->progressService->checkPoint(1);
+        $this->progressService->checkPoint(1, true);
 
         Log::info('SampleJob: End!!! ' . $time . ' ' . $this->user->name);
     }

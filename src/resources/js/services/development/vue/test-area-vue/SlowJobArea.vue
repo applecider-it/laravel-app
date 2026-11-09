@@ -17,7 +17,7 @@ const enable = ref(false);
 
 /** 開始API送信 */
 const sendStart = async () => {
-    const response = await axios.post("/development/start_slow_job", {
+    const response = await axios.post("/development/slow_job_start", {
         test: 123,
         test2: { test3: 456 },
     });
@@ -26,10 +26,7 @@ const sendStart = async () => {
 
 /** 経過観察API送信 */
 const sendProgress = async () => {
-    const response = await axios.post(
-        "/development/start_slow_job_progress",
-        {},
-    );
+    const response = await axios.post("/development/slow_job_progress", {});
     console.log("response.data", response.data);
 
     const data = response.data.data;
@@ -37,17 +34,23 @@ const sendProgress = async () => {
     return data;
 };
 
+/** クリアAPI送信 */
+const sendClear = async () => {
+    const response = await axios.post("/development/slow_job_clear");
+    console.log("response.data", response.data);
+};
+
 /** 経過観察 */
 const checkProgress = async () => {
     const data = await sendProgress();
 
-    // 構造上ないけど一応チェック
+    // ジョブが中断したあとにクリアした直後だけnullの場合もある
     if (!data) return;
 
     showToast(Math.floor(data.cursor * 100) + "%完了");
     progress.value = data.cursor * 100;
 
-    if (data.cursor != 1) {
+    if (!data.complate) {
         await sleep(2000);
 
         checkProgress();
@@ -85,6 +88,13 @@ const checkStarted = async () => {
     }
 };
 
+/** 遅いジョブのクリア */
+const clearSlowJob = async () => {
+    if (!confirm("状態クリアしますか？")) return;
+
+    sendClear();
+};
+
 onMounted(async () => {
     await checkStarted();
 });
@@ -109,6 +119,9 @@ onMounted(async () => {
                 className="app-btn-secondary"
             >
                 進める
+            </button>
+            <button @click="clearSlowJob" className="app-btn-danger ml-5">
+                状態クリア
             </button>
         </div>
     </div>

@@ -32,7 +32,7 @@ class SampleJobCtrlService
      */
     public function start()
     {
-        $this->progressService->checkPoint(0);
+        $this->progressService->checkPoint(0, false);
 
         // SampleJobを経由して
         // SampleJobService::exec()が動作する
@@ -44,6 +44,22 @@ class SampleJobCtrlService
      */
     public function progress()
     {
-        return $this->progressService->get();
+        $data = $this->progressService->get();
+
+        if (!$data) return null;
+
+        if ($data['complate']) {
+            $this->progressService->clear();
+        }
+
+        return $data;
+    }
+
+    /**
+     * サンプルジョブ状態クリア
+     */
+    public function clear()
+    {
+        $this->progressService->clear();
     }
 }

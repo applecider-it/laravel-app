@@ -84,7 +84,7 @@ class DevelopmentController extends Controller
     /**
      * スロージョブ開始
      */
-    public function start_slow_job(Request $request)
+    public function slow_job_start(Request $request)
     {
         $user = $request->user();
         $this->sampleJobCtrlService->setup($user);
@@ -104,7 +104,7 @@ class DevelopmentController extends Controller
     /**
      * スロージョブ経過
      */
-    public function start_slow_job_progress(Request $request)
+    public function slow_job_progress(Request $request)
     {
         $user = $request->user();
         $this->sampleJobCtrlService->setup($user);
@@ -113,6 +113,21 @@ class DevelopmentController extends Controller
 
         return response()->json([
             'data' => $data,
+        ]);
+    }
+
+    /**
+     * スロージョブクリア
+     */
+    public function slow_job_clear(Request $request)
+    {
+        $user = $request->user();
+        $this->sampleJobCtrlService->setup($user);
+
+        $this->sampleJobCtrlService->clear();
+
+        return response()->json([
+            'status' => true,
         ]);
     }
 

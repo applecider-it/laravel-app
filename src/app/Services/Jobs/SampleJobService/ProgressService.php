@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Redis;
 
 use App\Models\User;
 
+/**
+ * サンプルジョブの経過管理
+ */
 class ProgressService
 {
     private User $user;
@@ -21,22 +24,28 @@ class ProgressService
     }
 
     /** チェックポイント */
-    public function checkPoint(float $cursor)
+    public function checkPoint(float $cursor, bool $complate)
     {
         $key = $this->key();
 
         $data = [
             'cursor' => $cursor,
+            'complate' => $complate,
         ];
 
         Log::info('SampleJob: checkPoint ' . $cursor . ' ' . $this->user->name . ' ' . $key, [$data]);
 
-        if ($cursor === 1) {
-            Redis::del($key);
-        } else {
-            Redis::set($key, json_encode($data));
-            //Redis::expire($key, 60);
-        }
+        Redis::set($key, json_encode($data));
+        //Redis::expire($key, 60);
+    }
+
+    /** クリア */
+    public function clear()
+    {
+        $key = $this->key();
+
+        Log::info('SampleJob: checkPoint: del ' . $key);
+        Redis::del($key);
     }
 
     /** データを返す */
