@@ -341,6 +341,15 @@ php artisan storage:link
 
 -----------------------------------
 
+一時ファイル削除
+
+php artisan optimize:clear
+
+rm -rf storage/debugbar/*.json
+
+
+-----------------------------------
+
 Scaffold
 
 
