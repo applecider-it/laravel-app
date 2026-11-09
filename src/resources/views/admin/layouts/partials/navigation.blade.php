@@ -13,7 +13,7 @@ $link_style = "hover:text-indigo-500"
         </a>
 
         <!-- Desktop Menu -->
-        <nav class="hidden md:flex space-x-8 text-gray-700 font-medium">
+        <nav class="flex space-x-8 text-gray-700 font-medium">
             <a href="{{ route('admin.dashboard') }}" class="{{ $link_style }}">dashboard</a>
             <a href="{{ route('admin.users.index') }}" class="{{ $link_style }}">ユーザー</a>
             @auth
