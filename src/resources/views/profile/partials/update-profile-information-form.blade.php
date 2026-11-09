@@ -1,13 +1,7 @@
 <section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Profile Information') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
-    </header>
+    <h3 class="app-h3">
+        プロフィール情報
+    </h3>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
@@ -18,29 +12,33 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <label for="name" class="app-form-label">{{ __('app.models.user.columns.name') }}</label>
+
+            <input id="name" name="name" type="text" value="{{ old('name', $user->name) }}" class="app-form-input mt-1"/>
+
+            <x-input-error :messages="$errors->get('name')" />
         </div>
 
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            <label for="email" class="app-form-label">{{ __('app.models.user.columns.email') }}</label>
+
+            <input id="email" name="email" type="text" value="{{ old('email', $user->email) }}" class="app-form-input mt-1"/>
+
+            <x-input-error :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
-                        {{ __('Your email address is unverified.') }}
+                        メールアドレスが未確認です。
 
-                        <button form="send-verification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                            {{ __('Click here to re-send the verification email.') }}
+                        <button form="send-verification" class="app-link-normal">
+                            確認メールを再送信するには、ここをクリックしてください。
                         </button>
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
                         <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                            {{ __('A new verification link has been sent to your email address.') }}
+                            新しい認証リンクが、ご登録のメールアドレスに送信されました。
                         </p>
                     @endif
                 </div>
@@ -48,7 +46,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <button type="submit" class="app-btn-primary">保存</button>
 
             @if (session('status') === 'profile-updated')
                 <p

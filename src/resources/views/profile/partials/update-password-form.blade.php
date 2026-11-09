@@ -34,9 +34,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <button type="submit" class="app-btn-primary">
-                保存
-            </button>
+            <button type="submit" class="app-btn-primary">保存</button>
 
             @if (session('status') === 'password-updated')
                 <p
