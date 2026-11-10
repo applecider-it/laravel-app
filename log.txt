@@ -563,3 +563,6 @@ composer update
 php artisan vendor:publish --tag=laravel-notifications
 
 php artisan vendor:publish --tag=laravel-mail
+
+php artisan vendor:publish --tag=laravel-errors
+
