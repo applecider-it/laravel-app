@@ -22,7 +22,7 @@ class WebsocketService
     /**
      * 新しいツイートをブロードキャスト
      */
-    public function sendNewTweet($tweetArray)
+    public function sendNewTweet(array $tweetArray)
     {
         Log::info('sendNewTweet.tweetArray', [$tweetArray]);
 
@@ -30,9 +30,8 @@ class WebsocketService
             "tweet" => $tweetArray,
         ];
 
-        $response = $this->webSocketSystemService->publish(TweetChannel::getChannel(), $data);
+        $this->webSocketSystemService->publish(TweetChannel::getChannel(), $data);
 
-        Log::info('websocket_test response', [$response]);
-
+        Log::info('sendNewTweet published');
     }
 }
