@@ -13,11 +13,7 @@ if (el) {
 
   console.log(all);
 
-  const tweetClient = new TweetClient(
-    all.token,
-    all.wsHost,
-    all.user
-  );
+  const tweetClient = new TweetClient(all.token, all.wsHost, all.user);
 
   createApp(TweetArea, {
     initialTweets: all.tweets,

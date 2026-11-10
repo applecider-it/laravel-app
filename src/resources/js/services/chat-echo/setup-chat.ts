@@ -10,15 +10,15 @@ import ChatClient from "./ChatClient";
 const el = document.getElementById("chat-root") as HTMLElement | null;
 
 if (el) {
-    const all = JSON.parse(el.dataset.all as string);
+  const all = JSON.parse(el.dataset.all as string);
 
-    console.log('all', all);
+  console.log("all", all);
 
-    const chatClient = new ChatClient(all.room);
+  const chatClient = new ChatClient(all.room);
 
-    const app = createApp(ChatArea, {
-        chatClient: chatClient,
-    });
+  const app = createApp(ChatArea, {
+    chatClient: chatClient,
+  });
 
-    app.mount(el);
+  app.mount(el);
 }

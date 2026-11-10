@@ -5,7 +5,7 @@
 import { writeClipboard } from "@/services/ui/edit";
 
 export const App = {
-    funcs: {
-        writeClipboard,
-    },
+  funcs: {
+    writeClipboard,
+  },
 };

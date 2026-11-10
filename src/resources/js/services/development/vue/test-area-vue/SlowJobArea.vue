@@ -17,112 +17,112 @@ const enable = ref(false);
 
 /** 開始API送信 */
 const sendStart = async () => {
-    const response = await axios.post("/development/slow_job_start", {
-        test: 123,
-        test2: { test3: 456 },
-    });
-    console.log("response.data", response.data);
+  const response = await axios.post("/development/slow_job_start", {
+    test: 123,
+    test2: { test3: 456 },
+  });
+  console.log("response.data", response.data);
 };
 
 /** 経過観察API送信 */
 const sendProgress = async () => {
-    const response = await axios.post("/development/slow_job_progress", {});
-    console.log("response.data", response.data);
+  const response = await axios.post("/development/slow_job_progress", {});
+  console.log("response.data", response.data);
 
-    const data = response.data.data;
+  const data = response.data.data;
 
-    return data;
+  return data;
 };
 
 /** クリアAPI送信 */
 const sendClear = async () => {
-    const response = await axios.post("/development/slow_job_clear");
-    console.log("response.data", response.data);
+  const response = await axios.post("/development/slow_job_clear");
+  console.log("response.data", response.data);
 };
 
 /** 経過観察 */
 const checkProgress = async () => {
-    const data = await sendProgress();
+  const data = await sendProgress();
 
-    // ジョブが中断したあとにクリアした直後だけnullの場合もある
-    if (!data) return;
+  // ジョブが中断したあとにクリアした直後だけnullの場合もある
+  if (!data) return;
 
-    showToast(Math.floor(data.cursor * 100) + "%完了");
-    progress.value = data.cursor * 100;
+  showToast(Math.floor(data.cursor * 100) + "%完了");
+  progress.value = data.cursor * 100;
 
-    if (!data.complate) {
-        await sleep(2000);
+  if (!data.complate) {
+    await sleep(2000);
 
-        checkProgress();
-    } else {
-        enable.value = true;
-    }
+    checkProgress();
+  } else {
+    enable.value = true;
+  }
 };
 
 /** 遅いジョブの開始 */
 const startSlowJob = async () => {
-    if (!enable.value) return;
+  if (!enable.value) return;
 
-    enable.value = false;
+  enable.value = false;
 
-    console.log("SlowJobTest");
-    progress.value = 0;
+  console.log("SlowJobTest");
+  progress.value = 0;
 
-    await sendStart();
+  await sendStart();
 
-    showToast("送信しました。");
+  showToast("送信しました。");
 
-    await sleep(2000);
+  await sleep(2000);
 
-    checkProgress();
+  checkProgress();
 };
 
 /** ジョブが動いているかの確認 */
 const checkStarted = async () => {
-    const data = await sendProgress();
+  const data = await sendProgress();
 
-    if (data && data.cursor != 1) {
-        checkProgress();
-    } else {
-        enable.value = true;
-    }
+  if (data && data.cursor != 1) {
+    checkProgress();
+  } else {
+    enable.value = true;
+  }
 };
 
 /** 遅いジョブのクリア */
 const clearSlowJob = async () => {
-    if (!confirm("状態クリアしますか？")) return;
+  if (!confirm("状態クリアしますか？")) return;
 
-    sendClear();
+  sendClear();
 };
 
 onMounted(async () => {
-    await checkStarted();
+  await checkStarted();
 });
 </script>
 
 <template>
-    <div>
-        遅いジョブ動作確認
+  <div>
+    遅いジョブ動作確認
 
-        <div class="mt-5 space-y-2">
-            <button
-                :class="enable ? `app-btn-orange` : `app-btn-secondary`"
-                @click="startSlowJob"
-            >
-                遅いジョブ
-            </button>
+    <div class="mt-5 space-y-2">
+      <button
+        :class="enable ? `app-btn-orange` : `app-btn-secondary`"
+        @click="startSlowJob"
+      >
+        遅いジョブ
+      </button>
 
-            <ProgressBar :progress="progress" />
+      <ProgressBar :progress="progress" />
 
-            <button
-                @click="() => (progress = progress + 10)"
-                className="app-btn-secondary"
-            >
-                進める
-            </button>
-            <button @click="clearSlowJob" className="app-btn-danger ml-5">
-                状態クリア
-            </button>
-        </div>
+      <button
+        @click="() => (progress = progress + 10)"
+        className="app-btn-secondary"
+      >
+        進める
+      </button>
+      <button @click="clearSlowJob" className="app-btn-danger ml-5">
+        状態クリア
+      </button>
     </div>
+  </div>
 </template>

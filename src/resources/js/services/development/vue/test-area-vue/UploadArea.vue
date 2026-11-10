@@ -10,45 +10,45 @@ const fileInput = ref(null);
 const selectedFile = ref(null);
 
 const handleFileChange = (event) => {
-    selectedFile.value = event.target.files[0];
+  selectedFile.value = event.target.files[0];
 };
 
 const upload = async () => {
-    if (!selectedFile.value) return;
+  if (!selectedFile.value) return;
 
-    const formData = new FormData();
-    formData.append("file", selectedFile.value);
+  const formData = new FormData();
+  formData.append("file", selectedFile.value);
 
-    setIsLoading(true);
+  setIsLoading(true);
 
-    const result = await axios.post("/development/upload_test", formData, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-    });
+  const result = await axios.post("/development/upload_test", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
-    console.log("result", result);
-    console.log("result.data", result.data);
+  console.log("result", result);
+  console.log("result.data", result.data);
 
-    setIsLoading(false);
+  setIsLoading(false);
 
-    showToast("アップロード完了");
+  showToast("アップロード完了");
 
-    // ファイル入力をクリア
-    selectedFile.value = null;
-    fileInput.value.value = null;
+  // ファイル入力をクリア
+  selectedFile.value = null;
+  fileInput.value.value = null;
 };
 </script>
 
 <template>
-    <div>
-        アップロード動作確認
+  <div>
+    アップロード動作確認
 
-        <div class="mt-5">
-            <input type="file" ref="fileInput" @change="handleFileChange" />
-            <button class="app-btn-secondary mr-2" @click="upload">
-                アップロード
-            </button>
-        </div>
+    <div class="mt-5">
+      <input type="file" ref="fileInput" @change="handleFileChange" />
+      <button class="app-btn-secondary mr-2" @click="upload">
+        アップロード
+      </button>
     </div>
+  </div>
 </template>

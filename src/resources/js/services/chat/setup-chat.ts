@@ -10,11 +10,11 @@ import ChatClient from "./ChatClient";
 const el: any = document.getElementById("chat-root");
 
 if (el) {
-    const all = JSON.parse(el.dataset.all);
+  const all = JSON.parse(el.dataset.all);
 
-    console.log("all", all);
+  console.log("all", all);
 
-    const chatClient = new ChatClient(all.token, all.wsHost, all.room);
+  const chatClient = new ChatClient(all.token, all.wsHost, all.room);
 
-    createApp(ChatArea, { chatClient }).mount(el);
+  createApp(ChatArea, { chatClient }).mount(el);
 }

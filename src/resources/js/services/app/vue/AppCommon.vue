@@ -11,15 +11,15 @@ const { toasts, showToast } = useToast();
 const isLoading = ref(false);
 
 onMounted(() => {
-    setupMessage(showToast, (value: boolean) => {
-        isLoading.value = value;
-    });
+  setupMessage(showToast, (value: boolean) => {
+    isLoading.value = value;
+  });
 });
 </script>
 
 <template>
-    <div>
-        <Toasts :toasts="toasts" />
-        <Loading :isLoading="isLoading" />
-    </div>
+  <div>
+    <Toasts :toasts="toasts" />
+    <Loading :isLoading="isLoading" />
+  </div>
 </template>

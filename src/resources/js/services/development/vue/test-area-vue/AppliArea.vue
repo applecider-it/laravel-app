@@ -7,12 +7,12 @@ const { pwa } = useAppli();
 </script>
 
 <template>
-    <div>
-        アプリ動作確認
+  <div>
+    アプリ動作確認
 
-        <div class="my-10 p-10 border-4">
-            <div v-if="pwa">アプリで起動</div>
-            <div v-else>ブラウザで起動</div>
-        </div>
+    <div class="my-10 p-10 border-4">
+      <div v-if="pwa">アプリで起動</div>
+      <div v-else>ブラウザで起動</div>
     </div>
+  </div>
 </template>

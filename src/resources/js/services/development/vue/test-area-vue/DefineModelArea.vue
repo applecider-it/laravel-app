@@ -10,14 +10,14 @@ const content = ref<string>("");
 </script>
 
 <template>
-    <div>
-        defineModel動作確認
+  <div>
+    defineModel動作確認
 
-        <div class="mt-5">
-            <p>title: {{ title }}</p>
-            <p>content: {{ content }}</p>
+    <div class="mt-5">
+      <p>title: {{ title }}</p>
+      <p>content: {{ content }}</p>
 
-            <MyForm v-model:title="title" v-model:content="content" />
-        </div>
+      <MyForm v-model:title="title" v-model:content="content" />
     </div>
+  </div>
 </template>
