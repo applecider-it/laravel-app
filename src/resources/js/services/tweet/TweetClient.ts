@@ -2,6 +2,8 @@ import axios from "axios";
 
 import { showToast } from "@/services/ui/message";
 
+import { getAuthUser } from "@/services/app/application";
+
 /**
  * ツイートクライアント
  *
@@ -15,10 +17,10 @@ export default class TweetClient {
   /** ツイート追加コールバック */
   addTweet;
 
-  constructor(token, wsHost, user) {
+  constructor(token, wsHost) {
     this.token = token;
     this.wsHost = wsHost;
-    this.user = user;
+    this.user = getAuthUser();
 
     this.ws = null;
 
@@ -69,7 +71,11 @@ export default class TweetClient {
     console.log("recieveNewTweet tweet", tweet);
     this.addTweet(tweet);
 
-    if (this.user.id !== tweet.user.id) showToast("新しいツイートがあります。");
+    if (this.user.id !== tweet.user.id) {
+      showToast("新しいツイートがあります。");
+    } else {
+      console.log("自分のツイート");
+    }
   }
 
   /** 新しいツイート送信 */

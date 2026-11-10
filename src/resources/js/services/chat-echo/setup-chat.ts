@@ -7,10 +7,14 @@ import ChatArea from "./vue/ChatArea.vue";
 
 import ChatClient from "./ChatClient";
 
+type Props = {
+  room: string;
+};
+
 const el = document.getElementById("chat-root") as HTMLElement | null;
 
 if (el) {
-  const all = JSON.parse(el.dataset.all as string);
+  const all = JSON.parse(el.dataset.all as string) as Props;
 
   console.log("all", all);
 

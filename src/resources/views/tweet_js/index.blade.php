@@ -7,7 +7,6 @@
         <div
             id="tweet-app"
             data-all="{{ json_encode([
-                'user' => $user,
                 'token' => $token,
                 'wsHost' => config('myapp.ws_server_host'),
                 'tweets' => $tweetsResource,

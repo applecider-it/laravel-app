@@ -1,5 +1,5 @@
 /** ツイート */
-type Tweet = {
+export type Tweet = {
   id: number | string;
   content: string;
   created_at: string;

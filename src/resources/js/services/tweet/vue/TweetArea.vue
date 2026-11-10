@@ -4,10 +4,10 @@ import TweetForm from "./tweet-area/TweetForm.vue";
 import TweetList from "./tweet-area/TweetList.vue";
 import type TweetClient from "../TweetClient";
 import { setIsLoading } from "@/services/ui/message";
-import { TweetContainer } from "../types";
+import { TweetContainer, Tweet } from "../types";
 
 const props = defineProps<{
-  initialTweets: any[];
+  initialTweets: Tweet[];
   tweetClient: TweetClient;
 }>();
 
@@ -24,7 +24,7 @@ onMounted(() => {
 });
 
 /** ツイート一覧から、ツイートコンテナー一覧を作成 */
-const makeTweetContainers = (tweets: any[]): TweetContainer[] => {
+const makeTweetContainers = (tweets: Tweet[]): TweetContainer[] => {
   return tweets.map((tweet) => ({
     tweet,
     isNew: false,
