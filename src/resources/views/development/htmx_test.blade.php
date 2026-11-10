@@ -1,3 +1,0 @@
-<div>
-From Server
-</div>
