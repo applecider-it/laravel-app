@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Validation\Rules;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 use App\Models\User\Tweet as UserTweet;
 
@@ -113,7 +114,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /** キーワード検索用スコープ */
-    public function scopeSearchKeyword($query, $keyword)
+    public function scopeSearchKeyword(Builder $query, mixed $keyword)
     {
         return $query->where(function ($q) use ($keyword) {
             $q->where('name', 'like', "%{$keyword}%")
