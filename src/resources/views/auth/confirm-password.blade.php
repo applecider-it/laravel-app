@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="app-container-normal">
-        <h2 class="app-h2">パスワード再発行</h2>
+        <h2 class="app-h2">パスワード確認</h2>
 
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
             ここはアプリケーションのセキュアな領域です。先に進む前に、パスワードを確認してください。
