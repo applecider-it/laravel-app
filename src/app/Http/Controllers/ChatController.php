@@ -43,12 +43,21 @@ class ChatController extends Controller
     /** Redisを使ったチャットメッセージ送信処理 */
     public function send(Request $request)
     {
+        $validated = $request->validate(
+            rules: [
+                'message'  => ['required'],
+            ],
+            attributes: [
+                'message' => 'メッセージ',
+            ]
+        );
+
         $user = $request->user();
 
         Log::info(request()->all());
         $room = $request->input('room');
         $data = [
-            "message" => $request->input('message'),
+            "message" => $validated['message'],
             "name" => $user->name,
         ];
 

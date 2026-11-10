@@ -2,6 +2,7 @@
 import { ref, onMounted } from "vue";
 import type ChatClient from "../ChatClient";
 import { User, Message, MessageType } from "../types";
+import { showToast } from "@/services/ui/message";
 
 interface Prop {
   chatClient: ChatClient;
@@ -24,10 +25,18 @@ onMounted(() => {
   };
 });
 
-const sendMessage = (type: MessageType, options: any[] = []) => {
+/** メッセージ送信 */
+const sendMessage = async (type: MessageType, options: any[] = []) => {
   console.log(message.value);
-  props.chatClient.sendMessage(message.value, type, options);
-  message.value = "";
+  try {
+    await props.chatClient.sendMessage(message.value, type, options);
+    message.value = "";
+  } catch (error: any) {
+    if (error.response?.status === 422) {
+      console.log(error.response.data.errors);
+      showToast(error.response.data.errors.message[0]);
+    }
+  }
 };
 
 const handleKeyDown = (e: KeyboardEvent) => {

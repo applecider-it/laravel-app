@@ -43,7 +43,7 @@ class ChatEchoController extends Controller
                 'message' => 'メッセージ',
             ]
         );
-        
+
         $user = $request->user();
 
         $room = $request->input('room');

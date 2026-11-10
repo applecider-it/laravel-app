@@ -58,8 +58,8 @@ export default class ChatClient {
   async sendMessage(message: string, type: MessageType, options: any) {
     console.log("sendMessage type", type);
 
-    if (!message || !this.ws || this.ws.readyState !== WebSocket.OPEN) {
-      console.warn("[DEBUG] WebSocket not ready or empty message");
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      console.warn("[DEBUG] WebSocket not ready");
       return;
     }
 

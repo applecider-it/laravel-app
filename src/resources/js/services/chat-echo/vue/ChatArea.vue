@@ -25,6 +25,7 @@ onMounted(() => {
   };
 });
 
+/** メッセージ送信 */
 const sendMessage = async (options: any = {}) => {
   console.log(message.value);
   try {
