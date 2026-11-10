@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,10 +25,21 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
         $user = $request->user();
-        $user->fill($request->validated());
+        $validated = $request->validate(
+            rules: [
+                'name'  => $user->validationName(),
+                'email' => $user->validationEmail(),
+            ],
+            attributes: [
+                'name' => __('app.models.user.columns.name'),
+                'email' => __('app.models.user.columns.email'),
+            ]
+        );
+
+        $user->fill($validated);
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
@@ -47,9 +57,15 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        $request->validateWithBag(
+            'userDeletion',
+            rules: [
+                'password' => ['required', 'current_password'],
+            ],
+            attributes: [
+                'password' => __('app.models.user.columns.password'),
+            ]
+        );
 
         $user = $request->user();
 
