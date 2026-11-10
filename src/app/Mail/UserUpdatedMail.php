@@ -32,7 +32,7 @@ class UserUpdatedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'User Updated Mail',
+            subject: 'ユーザー情報が更新されました。',
         );
     }
 
@@ -42,7 +42,7 @@ class UserUpdatedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mails.user.updated',
+            markdown: 'mails.user.updated',
         );
     }
 
