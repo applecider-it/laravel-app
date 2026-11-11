@@ -1,11 +1,11 @@
 import { checkDirty } from "@/services/form/nav";
 
 const elements = document.querySelectorAll(
-  "[data-app-form-require-dirtycheck]",
+  "[data-app-element-require-dirtycheck]",
 );
 
 elements.forEach((el: HTMLFormElement) => {
-  const val = el.dataset.appFormRequireDirtycheck as "on" | "clear";
-  console.log('appFormRequireDirtycheck', {val})
+  const val = el.dataset.appElementRequireDirtycheck as "on" | "clear";
+  console.log('appElementRequireDirtycheck', {val})
   checkDirty(el, val);
 });

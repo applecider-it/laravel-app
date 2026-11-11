@@ -33,7 +33,7 @@
 
 ## 意味のあるセレクタ
 
-### [data-app-form-require-dirtycheck]
+### [data-app-element-require-dirtycheck]
 
 フォーム変更チェック
 

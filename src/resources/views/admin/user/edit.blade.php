@@ -12,7 +12,7 @@
 
         @include('partials.form.errors')
 
-        <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form" data-app-form-require-dirtycheck="on">
+        <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form" data-app-element-require-dirtycheck="on">
             @csrf
             @method('PUT')
 
@@ -50,7 +50,7 @@
                     @if($user->deleted_at)
                         <form method="POST" action="{{ route('admin.users.restore', $user) }}"
                          onsubmit="return confirm('復元してもよろしいですか？')"
-                         data-app-form-require-dirtycheck="clear">
+                         data-app-element-require-dirtycheck="clear">
                             @csrf
                             <button type="submit" class="app-btn-orange">
                                 復元
@@ -59,7 +59,7 @@
                     @else
                         <form method="POST" action="{{ route('admin.users.destroy', $user) }}"
                          onsubmit="return confirm('削除してもよろしいですか？')"
-                         data-app-form-require-dirtycheck="clear">
+                         data-app-element-require-dirtycheck="clear">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="app-btn-danger">
