@@ -9,7 +9,7 @@ use App\Models\User\Tweet as UserTweet;
 use App\Services\WebSocket\AuthService as WebSocketAuthService;
 use App\Services\Channels\TweetChannel;
 use App\Services\Tweet\EditService;
-use \App\Http\Resources\User\TweetResource;
+use App\Services\Tweet\JsonService;
 
 /**
  * ツイート(JS)管理コントローラー
@@ -22,6 +22,7 @@ class TweetJsController extends Controller
     public function __construct(
         private WebSocketAuthService $webSocketAuthService,
         private EditService $editService,
+        private JsonService $jsonService,
     ) {}
 
     /** 一覧ページ(JS) */
@@ -32,9 +33,9 @@ class TweetJsController extends Controller
 
         $token = $this->webSocketAuthService->createUserJwt($user, TweetChannel::getChannel());
 
-        $tweetsResource = TweetResource::collection($tweets);
+        $tweetsJsonArray = $this->jsonService->tweetsToJsonArray($tweets);
 
-        return view('tweet_js.index', compact('tweetsResource', 'token', 'user'));
+        return view('tweet_js.index', compact('tweetsJsonArray', 'token', 'user'));
     }
 
     /** Tweet追加処理 */

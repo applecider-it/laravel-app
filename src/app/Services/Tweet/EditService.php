@@ -3,12 +3,9 @@
 namespace App\Services\Tweet;
 
 use Illuminate\Support\Facades\Log;
-use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\User\Tweet as UserTweet;
-
-use App\Http\Resources\User\TweetResource;
 
 /**
  * ツイートの編集関連
@@ -17,6 +14,7 @@ class EditService
 {
     public function __construct(
         private WebsocketService $tweetWebsocketService,
+        private JsonService $jsonService,
     ) {}
 
     /**
@@ -26,13 +24,10 @@ class EditService
     {
         $tweet = $user->tweets()->save($tweet);
 
-        $tweetResource = new TweetResource($tweet->load('user'));
-
-        $tweetArray = $tweetResource->toArray(request());
+        $tweetArray = $this->jsonService->tweetToJsonArray($tweet);
 
         $this->tweetWebsocketService->sendNewTweet($tweetArray);
 
-        Log::info('tweetResource', [$tweetResource]);
-        Log::info('tweetResource->toArray', [$tweetArray]);
+        Log::info('tweetArray', [$tweetArray]);
     }
 }

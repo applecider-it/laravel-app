@@ -9,7 +9,7 @@
             data-all="{{ json_encode([
                 'token' => $token,
                 'wsHost' => config('myapp.ws_server_host'),
-                'tweets' => $tweetsResource,
+                'tweets' => $tweetsJsonArray,
             ]) }}">
             @include('partials.message.loading')
         </div>

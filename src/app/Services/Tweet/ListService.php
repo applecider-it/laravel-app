@@ -9,9 +9,7 @@ use App\Models\User\Tweet as UserTweet;
  */
 class ListService
 {
-    /**
-     * 一覧用のツイートリストオブジェクト
-     */
+    /** 一覧用のツイートリストオブジェクト */
     public function getTweets(?string $searchWord)
     {
         $tweets = UserTweet::with('user');
