@@ -30,7 +30,7 @@ class TweetController extends Controller
 
         $tweets = $this->listService->getTweets($searchWord);
 
-        $tweets = $tweets->paginate(5, page: $page)->onEachSide(1);
+        $tweets = $tweets->paginate(5, page: $page)->onEachSide(config('myapp.paginate_each_side'));
         $tweets->withQueryString();
 
         return view('tweet.index', compact('tweets', 'searchWord', 'page'));

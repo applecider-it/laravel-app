@@ -27,7 +27,7 @@ class UserController extends Controller
         $query = $this->listService->getUsers($search);
 
         // 検索条件を保持したままページネーション
-        $users = $query->paginate(5)->onEachSide(2)->withQueryString();
+        $users = $query->paginate(5)->onEachSide(config('myapp.paginate_each_side'))->withQueryString();
 
         return view('admin.user.index', compact('users', 'search'));
     }

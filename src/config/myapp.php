@@ -25,4 +25,7 @@ return [
         'password',
         'password_confirmation',
     ],
+
+    // ページネーションの現在ページ周辺のページ数
+    'paginate_each_side' => 1,
 ];
