@@ -9,7 +9,6 @@ $link_style = "block py-2 text-gray-700 hover:text-indigo-500"
   style="display: none;"
 >
     <a href="{{ route('home') }}" class="{{ $link_style }}">Top</a>
-    <a href="{{ route('dashboard') }}" class="{{ $link_style }}">ダッシュボード</a>
     <a href="{{ route('tweet.index') }}" class="{{ $link_style }}">Tweet</a>
     <a href="{{ route('tweet_js.index') }}" class="{{ $link_style }}">Tweet (JS)</a>
     <a href="{{ route('tweet_rails.index') }}" class="{{ $link_style }}">Tweet (Rails)</a>
@@ -17,6 +16,7 @@ $link_style = "block py-2 text-gray-700 hover:text-indigo-500"
     <a href="{{ route('chat_echo.index') }}" class="{{ $link_style }}">Chat (Echo)</a>
 
     @auth
+        <a href="{{ route('dashboard') }}" class="{{ $link_style }}">ダッシュボード</a>
         <a href="{{ route('profile.edit') }}" class="{{ $link_style }}">プロフィール</a>
         <form method="POST" action="{{ route('logout') }}">
             @csrf

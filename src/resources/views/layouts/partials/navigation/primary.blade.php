@@ -14,13 +14,13 @@ $link_style = "hover:text-indigo-500"
     <!-- Desktop Menu -->
     <nav class="hidden md:flex space-x-8 text-gray-700 font-medium">
         <a href="{{ route('home') }}" class="{{ $link_style }}">Top</a>
-        <a href="{{ route('dashboard') }}" class="{{ $link_style }}">DB</a>
         <a href="{{ route('tweet.index') }}" class="{{ $link_style }}">Tweet</a>
-        <a href="{{ route('tweet_js.index') }}" class="{{ $link_style }}">T (JS)</a>
-        <a href="{{ route('tweet_rails.index') }}" class="{{ $link_style }}">T (Rails)</a>
+        <a href="{{ route('tweet_js.index') }}" class="{{ $link_style }}">Tweet(JS)</a>
+        <a href="{{ route('tweet_rails.index') }}" class="{{ $link_style }}">Tweet(R)</a>
         <a href="{{ route('chat.index') }}" class="{{ $link_style }}">Chat</a>
-        <a href="{{ route('chat_echo.index') }}" class="{{ $link_style }}">C (Echo)</a>
+        <a href="{{ route('chat_echo.index') }}" class="{{ $link_style }}">Chat(E)</a>
         @auth
+            <a href="{{ route('dashboard') }}" class="{{ $link_style }}">DB</a>
             <a href="{{ route('profile.edit') }}" class="{{ $link_style }}">プロフィール</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

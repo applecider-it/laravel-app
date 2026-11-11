@@ -60,7 +60,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
         class="p-1 border bg-gray-200 ml-2"
         @click="sendMessage('websocket')"
       >
-        Send (動作しない)
+        Send(動かないのが正常)
       </button>
     </div>
 
