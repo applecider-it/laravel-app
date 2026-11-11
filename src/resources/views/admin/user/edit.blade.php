@@ -49,7 +49,8 @@
                 <div>
                     @if($user->deleted_at)
                         <form method="POST" action="{{ route('admin.users.restore', $user) }}"
-                         onsubmit="return confirm('復元してもよろしいですか？')">
+                         onsubmit="return confirm('復元してもよろしいですか？')"
+                         data-app-form-require-dirtycheck="clear">
                             @csrf
                             <button type="submit" class="app-btn-orange">
                                 復元
@@ -57,7 +58,8 @@
                         </form>
                     @else
                         <form method="POST" action="{{ route('admin.users.destroy', $user) }}"
-                         onsubmit="return confirm('削除してもよろしいですか？')">
+                         onsubmit="return confirm('削除してもよろしいですか？')"
+                         data-app-form-require-dirtycheck="clear">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="app-btn-danger">

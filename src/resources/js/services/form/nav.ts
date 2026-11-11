@@ -18,14 +18,17 @@ function init() {
 }
 
 /** 離脱チェック */
-export function checkDirty(form) {
+export function checkDirty(form: HTMLFormElement, type: "on" | "clear" = "on") {
   console.log("checkDirty setup");
 
   init();
-  form.addEventListener("change", () => {
-    console.log("checkDirty on");
-    isDirty = true;
-  });
+
+  if (type === "on") {
+    form.addEventListener("change", () => {
+      console.log("checkDirty on");
+      isDirty = true;
+    });
+  }
 
   form.addEventListener("submit", () => {
     console.log("checkDirty off");
