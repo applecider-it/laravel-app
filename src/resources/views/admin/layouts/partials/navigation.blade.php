@@ -4,7 +4,7 @@ $link_style = "hover:text-indigo-500"
 <nav x-data="{ open: false }" class="bg-gray-200 shadow-md">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <!-- Logo -->
-        <a href="{{ route('admin.dashboard') }}">
+        <a href="{{ route('admin.home') }}">
             <div
                 class="text-2xl font-bold bg-linear-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent"
             >
@@ -14,7 +14,7 @@ $link_style = "hover:text-indigo-500"
 
         <!-- Desktop Menu -->
         <nav class="flex space-x-8 text-gray-700 font-medium">
-            <a href="{{ route('admin.dashboard') }}" class="{{ $link_style }}">dashboard</a>
+            <a href="{{ route('admin.home') }}" class="{{ $link_style }}">home</a>
             <a href="{{ route('admin.users.index') }}" class="{{ $link_style }}">ユーザー</a>
             @auth
                 <span>{{ Auth::guard('admin')->name }}</span>

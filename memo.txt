@@ -126,7 +126,7 @@ test@localhost.com / testtest
 
 test2@localhost.com / test2test2
 
-http://localhost:8000/admin_secrettext/dashboard
+http://localhost:8000/admin_secrettext
 
 admin@localhost.com / adminadmin
 

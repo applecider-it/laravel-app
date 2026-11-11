@@ -35,6 +35,6 @@ class RedirectIfAuthenticated extends BaseRedirectIfAuthenticated
     /** 認証しているときに移動するページ */
     protected function getRedirectUrl(?string $guard)
     {
-        return $guard === 'admin' ? route('admin.dashboard') : route('dashboard');
+        return $guard === 'admin' ? route('admin.home') : route('dashboard');
     }
 }

@@ -4,13 +4,13 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // 管理画面ホーム
-Breadcrumbs::for('admin.dashboard', function (BreadcrumbTrail $trail) {
-    $trail->push('ダッシュボード', route('admin.dashboard'));
+Breadcrumbs::for('admin.home', function (BreadcrumbTrail $trail) {
+    $trail->push('Home', route('admin.home'));
 });
 
 // ユーザー一覧
 Breadcrumbs::for('admin.users.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.dashboard');
+    $trail->parent('admin.home');
     $trail->push('ユーザー', route('admin.users.index'));
 });
 

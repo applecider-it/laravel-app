@@ -6,6 +6,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\HomeController;
 
 Route::prefix(config('myapp.admin_uri_prefix'))->name('admin.')->group(function () {
     Route::middleware('guest:admin')->group(function () {
@@ -19,8 +20,6 @@ Route::prefix(config('myapp.admin_uri_prefix'))->name('admin.')->group(function 
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
             ->name('logout');
 
-        Route::get('dashboard', function () {
-            return view('admin.dashboard');
-        })->name('dashboard');
+        Route::get('/', [HomeController::class, 'index'])->name('home');
     });
 });
