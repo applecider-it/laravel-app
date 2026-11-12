@@ -27,5 +27,5 @@ return [
     ],
 
     // ページネーションの現在ページ周辺のページ数
-    'paginate_each_side' => 1,
+    'paginate_each_side' => 3,
 ];
