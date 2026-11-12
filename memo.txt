@@ -27,13 +27,6 @@ cd ~/workspace/github/laravel-app/src
 
 foreman start
 
---
-
-ログクリア
-
-echo "" > ./storage/logs/laravel.log
-
---
 
 個別起動
 
@@ -43,17 +36,6 @@ npm run dev
 
 tail -f ./storage/logs/laravel.log
 
---
-
-ビルドして実行
-
-npm run build
-
-php artisan serve
-
-削除
-
-rm -rf ./public/build
 
 -----------------------------------
 
@@ -93,6 +75,8 @@ cd ~/workspace/github/laravel-app/src
 php artisan queue:work
 
 
+動作確認
+
 php artisan tinker
 
 $user = App\Models\User::first(); $obj = App\Jobs\SampleJob::dispatch(date('H:i:s'), $user); unset($obj);
@@ -120,6 +104,19 @@ php artisan migrate
 
 -----------------------------------
 
+ビルドして実行
+
+npm run build
+
+php artisan serve
+
+削除
+
+rm -rf ./public/build
+
+
+-----------------------------------
+
 ルート一覧
 
 php artisan route:list
@@ -132,28 +129,11 @@ php artisan route:list
 
 php artisan event:list
 
------------------------------------
-
-その他のコマンド
-
-
-AIサーバー接続の動作確認用
-
-/src/storage/app/image.jpg
-に画像を配置
-
-php artisan app:ai-test
-
-ミドルウェアのトレース
-
-php artisan app:trace-middleware
-
-php artisan app:trace-middleware --uri=/api/development/chat_callback_test --method=POST
-
 
 -----------------------------------
 
 ログ
+
 
 標準出力にするとき
 
@@ -161,15 +141,11 @@ php artisan app:trace-middleware --uri=/api/development/chat_callback_test --met
 
 LOG_CHANNEL=stderr
 
------------------------------------
 
-画像
+ログクリア
 
+echo "" > ./storage/logs/laravel.log
 
-リンク作成
-
-
-php artisan storage:link
 
 -----------------------------------
 
@@ -181,6 +157,29 @@ rm -rf storage/debugbar/*.json
 
 
 -----------------------------------
+
+独自コマンド
+
+----
+
+AIサーバー接続の動作確認用
+
+/src/storage/app/image.jpg
+に画像を配置
+
+php artisan app:ai-test
+
+
+----
+
+ミドルウェアのトレース
+
+php artisan app:trace-middleware
+
+php artisan app:trace-middleware --uri=/api/development/chat_callback_test --method=POST
+
+
+----
 
 Scaffold
 
@@ -225,3 +224,10 @@ composer dev2
     ・ページ遷移ごとにセッションが削除される
     ・ログイン時に永久ループする
 
+-----------------------------------
+
+その他のLaravelコマンド
+
+画像リンク作成
+
+php artisan storage:link

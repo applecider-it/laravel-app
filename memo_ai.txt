@@ -16,7 +16,10 @@ uvicorn app.entrypoints.main:app --reload --port 8090
 python -m app.entrypoints.main
 
 
-AIテスト
+----
+
+コマンドラインでのAIテスト
+
 
 /python/tmp/image.jpg
 に画像を配置

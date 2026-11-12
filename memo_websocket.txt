@@ -2,6 +2,7 @@
 
 開発サーバーを起動
 
+----
 
 node
 
@@ -15,6 +16,7 @@ cd ~/workspace/github/laravel-app/node
 
 npx tsx watch ./app/entrypoints/websocket-server.js
 
+--
 
 本番起動
 
@@ -22,7 +24,8 @@ npm run build
 
 node dist/entrypoints/websocket-server.js
 
--------
+
+----
 
 Echo、Pusher
 
