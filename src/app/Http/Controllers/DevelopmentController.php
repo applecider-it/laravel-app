@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Mail;
 
 use App\Services\Sample\SampleService;
 use App\Services\Development\TraceService;
 use App\Services\Development\FormService;
 use App\Services\AI\ImageAnalysisService;
 use App\Services\Jobs\SampleJobCtrlService;
+
+use App\Mail\SampleMail;
 
 /** スレッドセーフ動作確認用カウンター */
 class Counter
@@ -171,6 +174,14 @@ class DevelopmentController extends Controller
     /** 確認済みテスト */
     public function verified(Request $request)
     {
+        return view('development.complate');
+    }
+
+    /** メール送信テスト */
+    public function mail_test(Request $request)
+    {
+        $user = $request->user();
+        Mail::to($user->email)->send(new SampleMail($user));
         return view('development.complate');
     }
 }

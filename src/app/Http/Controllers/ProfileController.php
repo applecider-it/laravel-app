@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-use App\Jobs\UserUpdatedMailJob;
-
 class ProfileController extends Controller
 {
     /**
@@ -46,8 +44,6 @@ class ProfileController extends Controller
         }
 
         $user->save();
-
-        UserUpdatedMailJob::dispatch($user);
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

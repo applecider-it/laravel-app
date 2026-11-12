@@ -84,6 +84,9 @@ Route::get('/development/security', [DevelopmentController::class, 'security'])
 Route::get('/development/verified', [DevelopmentController::class, 'verified'])
     ->name('development.verified')
     ->middleware(['auth', 'verified']);
+Route::get('/development/mail_test', [DevelopmentController::class, 'mail_test'])
+    ->name('development.mail_test')
+    ->middleware(['auth']);
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

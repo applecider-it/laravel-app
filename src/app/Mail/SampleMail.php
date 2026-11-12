@@ -2,22 +2,17 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
 
 use App\Models\User;
 
 /**
- * ユーザー更新時メール
+ * サンプルメール
  */
-class UserUpdatedMail extends Mailable
+class SampleMail extends Mailable
 {
-    use Queueable, SerializesModels;
-
     /**
      * Create a new message instance.
      */
@@ -32,7 +27,7 @@ class UserUpdatedMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'ユーザー情報が更新されました。',
+            subject: 'サンプルメール',
         );
     }
 
@@ -42,7 +37,7 @@ class UserUpdatedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'mails.user.updated',
+            markdown: 'mails.sample',
         );
     }
 
