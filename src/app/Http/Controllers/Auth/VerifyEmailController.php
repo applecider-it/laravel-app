@@ -7,10 +7,15 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 
+/**
+ * メールアドレスの確認処理
+ * 
+ * EmailVerificationNotificationControllerから送信されたメールから来る処理
+ */
 class VerifyEmailController extends Controller
 {
     /**
-     * Mark the authenticated user's email address as verified.
+     * 認証済みユーザーのメールアドレスを「確認済み」としてマーク
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {

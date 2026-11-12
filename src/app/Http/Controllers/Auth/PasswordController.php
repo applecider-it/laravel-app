@@ -10,10 +10,13 @@ use Illuminate\Validation\Rules\Password;
 
 use App\Models\User;
 
+/**
+ * プロフィール画面のパスワード更新処理
+ */
 class PasswordController extends Controller
 {
     /**
-     * Update the user's password.
+     * ユーザーのパスワードを更新
      */
     public function update(Request $request): RedirectResponse
     {

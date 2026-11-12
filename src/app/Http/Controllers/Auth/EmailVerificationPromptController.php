@@ -7,10 +7,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
+/**
+ * メール認証必須ページ
+ * 
+ * verifiedミドルウェアがあるページでは、メール確認がされていないときは、この画面に来る
+ */
 class EmailVerificationPromptController extends Controller
 {
     /**
-     * Display the email verification prompt.
+     * メール認証の案内を表示
      */
     public function __invoke(Request $request): RedirectResponse|View
     {

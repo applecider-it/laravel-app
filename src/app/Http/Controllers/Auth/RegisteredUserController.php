@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+/**
+ * サインアップ処理
+ */
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * 登録画面を表示
      */
     public function create(): View
     {
@@ -23,7 +26,7 @@ class RegisteredUserController extends Controller
     }
 
     /**
-     * Handle an incoming registration request.
+     * 新規登録リクエストを処理
      *
      * @throws \Illuminate\Validation\ValidationException
      */

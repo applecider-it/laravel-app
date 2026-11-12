@@ -9,10 +9,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
+/**
+ * パスワードの確認処理
+ * 
+ * password.confirmミドルウェアがあるページでは、パスワード認証がされていないときは、この画面に来る
+ */
 class ConfirmablePasswordController extends Controller
 {
     /**
-     * Show the confirm password view.
+     * パスワード確認画面を表示
      */
     public function show(): View
     {
@@ -20,7 +25,7 @@ class ConfirmablePasswordController extends Controller
     }
 
     /**
-     * Confirm the user's password.
+     * ユーザーのパスワードを確認
      */
     public function store(Request $request): RedirectResponse
     {

@@ -6,10 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
+/**
+ * メール認証必須ページからの送信処理
+ * 
+ * EmailVerificationPromptControllerからの送信を処理する
+ */
 class EmailVerificationNotificationController extends Controller
 {
     /**
-     * Send a new email verification notification.
+     * 新しいメール認証通知を送信
      */
     public function store(Request $request): RedirectResponse
     {
