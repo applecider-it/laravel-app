@@ -16,7 +16,6 @@ python: 8090
 
 開発サーバーを起動
 
--------
 
 laravel
 
@@ -55,68 +54,6 @@ php artisan serve
 削除
 
 rm -rf ./public/build
-
--------
-
-node
-
-foremanで実行すると、foremanが.envを読み込むため環境変数が混乱してしまうので、
-nodeディレクトリに移動してから実行したほうが、正確な動作確認ができる。
-
-
-websocketサーバー起動
-
-cd ~/workspace/github/laravel-app/node
-
-npx tsx watch ./app/entrypoints/websocket-server.js
-
-
-本番起動
-
-npm run build
-
-node dist/entrypoints/websocket-server.js
-
--------
-
-Echo、Pusher
-
-soketi起動
-
-cd ~/workspace/github/laravel-app/soketi
-
-nvm use 18
-
-./start.sh
-
-
-動作確認
-
-php artisan tinker
-
-event(new App\Events\MessageSent('Hello Soketi', 1));
-
--------
-
-python
-
-cd ~/workspace/github/laravel-app/python
-
-source venv/bin/activate
-
-uvicorn app.entrypoints.main:app --reload --port 8090
-
-または
-
-python -m app.entrypoints.main
-
-
-AIテスト
-
-/python/tmp/image.jpg
-に画像を配置
-
-python -m app.entrypoints.ai-test
 
 -----------------------------------
 
@@ -181,45 +118,6 @@ php artisan key:generate
 php artisan migrate
 
 
-----
-
-node
-
-
-npm ci
-
-cp .env.example .env
-
-
-----
-
-python
-
-
-python3 -m venv venv
-
-source venv/bin/activate
-
-cp .env.example .env
-
-pip install --upgrade pip
-
-pip install -r requirements.txt
-
-
-----
-
-soketi
-
-必要なら
-  nvm install 18
-
-nvm use 18
-
-npm install -g @soketi/soketi
-
-
-
 -----------------------------------
 
 ルート一覧
@@ -228,55 +126,11 @@ php artisan route:list
 
 -----------------------------------
 
-メールキャッチャー
-
-
-dockerデスクトップ起動
-
-docker run -d --name mailhog -p 1025:1025 -p 8025:8025 mailhog/mailhog
-
-一度作った後は、Docker Desktopから起動できる
-
-
-状態確認
-docker ps -a
-
-再起動
-docker start mailhog
-
-
-http://localhost:8025/
-
-
-確認方法
-
-php artisan tinker
-
-Mail::raw('MailHog テスト', function($m){
-    $m->to('test@example.com')->subject('MailHog from WSL');
-});
-
------------------------------------
-
 イベント
 
 一覧
 
 php artisan event:list
-
------------------------------------
-
-nginx
-
-systemctl status nginx
-systemctl status php8.3-fpm
-
-sudo service nginx restart
-sudo service php8.3-fpm restart
-
-sudo vi /etc/nginx/sites-available/laravel_app
-
-http://localhost:8080/
 
 -----------------------------------
 
@@ -296,31 +150,6 @@ php artisan app:trace-middleware
 
 php artisan app:trace-middleware --uri=/api/development/chat_callback_test --method=POST
 
------------------------------------
-
-Redis
-
-redis-cli
-
-キー取得
-
-keys *
-
-値取得
-
-get key
-
-rpushの値の取得
-
-LRANGE key 0 -1
-
-publish受信
-
-PSUBSCRIBE *
-
-モニター
-
-MONITOR
 
 -----------------------------------
 
