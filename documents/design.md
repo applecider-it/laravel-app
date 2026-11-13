@@ -6,15 +6,15 @@
 
 - websocketはnodejsのマイクロサービス。
 
-  - Node WebSocketサーバーは、`microservices`のWebサーバーを起動する必要がある。
+  - Node WebSocketサーバーは、`microservices`のサーバーを起動する必要がある。
 
 - aiはpythonのマイクロサービス。
 
-  - aiサーバーは、`microservices`のWebサーバーを起動する必要がある。
+  - aiサーバーは、`microservices`のサーバーを起動する必要がある。
 
 - Laravel Echoではsoketiを利用している。
 
-  - soketiは、`microservices`のWebサーバーを起動する必要がある。
+  - soketiは、`microservices`のサーバーを起動する必要がある。
 
 
 - アプリ化対応はPWA。
