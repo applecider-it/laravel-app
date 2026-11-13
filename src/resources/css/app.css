@@ -15,7 +15,7 @@
 
 /* ボタンの共通設定 */
 @utility app-btn {
-  @apply px-4 py-2 rounded-sm;
+  @apply px-4 py-2 rounded-sm cursor-pointer;
 }
 
 @utility app-btn-primary {
