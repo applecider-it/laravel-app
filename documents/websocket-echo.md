@@ -1,7 +1,5 @@
 # Laravel Echo
 
-soketiは、`microservices`のWebサーバーを起動する必要がある。
-
 ## ブロードキャスト時
 
 ### チャット

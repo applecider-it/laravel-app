@@ -1,24 +1,27 @@
 # 設計
 
-## 構成
+## アプリケーション構成
 
-Laravelをモノリスにする。
+- Laravelをモノリスにする。
 
-websocketはnodejsのマイクロサービス。
+- websocketはnodejsのマイクロサービス。
 
-aiはpythonのマイクロサービス。
+  - Node WebSocketサーバーは、`microservices`のWebサーバーを起動する必要がある。
 
-Laravel Echoではsoketiを利用している。
+- aiはpythonのマイクロサービス。
 
-アプリ化対応はPWA。
+  - aiサーバーは、`microservices`のWebサーバーを起動する必要がある。
+
+- Laravel Echoではsoketiを利用している。
+
+  - soketiは、`microservices`のWebサーバーを起動する必要がある。
+
+
+- アプリ化対応はPWA。
+
+## ディレクトリ構成
 
 ```
-node/ <- nodeマイクロサービス
-  documents/ <- nodeマイクロサービス固有のドキュメント
-python/ <- pythonマイクロサービス
-  documents/ <- pythonマイクロサービス固有のドキュメント
-soketi/ <- soketi起動用
-  documents/ <- soketi関連のドキュメント
 src/ <- Laravelモノリス
   documents/ <- Laravelモノリス固有のドキュメント
 documents/ <- 全体のドキュメント

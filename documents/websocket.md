@@ -4,8 +4,6 @@
 
 websocketはnodeで連携する。
 
-Node WebSocketサーバーは、`microservices`のWebサーバーを起動する必要がある。
-
 ### チャットの場合のdata
 
 ```
