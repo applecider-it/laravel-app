@@ -8,7 +8,6 @@ port
 laravel: 8000
 vite: 5173
 websocket: 8001
-soketi: 6001
 python: 8090
 
 
