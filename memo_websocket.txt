@@ -25,16 +25,6 @@ npm run build
 node dist/entrypoints/websocket-server.js
 
 
-----
-
-Echo、Pusher
-
-動作確認
-
-php artisan tinker
-
-event(new App\Events\MessageSent('Hello Soketi', 1));
-
 -----------------------------------
 
 セットアップ
