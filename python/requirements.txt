@@ -1,6 +1,0 @@
-fastapi
-uvicorn
-dotenv
-ultralytics
-opencv-python
-python-multipart
