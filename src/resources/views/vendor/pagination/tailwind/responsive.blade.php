@@ -15,7 +15,7 @@ $cssLink = "border p-3 rounded bg-blue-200";
         @endif
     </div>
 
-    <div>
+    <div class="text-gray-400">
         {{ $paginator->total() }}
         ( {{ $paginator->currentPage() }} / {{ $paginator->lastPage() }} )
     </div>
