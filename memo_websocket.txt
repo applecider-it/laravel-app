@@ -29,15 +29,6 @@ node dist/entrypoints/websocket-server.js
 
 Echo、Pusher
 
-soketi起動
-
-cd ~/workspace/github/laravel-app/soketi
-
-nvm use 18
-
-./start.sh
-
-
 動作確認
 
 php artisan tinker
@@ -56,20 +47,6 @@ cd ~/workspace/github/laravel-app/node
 npm ci
 
 cp .env.example .env
-
-
-----
-
-soketi
-
-必要なら
-  nvm install 18
-
-nvm use 18
-
-npm install -g @soketi/soketi
-
-
 
 -----------------------------------
 
