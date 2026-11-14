@@ -12,7 +12,7 @@ log.txt <- 作業ログ
 memo.txt <- 作業用のメモ
 ```
 
-## リンク
+## ドキュメント
 
 - [Laravelモノリスのドキュメント](./documents/index.md)
 
