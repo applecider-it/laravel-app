@@ -6,7 +6,7 @@
 ```
 src/ <- Laravelモノリス
 
-documents/ <- Laravelモノリス固有のドキュメント
+documents/ <- Laravelモノリスのドキュメント
 
 log.txt <- 作業ログ
 memo.txt <- 作業用のメモ
