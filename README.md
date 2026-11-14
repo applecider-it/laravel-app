@@ -1,10 +1,18 @@
 
 # Laravelモノリスの試験的なアプリケーション
 
-- [設計](./documents/design.md)
+## ディレクトリ構成
 
+```
+src/ <- Laravelモノリス
+
+documents/ <- Laravelモノリス固有のドキュメント
+
+log.txt <- 作業ログ
+memo.txt <- 作業用のメモ
+```
 
 ## リンク
 
-- [Laravelモノリスのドキュメント](./src/documents/index.md)
+- [Laravelモノリスのドキュメント](./documents/index.md)
 
