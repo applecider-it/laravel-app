@@ -71,7 +71,14 @@ resources/
     (app.ts -> entrypointsに移動している)
   views/
     admin/ <- 独自実装の管理画面
+    errors/ <- エラー画面
+    generators/ <- 独自ジェネレーター
     pwa/ <- pwa関連
+    vendor/
+      breadcrumbs/ <- diglactic/laravel-breadcrumbs用
+      mail/ <- メールレイアウト
+      notifications/ <- Breezeの通知用
+      pagination/ <- べージネーション用
     .
     .
     .
