@@ -12,10 +12,10 @@
 
         @include('partials.form.errors')
 
-        <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form"
-            data-app-element-check-form-changes="{{ json_encode([
-                'type' => 'on',
-            ]) }}">
+        <script type="module">
+            window.App.funcs.checkFormChanges(document.getElementById('edit-form'));
+        </script>
+        <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form" id="edit-form">
             @csrf
             @method('PUT')
 
@@ -51,22 +51,22 @@
                 </div>
                 <div>
                     @if($user->deleted_at)
-                        <form method="POST" action="{{ route('admin.users.restore', $user) }}"
-                            onsubmit="return confirm('復元してもよろしいですか？')"
-                            data-app-element-check-form-changes="{{ json_encode([
-                                'type' => 'clear',
-                            ]) }}">
+                        <script type="module">
+                            window.App.funcs.checkFormChanges(document.getElementById('restore-form'), 'clear');
+                        </script>
+                        <form method="POST" action="{{ route('admin.users.restore', $user) }}" id="restore-form"
+                            onsubmit="return confirm('復元してもよろしいですか？')">
                             @csrf
                             <button type="submit" class="app-btn-orange">
                                 復元
                             </button>
                         </form>
                     @else
-                        <form method="POST" action="{{ route('admin.users.destroy', $user) }}"
-                            onsubmit="return confirm('削除してもよろしいですか？')"
-                            data-app-element-check-form-changes="{{ json_encode([
-                                'type' => 'clear',
-                            ]) }}">                            @csrf
+                        <script type="module">
+                            window.App.funcs.checkFormChanges(document.getElementById('destroy-form'), 'clear');
+                        </script>
+                        <form method="POST" action="{{ route('admin.users.destroy', $user) }}" id="destroy-form"
+                            onsubmit="return confirm('削除してもよろしいですか？')">                            @csrf
                             @method('DELETE')
                             <button type="submit" class="app-btn-danger">
                                 削除

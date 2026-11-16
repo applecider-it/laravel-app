@@ -12,10 +12,10 @@
 
         @include('partials.form.errors')
 
-        <form method="POST" action="{{ route('admin.users.store') }}" class="app-form"
-            data-app-element-check-form-changes="{{ json_encode([
-                'type' => 'on',
-            ]) }}">
+        <script type="module">
+            window.App.funcs.checkFormChanges(document.getElementById('create-form'));
+        </script>
+        <form method="POST" action="{{ route('admin.users.store') }}" class="app-form" id="create-form">
             @csrf
 
             @include('admin.user.partials.form')

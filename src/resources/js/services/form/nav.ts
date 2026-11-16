@@ -27,7 +27,7 @@ function init() {
  * clear: フォーム変更チェックのクリアのみ  
  */
 export function checkFormChanges(form: HTMLFormElement, type: string = "on") {
-  console.log("checkDirty setup");
+  console.log("checkDirty setup", {type});
 
   // typeのエラーチェック
   if (!["on", "clear"].includes(type))
