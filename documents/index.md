@@ -4,6 +4,7 @@
 - websocket
   - [Nodeマイクロサービス](./websocket.md)
   - [Echo](./websocket-echo.md)
+- [意味のあるセレクタ](./selector.md)
 
 ## 実装内容
 
@@ -33,42 +34,6 @@
 - Railsライクな実装例
 - JSからのファイルアップロード
 - 画像解析
-
-## 独自CSSクラス
-
-`app-`がプレフィックス
-
-例：
-
-```
-app-btn-primary
-```
-
-## アプリケーション用のJSオブジェクト
-
-```
-window.App
-```
-
-## 意味のあるセレクタ
-
-### [data-app-element-check-form-changes]
-
-フォーム変更チェック
-
-監視対象フォームに設置する
-
-```
-{
-  type: string;
-}
-```
-
-#### type
-
-`on`: 有効化
-
-`clear`: フォーム変更チェックのクリアのみ
 
 ## その他
 
