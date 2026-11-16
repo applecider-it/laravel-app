@@ -13,7 +13,7 @@ function init() {
       }
     });
 
-    console.log("checkDirty init");
+    console.log("checkFormChanges init");
 
     isInit = true;
   }
@@ -21,33 +21,31 @@ function init() {
 
 /**
  * フォーム変更チェック
- * 
- * type:  
- * on: 有効  
- * clear: フォーム変更チェックのクリアのみ  
+ *
+ * options:
+ * clearOnly: trueの場合は、フォーム変更チェックのクリアのみ
  */
-export function checkFormChanges(form: HTMLFormElement, type: string = "on") {
-  console.log("checkDirty setup", {type});
+export function checkFormChanges(form: HTMLFormElement, options: any = {}) {
+  // マルチパート指定の時はContent-Typeを変更
+  const clearOnly = "clearOnly" in options && options.clearOnly;
 
-  // typeのエラーチェック
-  if (!["on", "clear"].includes(type))
-    throw new Error(`checkDirty type error ${type}`);
+  console.log("checkFormChanges setup", { options, clearOnly });
 
   init();
 
-  if (type === "on") {
+  if (!clearOnly) {
     // 変更監視を有効にする場合
 
     // 変更時に変更監視フラグを有効化
     form.addEventListener("change", () => {
-      console.log("checkDirty on");
+      console.log("checkFormChanges on");
       isDirty = true;
     });
   }
 
   // 送信時に変更監視フラグを無効化
   form.addEventListener("submit", () => {
-    console.log("checkDirty off");
+    console.log("checkFormChanges off");
     isDirty = false;
   });
 }

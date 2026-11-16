@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { Errors } from "@/services/form/types";
-import { checkDirty } from "@/services/form/nav";
+import { checkFormChanges } from "@/services/form/check-form-changes";
 
 const content = defineModel<string>("content", {
   required: true,
@@ -19,7 +19,7 @@ const refForm = ref(null);
 
 onMounted(() => {
   console.log("refForm", refForm.value);
-  checkDirty(refForm.value);
+  checkFormChanges(refForm.value);
 });
 </script>
 

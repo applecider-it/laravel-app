@@ -52,7 +52,7 @@
                 <div>
                     @if($user->deleted_at)
                         <script type="module">
-                            window.App.funcs.checkFormChanges(document.getElementById('restore-form'), 'clear');
+                            window.App.funcs.checkFormChanges(document.getElementById('restore-form'), {'clearOnly': true});
                         </script>
                         <form method="POST" action="{{ route('admin.users.restore', $user) }}" id="restore-form"
                             onsubmit="return confirm('復元してもよろしいですか？')">
@@ -63,7 +63,7 @@
                         </form>
                     @else
                         <script type="module">
-                            window.App.funcs.checkFormChanges(document.getElementById('destroy-form'), 'clear');
+                            window.App.funcs.checkFormChanges(document.getElementById('destroy-form'), {'clearOnly': true});
                         </script>
                         <form method="POST" action="{{ route('admin.users.destroy', $user) }}" id="destroy-form"
                             onsubmit="return confirm('削除してもよろしいですか？')">                            @csrf
