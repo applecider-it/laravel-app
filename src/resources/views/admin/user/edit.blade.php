@@ -12,7 +12,10 @@
 
         @include('partials.form.errors')
 
-        <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form" data-app-element-require-dirtycheck="on">
+        <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form"
+            data-app-element-require-dirtycheck="{{ json_encode([
+                'type' => 'on',
+            ]) }}">
             @csrf
             @method('PUT')
 
@@ -49,8 +52,10 @@
                 <div>
                     @if($user->deleted_at)
                         <form method="POST" action="{{ route('admin.users.restore', $user) }}"
-                         onsubmit="return confirm('復元してもよろしいですか？')"
-                         data-app-element-require-dirtycheck="clear">
+                            onsubmit="return confirm('復元してもよろしいですか？')"
+                            data-app-element-require-dirtycheck="{{ json_encode([
+                                'type' => 'clear',
+                            ]) }}">
                             @csrf
                             <button type="submit" class="app-btn-orange">
                                 復元
@@ -58,9 +63,10 @@
                         </form>
                     @else
                         <form method="POST" action="{{ route('admin.users.destroy', $user) }}"
-                         onsubmit="return confirm('削除してもよろしいですか？')"
-                         data-app-element-require-dirtycheck="clear">
-                            @csrf
+                            onsubmit="return confirm('削除してもよろしいですか？')"
+                            data-app-element-require-dirtycheck="{{ json_encode([
+                                'type' => 'clear',
+                            ]) }}">                            @csrf
                             @method('DELETE')
                             <button type="submit" class="app-btn-danger">
                                 削除

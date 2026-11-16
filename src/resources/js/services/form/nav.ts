@@ -1,4 +1,6 @@
+/** 変更フラグ */
 let isDirty = false;
+/** 初期化フラグ */
 let isInit = false;
 
 /** 離脱チェックの初期化 */
@@ -17,19 +19,33 @@ function init() {
   }
 }
 
-/** 離脱チェック */
-export function checkDirty(form: HTMLFormElement, type: "on" | "clear" = "on") {
+/**
+ * 離脱チェック
+ * 
+ * type:  
+ * on: 有効  
+ * clear: フォーム変更チェックのクリアのみ  
+ */
+export function checkDirty(form: HTMLFormElement, type: string = "on") {
   console.log("checkDirty setup");
+
+  // typeのエラーチェック
+  if (!["on", "clear"].includes(type))
+    throw new Error(`checkDirty type error ${type}`);
 
   init();
 
   if (type === "on") {
+    // 変更監視を有効にする場合
+
+    // 変更時に変更監視フラグを有効化
     form.addEventListener("change", () => {
       console.log("checkDirty on");
       isDirty = true;
     });
   }
 
+  // 送信時に変更監視フラグを無効化
   form.addEventListener("submit", () => {
     console.log("checkDirty off");
     isDirty = false;
