@@ -52,6 +52,9 @@ export default class ChatClient {
     this.ws.onerror = (err) => {
       console.error("[DEBUG] WebSocket error", err);
     };
+
+    // WebSocketは、ページ遷移しても停止状態で保持されるので、明示的に切断処理をする
+    window.addEventListener('pagehide', () => this.ws.close());
   }
 
   /** メッセージ送信 */

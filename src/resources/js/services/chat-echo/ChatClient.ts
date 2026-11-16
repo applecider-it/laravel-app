@@ -28,6 +28,11 @@ export default class ChatClient {
       .joining((user) => this.addUser(user))
       .leaving((user) => this.removeUser(user))
       .listen("ChatMessageSent", (e) => this.handleMessage(e));
+
+    // WebSocketは、ページ遷移しても停止状態で保持されるので、明示的に切断処理をする
+    window.addEventListener("pagehide", () => {
+      MyEcho.disconnect();
+    });
   }
 
   /** メッセージ送信 */
