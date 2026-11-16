@@ -16,9 +16,11 @@ function jsonRequestHeaders() {
 
 /**
  * API送信
- * 
- * options:  
- * multipart: trueの場合は、マルチパート指定  
+ *
+ * ```
+ * options:
+ * multipart: trueの場合は、マルチパート指定
+ * ```
  */
 export async function sendApi(
   method: string,

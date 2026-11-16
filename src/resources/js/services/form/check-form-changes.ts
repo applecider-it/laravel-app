@@ -22,8 +22,10 @@ function init() {
 /**
  * フォーム変更チェック
  *
+ * ```
  * options:
  * clearOnly: trueの場合は、フォーム変更チェックのクリアのみ
+ * ```
  */
 export function checkFormChanges(form: HTMLFormElement, options: any = {}) {
   // マルチパート指定の時はContent-Typeを変更
