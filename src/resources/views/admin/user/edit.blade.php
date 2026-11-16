@@ -13,7 +13,7 @@
         @include('partials.form.errors')
 
         <form method="POST" action="{{ route('admin.users.update', $user) }}" class="app-form"
-            data-app-element-require-dirtycheck="{{ json_encode([
+            data-app-element-check-form-changes="{{ json_encode([
                 'type' => 'on',
             ]) }}">
             @csrf
@@ -53,7 +53,7 @@
                     @if($user->deleted_at)
                         <form method="POST" action="{{ route('admin.users.restore', $user) }}"
                             onsubmit="return confirm('復元してもよろしいですか？')"
-                            data-app-element-require-dirtycheck="{{ json_encode([
+                            data-app-element-check-form-changes="{{ json_encode([
                                 'type' => 'clear',
                             ]) }}">
                             @csrf
@@ -64,7 +64,7 @@
                     @else
                         <form method="POST" action="{{ route('admin.users.destroy', $user) }}"
                             onsubmit="return confirm('削除してもよろしいですか？')"
-                            data-app-element-require-dirtycheck="{{ json_encode([
+                            data-app-element-check-form-changes="{{ json_encode([
                                 'type' => 'clear',
                             ]) }}">                            @csrf
                             @method('DELETE')

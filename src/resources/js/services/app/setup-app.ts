@@ -1,7 +1,7 @@
 import "./bootstrap/axios";
 import "./bootstrap/alpinejs";
 import "./bootstrap/container";
-import "./bootstrap/dirtycheck";
+import "./bootstrap/check-form-changes";
 import "./bootstrap/window";
 
 console.log("setup app");

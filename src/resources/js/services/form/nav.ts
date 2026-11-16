@@ -20,13 +20,13 @@ function init() {
 }
 
 /**
- * 離脱チェック
+ * フォーム変更チェック
  * 
  * type:  
  * on: 有効  
  * clear: フォーム変更チェックのクリアのみ  
  */
-export function checkDirty(form: HTMLFormElement, type: string = "on") {
+export function checkFormChanges(form: HTMLFormElement, type: string = "on") {
   console.log("checkDirty setup");
 
   // typeのエラーチェック
