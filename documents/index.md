@@ -34,6 +34,12 @@
 - JSからのファイルアップロード
 - 画像解析
 
+## アプリケーション用のJSオブジェクト
+
+```
+window.App
+```
+
 ## 意味のあるセレクタ
 
 ### [data-app-element-check-form-changes]
