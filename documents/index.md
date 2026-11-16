@@ -4,7 +4,6 @@
 - websocket
   - [Nodeマイクロサービス](./websocket.md)
   - [Echo](./websocket-echo.md)
-- [ViewとViteの橋渡し](./view_vite.md)
 
 ## 実装内容
 
