@@ -44,6 +44,7 @@ export async function sendApi(
     return response;
   } else {
     const response = await axios.get(url, {
+      params: data,
       headers: headers,
     });
 
