@@ -71,9 +71,11 @@ resources/
     (app.ts -> entrypointsに移動している)
   views/
     admin/ <- 独自実装の管理画面
+    appli/ <- pwa関連
+    components/ <- コンポーネントの利用は必要最小限にしている
     errors/ <- エラー画面
     generators/ <- 独自ジェネレーター
-    pwa/ <- pwa関連
+    mails/ <- メールテンプレート
     vendor/
       breadcrumbs/ <- diglactic/laravel-breadcrumbs用
       mail/ <- メールレイアウト
