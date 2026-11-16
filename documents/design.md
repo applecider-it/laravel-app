@@ -85,6 +85,7 @@ resources/
 routes/
   admin_auth.php <- 独自実装の管理画面。web.phpから呼んでいる。
   admin.php <- 独自実装の管理画面。web.phpから呼んでいる。
+  breadcrumbs.php <- diglactic/laravel-breadcrumbs用
     .
     .
     .
