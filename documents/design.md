@@ -111,9 +111,3 @@ routes/
 ```
 app-btn-primary
 ```
-
-## アプリケーション用のJSオブジェクト
-
-```
-window.App
-```
