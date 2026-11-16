@@ -1,15 +1,13 @@
 <script setup lang="ts">
 /** 遅いジョブ動作確認 */
 
-import axios from "axios";
-
 import { ref, onMounted } from "vue";
 
 import { showToast } from "@/services/ui/message";
+import { sendApi } from "@/services/api/http";
+import { sleep } from "@/services/system/datetime";
 
 import ProgressBar from "@/services/ui/vue/message/ProgressBar.vue";
-
-import { sleep } from "@/services/system/datetime";
 
 const progress = ref<number>(0);
 
@@ -17,7 +15,7 @@ const enable = ref(false);
 
 /** 開始API送信 */
 const sendStart = async () => {
-  const response = await axios.post("/development/slow_job_start", {
+  const response = await sendApi("POST", "/development/slow_job_start", {
     test: 123,
     test2: { test3: 456 },
   });
@@ -26,7 +24,7 @@ const sendStart = async () => {
 
 /** 経過観察API送信 */
 const sendProgress = async () => {
-  const response = await axios.post("/development/slow_job_progress", {});
+  const response = await sendApi("POST", "/development/slow_job_progress", {});
   console.log("response.data", response.data);
 
   const data = response.data.data;
@@ -36,7 +34,7 @@ const sendProgress = async () => {
 
 /** クリアAPI送信 */
 const sendClear = async () => {
-  const response = await axios.post("/development/slow_job_clear");
+  const response = await sendApi("POST", "/development/slow_job_clear");
   console.log("response.data", response.data);
 };
 

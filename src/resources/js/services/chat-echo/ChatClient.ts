@@ -1,7 +1,6 @@
-import axios from "axios";
-
 import { MyEcho } from "@/services/app/echo";
 import { showToast } from "@/services/ui/message";
+import { sendApi } from "@/services/api/http";
 
 import { User, Message } from "@/services/chat/types";
 
@@ -39,7 +38,7 @@ export default class ChatClient {
   async sendMessage(message: string, options: any) {
     console.log("sendMessage", options);
 
-    const response = await axios.post("/chat-echo/send", {
+    const response = await sendApi("POST", "/chat-echo/send", {
       message,
       room: this.room,
       options,

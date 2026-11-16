@@ -2,9 +2,9 @@
 /** アップロード動作確認 */
 
 import { ref } from "vue";
-import axios from "axios";
 
 import { showToast, setIsLoading } from "@/services/ui/message";
+import { sendApi } from "@/services/api/http";
 
 const fileInput = ref(null);
 const selectedFile = ref(null);
@@ -21,10 +21,8 @@ const upload = async () => {
 
   setIsLoading(true);
 
-  const result = await axios.post("/development/upload_test", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
+  const result = await sendApi("POST", "/development/upload_test", formData, {
+    multipart: true,
   });
 
   console.log("result", result);
