@@ -34,20 +34,18 @@ export async function sendApi(
   if ("multipart" in options && options.multipart)
     headers["Content-Type"] = "multipart/form-data";
 
-  console.log("sendApi", { method, url, data, options, headers });
+  const upperMethod = method.toUpperCase();
 
-  if (method.toUpperCase() === "POST") {
-    const response = await axios.post(url, data, {
-      headers: headers,
-    });
+  const config = {
+    method: upperMethod,
+    url,
+    headers,
+    ...(upperMethod === "GET" ? { params: data } : { data }),
+  };
 
-    return response;
-  } else {
-    const response = await axios.get(url, {
-      params: data,
-      headers: headers,
-    });
+  console.log("sendApi", { config });
 
-    return response;
-  }
+  const response = await axios.request(config);
+
+  return response;
 }
