@@ -1,4 +1,4 @@
-import { showToast } from "./message";
+import { showToast } from "@/services/ui/message";
 
 /** クリップボードにコピー */
 export function writeClipboard(val: string, resultEl: HTMLElement) {
