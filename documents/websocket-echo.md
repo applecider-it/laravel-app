@@ -4,6 +4,8 @@
 
 ### チャット
 
+メッセージ名: `ChatMessageSent`
+
 ```
 {
   message: string,
