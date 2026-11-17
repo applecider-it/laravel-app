@@ -31,8 +31,7 @@ export async function sendApi(
   const headers = jsonRequestHeaders();
 
   // マルチパート指定の時はContent-Typeを変更
-  if ("multipart" in options && options.multipart)
-    headers["Content-Type"] = "multipart/form-data";
+  if (options?.multipart) headers['Content-Type'] = 'multipart/form-data';
 
   const upperMethod = method.toUpperCase();
 
