@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
 
         $validated['password'] = Hash::make($validated['password']);
 
-        User::create($validated);
+        $user = User::create($validated);
 
         event(new Registered($user));
 

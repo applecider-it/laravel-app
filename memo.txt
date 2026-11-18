@@ -228,3 +228,9 @@ composer dev2
 画像リンク作成
 
 php artisan storage:link
+
+
+ユニットテスト
+
+php artisan test
+
