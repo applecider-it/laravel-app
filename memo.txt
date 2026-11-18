@@ -232,5 +232,8 @@ php artisan storage:link
 
 ユニットテスト
 
+Laravel起動
+メールキャッチャー起動
+
 php artisan test
 
